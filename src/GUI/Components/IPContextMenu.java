@@ -1,7 +1,10 @@
 package GUI.Components;
 
+import Client.ClientObject;
 import GUI.Styler;
 import Server.ServerSettings;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
@@ -19,6 +22,7 @@ public class IPContextMenu {
         Menu mi1 = new Menu("Perform Action...");
         MenuItem sb1 = new MenuItem("File Explorer");
         MenuItem sb2 = new MenuItem("Open Terminal");
+        sb2.setOnAction(event -> ((ClientObject) n.getTableRow().getItem()).getClientOutput().print("e"));
         Menu sb3 = new Menu("Beacon...");
         String bStatus = ServerSettings.isBeaconStatus() ? "On" : "Off";
         MenuItem beaconStatus = new MenuItem("Status: " + bStatus);

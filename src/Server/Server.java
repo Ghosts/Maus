@@ -29,7 +29,7 @@ public class Server implements Runnable {
                 /* Passes output for each method requiring output access, removed need for class variables */
                 try {
                     client = server.accept();
-                    Runnable clientHandler = new ClientHandler(client);
+                    ClientHandler clientHandler = new ClientHandler(client);
                     new Thread(clientHandler).start();
                 } catch (IOException e) {
                     //Serves to break out of while, exception throw accomplishes the same task.

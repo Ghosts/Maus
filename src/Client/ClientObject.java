@@ -14,13 +14,15 @@ public class ClientObject implements Serializable, Repository {
     private int clientNumber;
     private String nickName;
     private String IP;
+    private PrintWriter clientOutput;
 
-    public ClientObject(Socket client, String nickName, String IP) {
+    public ClientObject(Socket client, String nickName, String IP, PrintWriter clientOutput) {
         clientNumber = getCOUNT() + 1;
         setCOUNT(getCOUNT() + 1);
         this.client = client;
         this.nickName = nickName;
         this.IP = IP;
+        this.clientOutput = clientOutput;
     }
 
     public static int getCOUNT() {
@@ -62,6 +64,16 @@ public class ClientObject implements Serializable, Repository {
     public void setIP(String IP) {
         this.IP = IP;
     }
+
+
+    public PrintWriter getClientOutput() {
+        return clientOutput;
+    }
+
+    public void setClientOutput(PrintWriter clientOutput) {
+        this.clientOutput = clientOutput;
+    }
+
 
     public void serialize() {
         final File parent = new File(System.getProperty("user.home") + "/Maus/clients");

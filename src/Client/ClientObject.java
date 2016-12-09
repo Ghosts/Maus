@@ -10,19 +10,31 @@ import java.net.Socket;
 
 public class ClientObject implements Serializable, Repository {
     private static int COUNT = 0;
-    transient private Socket client;
+    transient private Socket client = new Socket();
     private int clientNumber;
+
+    public void setOnlineStatus(String onlineStatus) {
+        this.onlineStatus = onlineStatus;
+    }
+
+    private String onlineStatus = "Online";
+
     private String nickName;
     private String IP;
-    private PrintWriter clientOutput;
+    private transient PrintWriter clientOutput;
 
-    public ClientObject(Socket client, String nickName, String IP, PrintWriter clientOutput) {
+    public ClientObject(Socket client, String nickName, String IP) {
         clientNumber = getCOUNT() + 1;
         setCOUNT(getCOUNT() + 1);
         this.client = client;
         this.nickName = nickName;
         this.IP = IP;
-        this.clientOutput = clientOutput;
+        try {
+            this.clientOutput = new PrintWriter(client.getOutputStream());
+        } catch (IOException e) {
+            Logger.log(Level.WARNING, "Exception thrown: " + e);
+        }
+        CONNECTIONS.put(IP,this);
     }
 
     public static int getCOUNT() {
@@ -31,6 +43,10 @@ public class ClientObject implements Serializable, Repository {
 
     public static void setCOUNT(int counter) {
         COUNT = counter;
+    }
+
+    public void setClientNumber(int clientNumber) {
+        this.clientNumber = clientNumber;
     }
 
     public Socket getClient() {
@@ -65,15 +81,13 @@ public class ClientObject implements Serializable, Repository {
         this.IP = IP;
     }
 
-
     public PrintWriter getClientOutput() {
         return clientOutput;
     }
 
-    public void setClientOutput(PrintWriter clientOutput) {
-        this.clientOutput = clientOutput;
+    public String getOnlineStatus() {
+        return onlineStatus;
     }
-
 
     public void serialize() {
         final File parent = new File(System.getProperty("user.home") + "/Maus/clients");
@@ -85,15 +99,20 @@ public class ClientObject implements Serializable, Repository {
                 FileOutputStream fileOut =
                         new FileOutputStream(new File(parent, getNickName() + getIP() + ".client"));
 
-                ObjectOutputStream out = new ObjectOutputStream(fileOut);
-                out.writeObject(this);
-                out.close();
+                //ObjectOutputStream out = new ObjectOutputStream(fileOut);
+                //out.writeObject(this);
+                //out.close();
                 fileOut.close();
                 Logger.log(Level.INFO, "Serialized data is saved in Maus/clients/**.client");
             } catch (IOException i) {
                 i.printStackTrace();
             }
         }
+    }
+
+    public void clientCommunicate(String msg) {
+        clientOutput.println(msg);
+        clientOutput.flush();
     }
 }
 

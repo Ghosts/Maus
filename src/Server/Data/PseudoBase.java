@@ -7,16 +7,17 @@ import Logger.Logger;
 import Server.ServerSettings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 
 import java.io.*;
 
 public class PseudoBase implements Repository {
-    private static ObservableList<ClientObject> mausData = FXCollections.observableArrayList();
+    private static ObservableMap<String, ClientObject> mausData = FXCollections.observableHashMap();
 
     public PseudoBase() {
     }
 
-    public synchronized static ObservableList<ClientObject> getMausData() {
+    public synchronized static ObservableMap<String, ClientObject> getMausData() {
         return mausData;
     }
 
@@ -24,6 +25,10 @@ public class PseudoBase implements Repository {
         final File parent = new File(System.getProperty("user.home") + "/Maus/clients");
         if (!parent.mkdirs()) {
             Logger.log(Level.WARNING, "Unable to make necessary directories, may already exist.");
+        }
+        File settings = new File(System.getProperty("user.home") + "/Maus/.serverSettings");
+        if (!settings.exists()) {
+            boolean create = settings.createNewFile();
         }
         File data = new File(parent, ".mp");
         try (BufferedWriter writer =
@@ -35,7 +40,7 @@ public class PseudoBase implements Repository {
     }
 
     public void writeMausData() throws IOException {
-        for (ClientObject o : mausData) {
+        for (ClientObject o : mausData.values()) {
             if (o != null) {
                 o.serialize();
             }
@@ -79,7 +84,7 @@ public class PseudoBase implements Repository {
         }
     }
 
-    public ObservableList<ClientObject> loadData(String directory) throws IOException, ClassNotFoundException {
+    public ObservableMap<String, ClientObject> loadData(String directory) throws IOException, ClassNotFoundException {
         loadServerSettings();
         File folder = new File(directory);
         File[] listOfFiles = folder.listFiles();
@@ -92,7 +97,7 @@ public class PseudoBase implements Repository {
                     ObjectInputStream in = new ObjectInputStream(new FileInputStream(file));
                     o = (ClientObject) in.readObject();
                     CONNECTIONS.put(o.getIP(), o);
-                    mausData.add(o);
+                    mausData.put(o.getIP(), o);
                     in.close();
                 }
             } else {

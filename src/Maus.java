@@ -10,11 +10,13 @@ import Server.Data.PseudoBase;
 import Server.Server;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
 public class Maus extends Application {
+    private static Server server =  new Server();
 
     public static void main(String[] args) {
         launch(args);
@@ -24,14 +26,18 @@ public class Maus extends Application {
     public void start(Stage primaryStage) throws IOException, ClassNotFoundException {
         new PseudoBase().createMausData();
         new PseudoBase().loadData(System.getProperty("user.home") + "/Maus/clients/");
-        Runnable server = new Server();
-        new Thread(server).start();
+
         primaryStage.setTitle("Maus");
+        primaryStage.setMinWidth(600);
         Scene mainScene = new Scene(new MainView().getMainView(), 900, 700);
         mainScene.getStylesheets().add(Styler.globalCSS);
         primaryStage.setScene(mainScene);
+        Logger.log(Level.INFO, "Maus is running.");
+        primaryStage.getIcons().add(new Image("Resources/images/icon.png"));
         primaryStage.show();
 
+        Runnable startServer = server;
+        new Thread(startServer).start();
         /* Shutdown Hook to save data on close */
         Runtime.getRuntime().addShutdownHook(
                 new Thread("mausData") {

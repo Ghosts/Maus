@@ -1,10 +1,13 @@
 package Server;
 
 import Client.ClientObject;
+import GUI.Components.StatisticsView;
+import GUI.Controller;
 import Logger.Level;
 import Logger.Logger;
 import Server.Data.PseudoBase;
 import Server.Data.Repository;
+import javafx.application.Platform;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,11 +20,12 @@ import java.net.Socket;
  * ClientHandler: responsible for the correct routing of client on connect and request.
  */
 public class ClientHandler implements Runnable, Repository {
-    private final Socket client;
-    private PrintWriter clientOutput = null;
+    private Socket socket;
+    private PrintWriter clientOutput;
+    private ClientObject client;
 
-    ClientHandler(Socket client) {
-        this.client = client;
+    ClientHandler(Socket socket) {
+        this.socket = socket;
     }
 
 
@@ -31,31 +35,31 @@ public class ClientHandler implements Runnable, Repository {
     @Override
     public void run() {
         try (
-                BufferedReader clientInput = new BufferedReader(new InputStreamReader(client.getInputStream()));
-                PrintWriter clientOutput = new PrintWriter(client.getOutputStream())
-        ) {
-            this.clientOutput = clientOutput;
+                BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                PrintWriter out = new PrintWriter(socket.getOutputStream())) {
+            clientOutput = out;
             String ip = (((InetSocketAddress) Server.getClient().getRemoteSocketAddress()).getAddress()).toString().replace("/", "");
-            if (!CONNECTIONS.containsKey(ip)) {
-                ClientObject clientObject = new ClientObject(client, "Maus Machine " + ClientObject.getCOUNT(), ip, clientOutput);
-                    PseudoBase.getMausData().add(clientObject);
-            }
-            requestHandler(clientInput);
-        } catch (IOException e) {
-            Logger.log(Level.WARNING, "IOException thrown: " + e);
+                client = new ClientObject(socket, "Maus Machine " + ClientObject.getCOUNT(), ip);
+                Controller.updateStats();
+                Platform.runLater(() -> PseudoBase.getMausData().put(ip, client));
+            requestHandler(in);
+        } catch (IOException | ClassNotFoundException e) {
+            client.setOnlineStatus("Offline");
         }
     }
 
-    private void requestHandler(BufferedReader clientInput) throws IOException {
+    private void requestHandler(BufferedReader clientInput) throws IOException, ClassNotFoundException {
         String inp;
-        while ((inp = clientInput.readLine()) != null) {
-            if ("".equals(inp)) {
-                break;
-            } else if (inp.contains("OS:")) {
-                return;
-            } else if (inp.contains("2")) {
-                return;
+        do {
+            inp = clientInput.readLine();
+            client.clientCommunicate("e");
+            if (inp != null) {
+                if (inp.equals("1")) {
+                    client.clientCommunicate("1");
+                } else if (inp.equals("forciblyclose")) {
+                    client.clientCommunicate("forciblyclose");
+                }
             }
-        }
+        } while (!inp.equals("forciblyclose")) ;
     }
 }

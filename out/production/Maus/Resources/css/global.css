@@ -1,39 +1,39 @@
 .root {
-    -fx-background-color: #795548;
+    -fx-background-color: #302C58;
 }
 
 .title {
     -fx-font-size: 22px;
     -fx-font-family: "Segoe UI Semibold";
-    -fx-text-fill: white;
+    -fx-text-fill: #4EFFBB;
     -fx-text-alignment: center;
 }
 
 .label-bright {
     -fx-font-size: 12px;
     -fx-font-family: "Segoe UI Semibold";
-    -fx-text-fill: white;
+    -fx-text-fill: #4EFFBB;
     -fx-opacity: 1;
 }
 
 .text-field {
-    -fx-background-color: #4E342E;
+    -fx-background-color: #232b3e;
 }
 
 .text-field .label {
-    -fx-text-fill: white;
+    -fx-text-fill: #4EFFBB #e;
 }
 
 .menu .label {
-    -fx-text-fill: white;
+    -fx-text-fill: #4EFFBB;
 }
 
 .menu-bar {
-    -fx-background-color: #4E342E;
+    -fx-background-color: #232b3e;
 }
 
 .menu-item .label {
-    -fx-text-fill: white;
+    -fx-text-fill: #4EFFBB;
 }
 
 .menu-item:focused {
@@ -41,11 +41,11 @@
 }
 
 .menu-item:focused .label {
-    -fx-text-fill: white;
+    -fx-text-fill: #4EFFBB;
 }
 
 .menu-item:disabled, .label:disabled {
-    -fx-background-color: black;
+    -fx-background-color: #302C58;
     -fx-opacity: 1;
 }
 
@@ -59,11 +59,31 @@
 }
 
 .table-view {
-    -fx-base: #5D4037;
-    -fx-control-inner-background: #4E342E;
-    -fx-background-color: #5D4037;
+    -fx-base: #302C58;
+    -fx-control-inner-background: #232b3e;
+    -fx-background-color: #302C58;
     -fx-table-cell-border-color: transparent;
     -fx-table-header-border-color: transparent;
     -fx-padding: 5;
-    -fx-text-fill: aquamarine;
+    -fx-text-fill: #4EFFBB;
+}
+
+.text-input {
+    -fx-text-fill: #4EFFBB;
+}
+
+.text-input:focused {
+    -fx-text-fill: #4EFFBB;
+}
+
+.button {
+    -fx-text-fill: #4EFFBB;
+    -fx-font-family: "Arial Narrow";
+    -fx-font-weight: bold;
+    -fx-background-color: #232b3e;
+}
+
+.text-area .content {
+    -fx-background-color: #171c28;
+    -fx-text-fill: #4EFFBB;
 }

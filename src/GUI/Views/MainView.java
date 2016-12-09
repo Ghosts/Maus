@@ -16,7 +16,7 @@ import java.io.IOException;
 public class MainView {
     public BorderPane getMainView() throws IOException, ClassNotFoundException {
         BorderPane borderPane = new BorderPane();
-        borderPane.getStylesheets().addAll(Styler.globalCSS);
+        borderPane.getStylesheets().add(Styler.globalCSS);
         borderPane.getStyleClass().add("root");
         borderPane.setTop(logoArea());
         BorderPane.setAlignment(logoArea(), Pos.CENTER);
@@ -28,8 +28,8 @@ public class MainView {
     private VBox logoArea() {
         Image image = new Image("Resources/images/logolight.png");
         ImageView imageView = new ImageView(image);
-        imageView.setFitWidth(150);
-        imageView.setFitHeight(100);
+        imageView.setFitWidth(100);
+        imageView.setFitHeight(50);
         return vContainer(new TopBar().getMenuBar(), imageView);
     }
 

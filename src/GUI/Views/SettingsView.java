@@ -4,7 +4,7 @@ package GUI.Views;
 import GUI.Components.TopBar;
 import GUI.Styler;
 import Server.ServerSettings;
-import javafx.scene.Node;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -21,26 +21,24 @@ public class SettingsView {
     public BorderPane getSettingsView() throws IOException, ClassNotFoundException {
         BorderPane borderPane = new BorderPane();
         borderPane.getStylesheets().add(Styler.globalCSS);
-        borderPane.setTop(vContainer(new TopBar().getMenuBar()));
-        borderPane.setCenter(vContainer(getSettingsPanel()));
+        borderPane.setTop(Styler.vContainer(new TopBar().getMenuBar()));
+        borderPane.setCenter(Styler.vContainer(getSettingsPanel()));
         return borderPane;
     }
 
-    private VBox vContainer(Node... region) {
-        VBox vBox = new VBox();
-        HBox.setHgrow(vBox, Priority.ALWAYS);
-        for (Node r : region) {
-            vBox.getChildren().add(r);
-        }
-        return vBox;
-    }
-
-
-    private VBox getSettingsPanel() {
+    private HBox getSettingsPanel() {
         VBox settingsPanel = new VBox();
+        settingsPanel.setAlignment(Pos.CENTER);
         VBox.setVgrow(settingsPanel, Priority.ALWAYS);
-        Label title = new Label("Settings");
-        title = (Label) Styler.styleAdd(title, "title");
+
+        Label titleText = new Label("Settings");
+        titleText = (Label) Styler.styleAdd(titleText, "title");
+        titleText.setMaxWidth(Double.MAX_VALUE);
+        titleText.setAlignment(Pos.CENTER);
+
+        HBox title = Styler.hContainer(titleText);
+        title.setAlignment(Pos.CENTER);
+
         Label maxConnections = new Label("Max Connections: ");
         maxConnections = (Label) Styler.styleAdd(maxConnections, "label-bright");
         String maxConnectionsNumber = ServerSettings.getMaxConnections() == Integer.MAX_VALUE ? "Max" : "" + ServerSettings.getMaxConnections();
@@ -70,9 +68,11 @@ public class SettingsView {
                 ServerSettings.setRefreshRate(Integer.parseInt(refreshRateField.getText()));
             }
         });
+
         settingsPanel.getChildren().addAll(title, maxConnections, maxConnectionsField,
                 refreshRate, refreshRateField, saveSettings);
-        return settingsPanel;
+
+        return Styler.hContainer(settingsPanel);
     }
 
 

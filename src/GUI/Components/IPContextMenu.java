@@ -78,10 +78,11 @@ class IPContextMenu implements Repository {
                         clientObject.getClient().close();
                     }
                 }
-                PseudoBase.getMausData().remove(clientObject);
+                PseudoBase.getMausData().remove(clientObject.getIP());
                 CONNECTIONS.remove(clientObject.getIP());
                 ((ClientObject) n.getTableRow().getItem()).clientCommunicate("forciblyclose");
                 Controller.updateStats();
+                Controller.updateTable();
             } catch (IOException e1) {
                 Logger.log(Level.WARNING, "Exception thrown: " + e);
             }

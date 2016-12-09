@@ -30,7 +30,7 @@ public class Maus extends Application {
         primaryStage.setTitle("Maus");
         primaryStage.setMinWidth(600);
         primaryStage.setMinHeight(400);
-        Scene mainScene = new Scene(new MainView().getMainView(), 900, 700);
+        Scene mainScene = new Scene(new MainView().getMainView(), 900, 400);
         mainScene.getStylesheets().add(Styler.globalCSS);
         primaryStage.setScene(mainScene);
         Logger.log(Level.INFO, "Maus is running.");

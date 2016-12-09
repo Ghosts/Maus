@@ -61,18 +61,18 @@ public class Client {
     private void exec(String command) throws IOException {
         if (!command.equals("")) {
             System.out.println(command);
-            Process p = Runtime.getRuntime().exec(command);
+            ProcessBuilder pb = new ProcessBuilder(command);
+            Process p = pb.start();
             BufferedReader stdInput = new BufferedReader(new
                     InputStreamReader(p.getInputStream()));
             BufferedReader stdError = new BufferedReader(new
                     InputStreamReader(p.getErrorStream()));
             String s;
             while ((s = stdInput.readLine()) != null) {
-                communicate(s);
                 System.out.println(s);
             }
+
             while ((s = stdError.readLine()) != null) {
-                communicate(s);
                 System.out.println(s);
             }
             communicate("end");

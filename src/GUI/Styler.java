@@ -28,6 +28,25 @@ public class Styler {
         }
         return vBox;
     }
+    public static VBox vContainer( int spacing, Node... region) {
+        VBox vBox = new VBox(spacing);
+        VBox.setVgrow(vBox, Priority.ALWAYS);
+        vBox.setMaxWidth(Double.MAX_VALUE);
+        for (Node r : region) {
+            vBox.getChildren().add(r);
+        }
+        return vBox;
+    }
+
+    public static HBox hContainer(int spacing, Node... region) {
+        HBox hBox = new HBox(spacing);
+        HBox.setHgrow(hBox, Priority.ALWAYS);
+        hBox.setMaxWidth(Double.MAX_VALUE);
+        for (Node r : region) {
+            hBox.getChildren().add(r);
+        }
+        return hBox;
+    }
 
     public static HBox hContainer(Node... region) {
         HBox hBox = new HBox();

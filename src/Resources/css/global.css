@@ -9,6 +9,17 @@
     -fx-text-alignment: center;
 }
 
+.table-row-cell:selected {
+    -fx-background-color: #44dda1;
+    -fx-background-insets: 0, 1, 2;
+}
+
+.table-row-cell:selected .text {
+    -fx-fill: #171c28;
+}
+.table-row-cell:selected .menu-item .label {
+    -fx-fill: #171c28;
+}
 .label-bright {
     -fx-font-size: 12px;
     -fx-font-family: "Segoe UI Semibold";
@@ -37,7 +48,7 @@
 }
 
 .menu-item:focused {
-    -fx-background-color: darkgray;
+    -fx-background-color: #302C58;
 }
 
 .menu-item:focused .label {
@@ -50,12 +61,10 @@
 }
 
 .context-menu {
-    -fx-skin: "com.sun.javafx.scene.control.skin.ContextMenuSkin";
+    -fx-text-fill: #4EFFBB;
     -fx-background-color: black;
     -fx-background-insets: 0, 1, 2;
     -fx-background-radius: 0 6 6 6, 0 5 5 5, 0 4 4 4;
-    /*    -fx-padding: 0.666667em 0.083333em 0.666667em 0.083333em;  8 1 8 1 */
-    -fx-padding: 0.333333em 0.083333em 0.666667em 0.083333em; /* 4 1 8 1 */
 }
 
 .table-view {
@@ -82,8 +91,26 @@
     -fx-font-weight: bold;
     -fx-background-color: #232b3e;
 }
+.text-area:focused .content {
+    -fx-background-color: black;
+}
+.text-area:focused {
+    -fx-highlight-fill: #302C58;
+}
+.text-area {
+    -fx-background-color: black;
+    -fx-border-width: 4px;
+}
 
 .text-area .content {
-    -fx-background-color: #171c28;
+    -fx-background-color: black;
     -fx-text-fill: #4EFFBB;
+}
+
+#settingsView {
+    -fx-background-color: #171c28;
+}
+
+#notification {
+    -fx-opacity: 0.9;
 }

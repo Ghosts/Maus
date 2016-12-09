@@ -19,8 +19,7 @@ public class MainView {
         borderPane.getStylesheets().add(Styler.globalCSS);
         borderPane.getStyleClass().add("root");
         borderPane.setTop(logoArea());
-        BorderPane.setAlignment(logoArea(), Pos.CENTER);
-        borderPane.setCenter(vContainer(new ClientList().getClientList()));
+        borderPane.setCenter(Styler.vContainer(new ClientList().getClientList()));
         borderPane.setBottom(new StatisticsView().getStatisticsView());
         return borderPane;
     }
@@ -30,31 +29,7 @@ public class MainView {
         ImageView imageView = new ImageView(image);
         imageView.setFitWidth(100);
         imageView.setFitHeight(50);
-        return vContainer(new TopBar().getMenuBar(), imageView);
+        return Styler.vContainer(new TopBar().getMenuBar(), imageView);
     }
 
-
-    private VBox vContainer(Node... region) {
-        VBox vBox = new VBox();
-        HBox.setHgrow(vBox, Priority.ALWAYS);
-        for (Node r : region) {
-            vBox.getChildren().add(r);
-        }
-        return vBox;
-    }
-
-
-    private VBox vContainer(Pane pane) {
-        VBox vBox = new VBox();
-        HBox.setHgrow(vBox, Priority.ALWAYS);
-        vBox.getChildren().addAll(pane);
-        return vBox;
-    }
-
-    private HBox hContainer(Region region) {
-        HBox hBox = new HBox();
-        HBox.setHgrow(hBox, Priority.ALWAYS);
-        hBox.getChildren().addAll(region);
-        return hBox;
-    }
 }

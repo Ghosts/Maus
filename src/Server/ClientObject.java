@@ -88,9 +88,9 @@ public class ClientObject implements Serializable, Repository {
                 FileOutputStream fileOut =
                         new FileOutputStream(new File(parent, getNickName() + getIP() + ".client"));
 
-                //ObjectOutputStream out = new ObjectOutputStream(fileOut);
-                //out.writeObject(this);
-                //out.close();
+                ObjectOutputStream out = new ObjectOutputStream(fileOut);
+                out.writeObject(this);
+                out.close();
                 fileOut.close();
                 Logger.log(Level.INFO, "Serialized data is saved in Maus/clients/**.client");
             } catch (IOException i) {

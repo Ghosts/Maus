@@ -2,6 +2,7 @@ package GUI.Views;
 
 import GUI.Styler;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -15,14 +16,16 @@ public class SendCommandView {
     private TextArea console;
 
     public VBox getSendCommandView() {
-        VBox vBox = new VBox();
+        VBox vBox = new VBox(5);
+        vBox.setId("settingsView");
+        vBox.setAlignment(Pos.CENTER);
         VBox.setVgrow(vBox, Priority.ALWAYS);
         Label label = new Label("Command:");
         label = (Label) Styler.styleAdd(label, "label-bright");
         textField = new TextField("");
         sendCommandButton = new Button("Send Command");
-        sendCommandButton.setPadding(new Insets(20, 20, 20, 20));
         console = new TextArea("");
+        console.setEditable(false);
         vBox.getChildren().addAll(label, textField, sendCommandButton, console);
         vBox.getStylesheets().add(Styler.globalCSS);
         return vBox;

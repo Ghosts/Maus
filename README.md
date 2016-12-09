@@ -4,9 +4,9 @@ Lightweight remote administrative client written in Java.
 
 #Screenshots
 ![](http://i.imgur.com/cJY676d.png)
-![](http://i.imgur.com/2lQAye3.png)
-![](http://i.imgur.com/XQ935rD.png
+![](http://i.imgur.com/XQ935rD.png)
 ![](http://i.imgur.com/F3n3lG3.png)
+![](http://i.imgur.com/2lQAye3.png)
 
 Current Working Features:
 * Execute remote commands on client

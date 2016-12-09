@@ -27,7 +27,7 @@ public class Maus extends Application {
         new PseudoBase().createMausData();
         new PseudoBase().loadData(System.getProperty("user.home") + "/Maus/clients/");
 
-        primaryStage.setTitle("Maus");
+        primaryStage.setTitle("Maus 0.1a");
         primaryStage.setMinWidth(600);
         primaryStage.setMinHeight(400);
         Scene mainScene = new Scene(new MainView().getMainView(), 900, 400);

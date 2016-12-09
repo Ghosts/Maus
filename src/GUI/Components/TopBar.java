@@ -27,7 +27,10 @@ public class TopBar {
             try {
                 Stage stage = new Stage();
                 stage.setTitle("Settings");
-                stage.setScene(new Scene(new SettingsView().getSettingsView(), 450, 450));
+                stage.setScene(new Scene(new SettingsView().getSettingsView(), 200, 350));
+                stage.setMaxWidth(200);
+                stage.setMaxHeight(400);
+                stage.setResizable(false);
                 stage.show();
                 stage.setOnCloseRequest(we -> SettingsView.viewOpen = false);
             } catch (IOException | ClassNotFoundException e) {
@@ -48,10 +51,10 @@ public class TopBar {
             Logger.log(Level.INFO, "Exit event detected. ");
         });
         menuOptions.getItems().add(exitMenuItem);
-
+        Menu menuBuild = new Menu("Build");
         Menu menuControl = new Menu("Control");
         Menu menuView = new Menu("View");
-        menuBar.getMenus().addAll(menuOptions, menuControl, menuView);
+        menuBar.getMenus().addAll(menuOptions, menuBuild, menuControl, menuView);
         return menuBar;
     }
 }

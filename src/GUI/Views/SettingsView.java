@@ -24,7 +24,9 @@ public class SettingsView {
         BorderPane borderPane = new BorderPane();
         borderPane.getStylesheets().add(Styler.globalCSS);
         borderPane.setTop(Styler.vContainer(new TopBar().getMenuBar()));
-        borderPane.setCenter(Styler.vContainer(getSettingsPanel()));
+        VBox center = Styler.vContainer(getSettingsPanel());
+        borderPane.setCenter(center);
+        BorderPane.setAlignment(center, Pos.CENTER);
         return borderPane;
     }
 

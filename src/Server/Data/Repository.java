@@ -1,6 +1,6 @@
 package Server.Data;
 
-import Client.ClientObject;
+import Server.ClientObject;
 
 import java.util.HashMap;
 

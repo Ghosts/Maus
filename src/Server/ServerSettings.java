@@ -5,7 +5,7 @@ public class ServerSettings {
     private static boolean SHOW_NOTIFICATIONS = true;
     private static boolean BACKGROUND_PERSISTENT = true;
     private static int REFRESH_RATE = 12000;
-    private static int MAX_CONNECTIONS = Integer.MAX_VALUE;
+    private static int MAX_CONNECTIONS = 999;
     private static boolean P2P_CONNECTIONS = true;
     private static boolean BEACON_STATUS = false;
     private static int PORT = 22122;

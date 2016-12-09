@@ -1,6 +1,6 @@
 package GUI;
 
-import Client.ClientObject;
+import Server.ClientObject;
 import GUI.Components.ClientList;
 import GUI.Components.StatisticsView;
 import Server.Data.PseudoBase;
@@ -8,8 +8,6 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableView;
-
-import java.util.List;
 
 public class Controller {
 

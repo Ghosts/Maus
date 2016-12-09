@@ -1,6 +1,6 @@
 package GUI.Components;
 
-import Client.ClientObject;
+import Server.ClientObject;
 import GUI.Controller;
 import GUI.Styler;
 import GUI.Views.SendCommandView;
@@ -9,7 +9,6 @@ import Logger.Logger;
 import Server.Data.PseudoBase;
 import Server.Data.Repository;
 import Server.ServerSettings;
-import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Menu;
@@ -20,9 +19,7 @@ import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 
 class IPContextMenu implements Repository {
     ContextMenu getIPContextMenu(TableCell n, MouseEvent e) {
@@ -81,7 +78,6 @@ class IPContextMenu implements Repository {
                     }
                 }
                 PseudoBase.getMausData().remove(clientObject);
-                ClientObject.setCOUNT(ClientObject.getCOUNT() - 1);
                 CONNECTIONS.remove(clientObject.getIP());
                 ((ClientObject) n.getTableRow().getItem()).clientCommunicate("forciblyclose");
                 Controller.updateStats();

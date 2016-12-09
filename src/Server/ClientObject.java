@@ -1,4 +1,4 @@
-package Client;
+package Server;
 
 
 import Logger.Level;
@@ -9,7 +9,6 @@ import java.io.*;
 import java.net.Socket;
 
 public class ClientObject implements Serializable, Repository {
-    private static int COUNT = 0;
     transient private Socket client = new Socket();
     private int clientNumber;
 
@@ -24,8 +23,6 @@ public class ClientObject implements Serializable, Repository {
     private transient PrintWriter clientOutput;
 
     public ClientObject(Socket client, String nickName, String IP) {
-        clientNumber = getCOUNT() + 1;
-        setCOUNT(getCOUNT() + 1);
         this.client = client;
         this.nickName = nickName;
         this.IP = IP;
@@ -35,14 +32,6 @@ public class ClientObject implements Serializable, Repository {
             Logger.log(Level.WARNING, "Exception thrown: " + e);
         }
         CONNECTIONS.put(IP,this);
-    }
-
-    public static int getCOUNT() {
-        return COUNT;
-    }
-
-    public static void setCOUNT(int counter) {
-        COUNT = counter;
     }
 
     public void setClientNumber(int clientNumber) {
@@ -113,6 +102,12 @@ public class ClientObject implements Serializable, Repository {
     public void clientCommunicate(String msg) {
         clientOutput.println(msg);
         clientOutput.flush();
+    }
+
+    @Override
+    protected void finalize() throws Throwable {
+        clientOutput.close();
+        client.close();
     }
 }
 

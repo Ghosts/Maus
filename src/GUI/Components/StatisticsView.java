@@ -1,12 +1,10 @@
 package GUI.Components;
 
-import Client.ClientObject;
 import GUI.Controller;
 import GUI.Styler;
 import Server.Data.PseudoBase;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Label;
@@ -23,14 +21,9 @@ public class StatisticsView {
     private static Label connectionsLabel = null;
 
     public HBox getStatisticsView() {
-        Timeline fiveSecondsWonder = new Timeline(new KeyFrame(Duration.seconds(5), new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                Controller.updateStats();
-            }
-        }));
-        fiveSecondsWonder.setCycleCount(Timeline.INDEFINITE);
-        fiveSecondsWonder.play();
+        Timeline fiveSecondTime = new Timeline(new KeyFrame(Duration.seconds(5), event -> Controller.updateStats()));
+        fiveSecondTime.setCycleCount(Timeline.INDEFINITE);
+        fiveSecondTime.play();
         HBox hBox = new HBox();
         HBox.setHgrow(hBox, Priority.ALWAYS);
         VBox vBox = new VBox();

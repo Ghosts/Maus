@@ -1,6 +1,6 @@
 package GUI.Components;
 
-import Client.ClientObject;
+import Server.ClientObject;
 import GUI.Controller;
 import GUI.Styler;
 import Server.Data.PseudoBase;
@@ -28,14 +28,9 @@ public class ClientList {
     }
 
     public TableView getClientList() throws IOException, ClassNotFoundException {
-        Timeline fiveSecondsWonder = new Timeline(new KeyFrame(Duration.seconds(5), new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                Controller.updateTable();
-            }
-        }));
-        fiveSecondsWonder.setCycleCount(Timeline.INDEFINITE);
-        fiveSecondsWonder.play();
+        Timeline fiveSecondTime = new Timeline(new KeyFrame(Duration.seconds(5), event -> Controller.updateTable()));
+        fiveSecondTime.setCycleCount(Timeline.INDEFINITE);
+        fiveSecondTime.play();
         tableView = new TableView();
         tableView.setEditable(true);
         tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);

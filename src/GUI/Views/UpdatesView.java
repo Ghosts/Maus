@@ -29,7 +29,7 @@ public class UpdatesView {
         updatesView.setTop(new TopBar().getTopBar());
         hBox1.setPadding(new Insets(0,0,0,10));
         updatesView.setLeft(hBox1);
-        updatesView.setCenter(hBox);
+        updatesView.setRight(hBox);
         updatesView.setBottom(new StatisticsView().getStatisticsView());
         return updatesView;
     }
@@ -43,7 +43,7 @@ public class UpdatesView {
         checkUpdates.setOnMouseClicked(event -> {
             HBox hBox = getUpdatesPanel();
             hBox.setId("updatesView");
-            updatesView.setCenter(hBox);
+            updatesView.setRight(hBox);
         });
         return Styler.hContainer(Styler.vContainer(10, title, desc, checkUpdates));
     }

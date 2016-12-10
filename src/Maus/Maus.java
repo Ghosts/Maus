@@ -33,6 +33,8 @@ public class Maus extends Application {
         getPrimaryStage().setTitle("Maus 0.1a");
         getPrimaryStage().setMinWidth(600);
         getPrimaryStage().setMinHeight(400);
+        getPrimaryStage().setMaxWidth(900);
+        getPrimaryStage().setMaxHeight(800);
         Scene mainScene = new Scene(new MainView().getMainView(), 900, 400);
         mainScene.getStylesheets().add(Styler.globalCSS);
         getPrimaryStage().setScene(mainScene);

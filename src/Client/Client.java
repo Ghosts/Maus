@@ -24,17 +24,17 @@ public class Client {
         Client.PORT = PORT;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         new Client().connect();
     }
 
-    private void connect() {
+    private void connect() throws InterruptedException {
         try{
             Socket socket = new Socket(getHOST(), getPORT());
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             out = new PrintWriter(socket.getOutputStream(),true);
             System.out.println("Client started: " + getHOST() + ":" + getPORT());
-            String comm = "";
+            String comm;
             if(socket.isConnected()) {
                 while((comm = in.readLine())!=null && !comm.contains("forciblyclose")) {
                     comm = in.readLine();
@@ -50,6 +50,7 @@ public class Client {
             }
         } catch (IOException e) {
             System.out.println("Disconnected... retrying.");
+            Thread.sleep(200);
             connect();
         }
     }

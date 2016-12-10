@@ -24,7 +24,7 @@ public class MainView {
 
         HBox icons[] = new HBox[8];
         String resourcePath = "Resources/Images/Icons/";
-        for (int i = 0; i < 6 ; i++) {
+        for (int i = 0; i < 7 ; i++) {
             HBox hBox = new HBox();
             hBox.setAlignment(Pos.CENTER);
             hBox.setPadding(new Insets(10,10,10,10));
@@ -45,8 +45,8 @@ public class MainView {
                     });
                     break;
                 case 1:
-                    label = (Label) Styler.styleAdd(new Label("Statistics"), "label-bright");
-                    vBox.getChildren().addAll(new ImageView(new Image(resourcePath+"laptop.png")), label);
+                    label = (Label) Styler.styleAdd(new Label("Build"), "label-bright");
+                    vBox.getChildren().addAll(new ImageView(new Image(resourcePath+"build.png")), label);
                     hBox.getChildren().addAll(vBox);
                     icons[1] = hBox;
                     break;
@@ -57,30 +57,34 @@ public class MainView {
                     icons[2] = hBox;
                     break;
                 case 3:
-                    label = (Label) Styler.styleAdd(new Label("Beacon"), "label-bright");
-                    vBox.getChildren().addAll(new ImageView(new Image(resourcePath+"beacon.png")), label);
+                    label = (Label) Styler.styleAdd(new Label("Statistics"), "label-bright");
+                    vBox.getChildren().addAll(new ImageView(new Image(resourcePath+"laptop.png")), label);
                     hBox.getChildren().addAll(vBox);
                     icons[3] = hBox;
                     break;
                 case 4:
+                    label = (Label) Styler.styleAdd(new Label("Beacon"), "label-bright");
+                    vBox.getChildren().addAll(new ImageView(new Image(resourcePath+"beacon.png")), label);
+                    hBox.getChildren().addAll(vBox);
+                    icons[4] = hBox;
+                    break;
+                case 5:
                     label = (Label) Styler.styleAdd(new Label("Updates"), "label-bright");
                     vBox.getChildren().addAll(new ImageView(new Image(resourcePath+"newspaper.png")), label);
                     hBox.getChildren().addAll(vBox);
-                    icons[4] = hBox;
-                    icons[4].setOnMouseClicked(event -> {
+                    icons[5] = hBox;
+                    icons[5].setOnMouseClicked(event -> {
                         Controller.changePrimaryStage(new UpdatesView().getUpdatesView());
                     });
                     break;
-                case 5:
+                case 6:
                     label = (Label) Styler.styleAdd(new Label("Settings"), "label-bright");
                     vBox.getChildren().addAll(new ImageView(new Image(resourcePath+"levels.png")), label);
                     hBox.getChildren().addAll(vBox);
-                    icons[5] = hBox;
-                    icons[5].setOnMouseClicked(event -> {
+                    icons[6] = hBox;
+                    icons[6].setOnMouseClicked(event -> {
                         Controller.changePrimaryStage(new SettingsView().getSettingsView());
                     });
-                    break;
-                case 6:
                     break;
                 case 7:
                     break;

@@ -10,15 +10,15 @@
 }
 
 .table-row-cell:selected {
-    -fx-background-color: #44dda1;
+    -fx-background-color: #2a8863;
     -fx-background-insets: 0, 1, 2;
 }
 
 .table-row-cell:selected .text {
-    -fx-fill: #171c28;
+    -fx-text-fill: #171c28;
 }
 .table-row-cell:selected .menu-item .label {
-    -fx-fill: #171c28;
+    -fx-text-fil: #171c28;
 }
 .label-bright {
     -fx-font-size: 12px;

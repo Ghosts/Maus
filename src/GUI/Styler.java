@@ -7,7 +7,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
 public class Styler {
-    public static final String globalCSS = "Resources/css/global.css";
+    public static final String globalCSS = "Resources/CSS/global.css";
 
     public static Node styleAdd(Node node, String styleName) {
         node.getStyleClass().add(styleName);

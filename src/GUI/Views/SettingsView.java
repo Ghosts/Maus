@@ -1,6 +1,9 @@
 package GUI.Views;
 
 
+import GUI.Components.ClientList;
+import GUI.Components.OptionBar;
+import GUI.Components.StatisticsView;
 import GUI.Components.TopBar;
 import GUI.Styler;
 import Server.ServerSettings;
@@ -8,8 +11,6 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
@@ -18,15 +19,16 @@ import javafx.scene.layout.VBox;
 import java.io.IOException;
 
 public class SettingsView {
-    public static boolean viewOpen = false;
 
-    public BorderPane getSettingsView() throws IOException, ClassNotFoundException {
+    BorderPane getSettingsView() {
         BorderPane borderPane = new BorderPane();
         borderPane.getStylesheets().add(Styler.globalCSS);
-        borderPane.setTop(Styler.vContainer(new TopBar().getMenuBar()));
-        VBox center = Styler.vContainer(getSettingsPanel());
-        borderPane.setCenter(center);
-        BorderPane.setAlignment(center, Pos.CENTER);
+        HBox hBox = getSettingsPanel();
+        VBox vBox = Styler.vContainer(hBox);
+        vBox.setId("settingsView");
+        borderPane.setTop(new TopBar().getTopBar());
+        borderPane.setCenter(vBox);
+        borderPane.setBottom(new StatisticsView().getStatisticsView());
         return borderPane;
     }
 

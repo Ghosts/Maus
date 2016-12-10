@@ -68,9 +68,9 @@
 }
 
 .table-view {
-    -fx-base: #302C58;
+    -fx-base: #3c376f;
     -fx-control-inner-background: #232b3e;
-    -fx-background-color: #302C58;
+    -fx-background-color: #3c376f;
     -fx-table-cell-border-color: transparent;
     -fx-table-header-border-color: transparent;
     -fx-padding: 5;
@@ -113,4 +113,35 @@
 
 #notification {
     -fx-opacity: 0.9;
+}
+
+#iconFlow {
+    -fx-background-color: #3c376f;
+}
+
+#icon {
+    -fx-background-color: #383367;
+    -fx-background-radius: 15px;
+}
+
+#icon:hover {
+    -fx-background-color: #332f5e;
+    -fx-cursor: hand;
+}
+
+#homeButton {
+    -fx-background-color: #383367;
+
+}
+#homeButton:hover {
+    -fx-background-color: #332f5e;
+    -fx-cursor: hand;
+}
+
+#settingsView {
+    -fx-background-color: #3c376f;
+}
+
+#updatesView {
+    -fx-background-color: #3c376f;
 }

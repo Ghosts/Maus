@@ -8,7 +8,6 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -18,8 +17,6 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.MouseButton;
 import javafx.util.Duration;
 
-import java.io.IOException;
-
 public class ClientList {
     private static TableView tableView;
 
@@ -27,7 +24,7 @@ public class ClientList {
         return tableView;
     }
 
-    public TableView getClientList() throws IOException, ClassNotFoundException {
+    public TableView getClientList() {
         Timeline fiveSecondTime = new Timeline(new KeyFrame(Duration.seconds(5), event -> Controller.updateTable()));
         fiveSecondTime.setCycleCount(Timeline.INDEFINITE);
         fiveSecondTime.play();

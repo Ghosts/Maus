@@ -1,60 +1,41 @@
 package GUI.Components;
 
+import GUI.Controller;
 import GUI.Styler;
-import GUI.Views.SettingsView;
-import Logger.Level;
-import Logger.Logger;
-import Server.ServerSettings;
-import javafx.application.Platform;
-import javafx.scene.Scene;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
-import javafx.stage.Stage;
+import GUI.Views.MainView;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
-import java.io.IOException;
+import java.util.zip.InflaterInputStream;
+
 
 public class TopBar {
 
-    public MenuBar getMenuBar() {
-        MenuBar menuBar = new MenuBar();
-        menuBar.getStylesheets().add(Styler.globalCSS);
-        menuBar.getStyleClass().add("background");
-        Menu menuOptions = new Menu("Options");
-        MenuItem settingsMenuItem = new MenuItem("Settings");
-        settingsMenuItem.setOnAction(event -> {
-            SettingsView.viewOpen = true;
-            try {
-                Stage stage = new Stage();
-                stage.setTitle("Settings");
-                stage.setScene(new Scene(new SettingsView().getSettingsView(), 200, 350));
-                stage.setMaxWidth(200);
-                stage.setMaxHeight(400);
-                stage.setResizable(false);
-                stage.show();
-                stage.setOnCloseRequest(we -> SettingsView.viewOpen = false);
-            } catch (IOException | ClassNotFoundException e) {
-                Logger.log(Level.ERROR, e.toString());
-            }
-        });
-        if (!SettingsView.viewOpen) {
-            menuOptions.getItems().add(settingsMenuItem);
-        }
+    public VBox getTopBar() {
+        Image image = new Image("Resources/Images/logo.png");
+        ImageView imageView = new ImageView(image);
 
-        MenuItem exitMenuItem = new MenuItem("Exit");
-        exitMenuItem.setOnAction(actionEvent -> {
-            if (ServerSettings.isBackgroundPersistent()) {
-                Platform.exit();
-            } else {
-                System.exit(0);
-            }
-            Logger.log(Level.INFO, "Exit event detected. ");
-        });
-        menuOptions.getItems().add(exitMenuItem);
-        Menu menuBuild = new Menu("Build");
-        Menu menuControl = new Menu("Control");
-        Menu menuView = new Menu("View");
-        menuBar.getMenus().addAll(menuOptions, menuBuild, menuControl, menuView);
-        return menuBar;
+        VBox vBox = new VBox();
+        vBox.setAlignment(Pos.CENTER);
+        vBox.getChildren().add(new ImageView(new Image("Resources/Images/Icons/home.png")));
+        vBox.setPadding(new Insets(5,10,0,5));
+        vBox.setId("homeButton");
+
+
+        VBox vBox1 = new VBox();
+        vBox1.setAlignment(Pos.CENTER);
+        vBox1.getChildren().add(new ImageView(new Image("Resources/Images/logo.png")));
+        vBox1.setPadding(new Insets(5,10,5,5));
+
+        HBox hBox = Styler.hContainer(new HBox(), vBox , vBox1);
+        vBox.setOnMouseClicked(event -> Controller.changePrimaryStage(new MainView().getMainView()));
+        imageView.setFitWidth(100);
+        imageView.setFitHeight(50);
+        return Styler.vContainer(new VBox(), new OptionBar().getMenuBar(), hBox);
     }
 }

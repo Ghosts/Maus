@@ -21,11 +21,11 @@ public class PseudoBase implements Repository {
     }
 
     public void createMausData() throws IOException {
-        final File parent = new File(System.getProperty("user.home") + "/Maus/clients");
+        final File parent = new File(System.getProperty("user.home") + "/Maus.Maus/clients");
         if (!parent.mkdirs()) {
             Logger.log(Level.WARNING, "Unable to make necessary directories, may already exist.");
         }
-        File settings = new File(System.getProperty("user.home") + "/Maus/.serverSettings");
+        File settings = new File(System.getProperty("user.home") + "/Maus.Maus/.serverSettings");
         if (!settings.exists()) {
             boolean create = settings.createNewFile();
         }
@@ -44,7 +44,7 @@ public class PseudoBase implements Repository {
                 o.serialize();
             }
         }
-        File data = new File(System.getProperty("user.home") + "/Maus/.serverSettings");
+        File data = new File(System.getProperty("user.home") + "/Maus.Maus/.serverSettings");
         try (BufferedWriter writer =
                      new BufferedWriter(new FileWriter(data))) {
             /* Save Server Settings For On Load */
@@ -60,7 +60,7 @@ public class PseudoBase implements Repository {
     }
 
     private void loadServerSettings() {
-        try (BufferedReader reader = new BufferedReader(new FileReader(System.getProperty("user.home") + "/Maus/.serverSettings"))
+        try (BufferedReader reader = new BufferedReader(new FileReader(System.getProperty("user.home") + "/Maus.Maus/.serverSettings"))
         ) {
             String line;
             StringBuilder stringBuilder = new StringBuilder();

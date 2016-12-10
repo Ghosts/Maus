@@ -2,7 +2,6 @@ package Server;
 
 import GUI.Controller;
 import GUI.Views.NotificationView;
-import GUI.Views.SendCommandView;
 import Server.Data.PseudoBase;
 import Server.Data.Repository;
 import javafx.animation.PauseTransition;
@@ -37,7 +36,7 @@ public class ClientHandler implements Runnable, Repository {
                 PrintWriter out = new PrintWriter(socket.getOutputStream())) {
                 clientOutput = out;
                 String ip = (((InetSocketAddress) Server.getClient().getRemoteSocketAddress()).getAddress()).toString().replace("/", "");
-                client = new ClientObject(socket, "Maus Machine " + (PseudoBase.getMausData().size() + 1), ip);
+                client = new ClientObject(socket, "Maus.Maus Machine " + (PseudoBase.getMausData().size() + 1), ip);
                 Controller.updateStats();
                 Platform.runLater(() -> PseudoBase.getMausData().put(ip, client));
                 Platform.runLater(() -> {

@@ -79,7 +79,7 @@ public class ClientObject implements Serializable, Repository {
     }
 
     public void serialize() {
-        final File parent = new File(System.getProperty("user.home") + "/Maus/clients");
+        final File parent = new File(System.getProperty("user.home") + "/Maus.Maus/clients");
         if (!parent.mkdirs()) {
             Logger.log(Level.WARNING, "Unable to make necessary directories, may already exist.");
         }
@@ -92,7 +92,7 @@ public class ClientObject implements Serializable, Repository {
                 out.writeObject(this);
                 out.close();
                 fileOut.close();
-                Logger.log(Level.INFO, "Serialized data is saved in Maus/clients/**.client");
+                Logger.log(Level.INFO, "Serialized data is saved in Maus.Maus/clients/**.client");
             } catch (IOException i) {
                 i.printStackTrace();
             }

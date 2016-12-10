@@ -1,6 +1,4 @@
-/**
- * Created by caden on 12/7/2016.
- */
+package Maus;
 
 import GUI.Styler;
 import GUI.Views.MainView;
@@ -16,6 +14,11 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class Maus extends Application {
+    public static Stage getPrimaryStage() {
+        return primaryStage;
+    }
+
+    private static Stage primaryStage;
     private static Server server =  new Server();
 
     public static void main(String[] args) {
@@ -24,18 +27,18 @@ public class Maus extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException, ClassNotFoundException {
+        Maus.primaryStage = primaryStage;
         new PseudoBase().createMausData();
-        new PseudoBase().loadData(System.getProperty("user.home") + "/Maus/clients/");
-
-        primaryStage.setTitle("Maus 0.1a");
-        primaryStage.setMinWidth(600);
-        primaryStage.setMinHeight(400);
+        new PseudoBase().loadData(System.getProperty("user.home") + "/Maus.Maus/clients/");
+        getPrimaryStage().setTitle("Maus 0.1a");
+        getPrimaryStage().setMinWidth(600);
+        getPrimaryStage().setMinHeight(400);
         Scene mainScene = new Scene(new MainView().getMainView(), 900, 400);
         mainScene.getStylesheets().add(Styler.globalCSS);
-        primaryStage.setScene(mainScene);
+        getPrimaryStage().setScene(mainScene);
         Logger.log(Level.INFO, "Maus is running.");
-        primaryStage.getIcons().add(new Image("Resources/images/icon.png"));
-        primaryStage.show();
+        getPrimaryStage().getIcons().add(new Image("Resources/Images/Icons/icon.png"));
+        getPrimaryStage().show();
 
         Runnable startServer = server;
         new Thread(startServer).start();

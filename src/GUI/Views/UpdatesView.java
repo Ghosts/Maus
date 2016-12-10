@@ -1,6 +1,5 @@
 package GUI.Views;
 
-import GUI.Components.StatisticsView;
 import GUI.Components.TopBar;
 import GUI.Styler;
 import javafx.geometry.Insets;
@@ -9,7 +8,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.net.URL;

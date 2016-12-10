@@ -1,9 +1,6 @@
 package GUI.Views;
 
 
-import GUI.Components.ClientList;
-import GUI.Components.OptionBar;
-import GUI.Components.StatisticsView;
 import GUI.Components.TopBar;
 import GUI.Styler;
 import Server.ServerSettings;
@@ -15,8 +12,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-
-import java.io.IOException;
 
 public class SettingsView {
 

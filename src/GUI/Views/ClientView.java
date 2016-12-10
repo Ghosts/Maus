@@ -1,7 +1,6 @@
 package GUI.Views;
 
 import GUI.Components.ClientList;
-import GUI.Components.StatisticsView;
 import GUI.Components.TopBar;
 import GUI.Styler;
 import javafx.scene.layout.BorderPane;

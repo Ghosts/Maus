@@ -22,7 +22,8 @@ public class TopBar {
 
         VBox vBox = new VBox();
         vBox.setAlignment(Pos.CENTER);
-        vBox.getChildren().add(new ImageView(new Image("Resources/Images/Icons/home.png")));
+        Label label = (Label) Styler.styleAdd(new Label("Dashboard"), "label-medium");
+        vBox.getChildren().addAll(new ImageView(new Image("Resources/Images/Icons/home.png")), label);
         vBox.setPadding(new Insets(5,10,0,5));
         vBox.setId("homeButton");
 

@@ -20,6 +20,13 @@
 .table-row-cell:selected .menu-item .label {
     -fx-text-fil: #171c28;
 }
+.label-medium {
+    -fx-font-size: 12px;
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-text-fill: #ffdd09;
+    -fx-opacity: 0.8;
+}
+
 .label-bright {
     -fx-font-size: 12px;
     -fx-font-family: "Segoe UI Semibold";
@@ -87,10 +94,16 @@
 
 .button {
     -fx-text-fill: #4EFFBB;
-    -fx-font-family: "Arial Narrow";
+    -fx-font-family: "Segoe UI Semibold";
     -fx-font-weight: bold;
     -fx-background-color: #232b3e;
 }
+
+.button:hover {
+    -fx-cursor: hand;
+    -fx-background-color: #141924;
+}
+
 .text-area:focused .content {
     -fx-background-color: black;
 }

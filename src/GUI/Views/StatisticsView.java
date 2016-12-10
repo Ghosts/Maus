@@ -1,4 +1,4 @@
-package GUI.Components;
+package GUI.Views;
 
 import GUI.Controller;
 import GUI.Styler;

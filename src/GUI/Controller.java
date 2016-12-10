@@ -3,7 +3,7 @@ package GUI;
 import Maus.Maus;
 import Server.ClientObject;
 import GUI.Components.ClientList;
-import GUI.Components.StatisticsView;
+import GUI.Views.StatisticsView;
 import Server.Data.PseudoBase;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;

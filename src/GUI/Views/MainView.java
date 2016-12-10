@@ -1,7 +1,6 @@
 package GUI.Views;
 
 
-import GUI.Components.StatisticsView;
 import GUI.Components.TopBar;
 import GUI.Controller;
 import GUI.Styler;

@@ -1,11 +1,15 @@
 ::Maus 0.1a::
-Current Working Features:
+_______________
+
+==Current Working Features:
 
 Execute remote commands on client
 Uninstall client server ( Partial )
 Copy IP Address of client
 Notifications on new connections
-Known bugs:
+
+
+==Known bugs:
 
 Cannot view CMD response after command execution
 Context menu visual bug with multiple instances
@@ -14,7 +18,8 @@ Online/Offline status not fully integrated
 Uninstall server does not fully work
 Certain CMD commands will cause server disconnect
 On client reconnect, nickname + client name change
-Upcoming Features:
+
+==Upcoming Features:
 
 Fully integrated command line control
 Persistent client connection

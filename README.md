@@ -1,4 +1,4 @@
-# Maus.Maus
+# Maus
 Lightweight remote administrative client written in Java.
 
 

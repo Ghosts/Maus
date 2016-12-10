@@ -1,4 +1,4 @@
-ff::Maus 0.1a::
+::Maus 0.1a::
 Current Working Features:
 
 Execute remote commands on client

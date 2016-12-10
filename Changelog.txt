@@ -1,5 +1,3 @@
-
-
 ::Maus 0.1a::
 Current Working Features:
 

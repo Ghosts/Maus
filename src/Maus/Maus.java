@@ -14,12 +14,12 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class Maus extends Application {
+    private static Stage primaryStage;
+    private static Server server = new Server();
+
     public static Stage getPrimaryStage() {
         return primaryStage;
     }
-
-    private static Stage primaryStage;
-    private static Server server =  new Server();
 
     public static void main(String[] args) {
         launch(args);
@@ -29,22 +29,22 @@ public class Maus extends Application {
     public void start(Stage primaryStage) throws IOException, ClassNotFoundException {
         Maus.primaryStage = primaryStage;
         new PseudoBase().createMausData();
-        new PseudoBase().loadData(System.getProperty("user.home") + "/Maus.Maus/clients/");
+        new PseudoBase().loadData(System.getProperty("user.home") + "/Maus/clients/");
         getPrimaryStage().setTitle("Maus 0.1a");
         getPrimaryStage().setMinWidth(600);
-        getPrimaryStage().setMinHeight(400);
+        getPrimaryStage().setMinHeight(500);
         getPrimaryStage().setMaxWidth(900);
         getPrimaryStage().setMaxHeight(800);
-        Scene mainScene = new Scene(new MainView().getMainView(), 900, 400);
+        Scene mainScene = new Scene(new MainView().getMainView(), 900, 500);
         mainScene.getStylesheets().add(Styler.globalCSS);
         getPrimaryStage().setScene(mainScene);
         Logger.log(Level.INFO, "Maus is running.");
         getPrimaryStage().getIcons().add(new Image("Resources/Images/Icons/icon.png"));
+        getPrimaryStage().setOnCloseRequest(event -> System.exit(0));
         getPrimaryStage().show();
 
         Runnable startServer = server;
         new Thread(startServer).start();
-        /* Shutdown Hook to save data on close */
         Runtime.getRuntime().addShutdownHook(
                 new Thread("mausData") {
                     @Override

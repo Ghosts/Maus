@@ -8,10 +8,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
-/**
- * Created by caden on 12/9/2016.
- */
 public class NotificationView {
+    Label notificationText;
+
     public Label getNotificationText() {
         return notificationText;
     }
@@ -20,8 +19,7 @@ public class NotificationView {
         this.notificationText = notificationText;
     }
 
-    Label notificationText;
-    public VBox getNotificationView(){
+    public VBox getNotificationView() {
         VBox vBox = new VBox(5);
         vBox.setId("notification");
         vBox.setAlignment(Pos.CENTER);

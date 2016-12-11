@@ -1,9 +1,9 @@
 package GUI;
 
-import Maus.Maus;
-import Server.ClientObject;
 import GUI.Components.ClientList;
 import GUI.Views.StatisticsView;
+import Maus.Maus;
+import Server.ClientObject;
 import Server.Data.PseudoBase;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -14,9 +14,9 @@ import javafx.scene.layout.Pane;
 
 public class Controller {
 
-    public static synchronized void updateTable(){
-        ObservableList<ClientObject> list =  FXCollections.observableArrayList();
-        for(ClientObject value : PseudoBase.getMausData().values()){
+    public static synchronized void updateTable() {
+        ObservableList<ClientObject> list = FXCollections.observableArrayList();
+        for (ClientObject value : PseudoBase.getMausData().values()) {
             list.add(value);
         }
         ClientList.getTableView().setItems(list);
@@ -28,8 +28,8 @@ public class Controller {
         Platform.runLater(() -> StatisticsView.getConnectionsLabel().setText("Connections: " + PseudoBase.getMausData().size()));
     }
 
-    public static void changePrimaryStage(Pane newScene){
-        Maus.getPrimaryStage().setScene(new Scene(newScene, 900, 400));
+    public static void changePrimaryStage(Pane newScene) {
+        Maus.getPrimaryStage().setScene(new Scene(newScene, 900, 500));
 
     }
 }

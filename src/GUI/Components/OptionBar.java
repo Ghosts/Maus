@@ -1,22 +1,17 @@
 package GUI.Components;
 
 import GUI.Styler;
-import GUI.Views.SettingsView;
 import Logger.Level;
 import Logger.Logger;
 import Server.ServerSettings;
 import javafx.application.Platform;
-import javafx.scene.Scene;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
-import javafx.stage.Stage;
 
-import java.io.IOException;
+class OptionBar {
 
-public class OptionBar {
-
-    public MenuBar getMenuBar() {
+    MenuBar getMenuBar() {
         MenuBar menuBar = new MenuBar();
         menuBar.getStylesheets().add(Styler.globalCSS);
         menuBar.getStyleClass().add("background");

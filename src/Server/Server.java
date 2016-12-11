@@ -6,6 +6,7 @@ import java.net.Socket;
 
 public class Server implements Runnable {
     private static Socket client;
+
     public static Socket getClient() {
         return client;
     }

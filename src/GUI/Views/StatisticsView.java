@@ -13,12 +13,13 @@ import javafx.util.Duration;
 
 
 public class StatisticsView {
+    private static Label connectionsLabel = null;
+
     public static Label getConnectionsLabel() {
         return connectionsLabel;
     }
-    private static Label connectionsLabel = null;
 
-    public HBox getStatisticsView() {
+    HBox getStatisticsView() {
         Timeline fiveSecondTime = new Timeline(new KeyFrame(Duration.seconds(5), event -> Controller.updateStats()));
         fiveSecondTime.setCycleCount(Timeline.INDEFINITE);
         fiveSecondTime.play();

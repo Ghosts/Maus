@@ -11,18 +11,11 @@ import java.net.Socket;
 public class ClientObject implements Serializable, Repository {
     transient private Socket client = new Socket();
     private int clientNumber;
-
-    public void setOnlineStatus(String onlineStatus) {
-        this.onlineStatus = onlineStatus;
-    }
-
     private String onlineStatus = "Online";
-
     private String nickName;
     private String IP;
     private transient PrintWriter clientOutput;
-
-    public ClientObject(Socket client, String nickName, String IP) {
+    ClientObject(Socket client, String nickName, String IP) {
         this.client = client;
         this.nickName = nickName;
         this.IP = IP;
@@ -31,7 +24,7 @@ public class ClientObject implements Serializable, Repository {
         } catch (IOException e) {
             Logger.log(Level.WARNING, "Exception thrown: " + e);
         }
-        CONNECTIONS.put(IP,this);
+        CONNECTIONS.put(IP, this);
     }
 
     public void setClientNumber(int clientNumber) {
@@ -78,8 +71,12 @@ public class ClientObject implements Serializable, Repository {
         return onlineStatus;
     }
 
+    void setOnlineStatus(String onlineStatus) {
+        this.onlineStatus = onlineStatus;
+    }
+
     public void serialize() {
-        final File parent = new File(System.getProperty("user.home") + "/Maus.Maus/clients");
+        final File parent = new File(System.getProperty("user.home") + "/Maus/clients");
         if (!parent.mkdirs()) {
             Logger.log(Level.WARNING, "Unable to make necessary directories, may already exist.");
         }
@@ -92,7 +89,7 @@ public class ClientObject implements Serializable, Repository {
                 out.writeObject(this);
                 out.close();
                 fileOut.close();
-                Logger.log(Level.INFO, "Serialized data is saved in Maus.Maus/clients/**.client");
+                Logger.log(Level.INFO, "Serialized data is saved in Maus/clients/**.client");
             } catch (IOException i) {
                 i.printStackTrace();
             }

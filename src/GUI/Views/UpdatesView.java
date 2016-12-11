@@ -14,7 +14,7 @@ import java.net.URL;
 import java.util.Scanner;
 
 
-public class UpdatesView {
+class UpdatesView {
     BorderPane updatesView;
 
     BorderPane getUpdatesView() {
@@ -25,7 +25,7 @@ public class UpdatesView {
         hBox.setId("updatesView");
         hBox1.setId("updatesView");
         updatesView.setTop(new TopBar().getTopBar());
-        hBox1.setPadding(new Insets(0,0,0,10));
+        hBox1.setPadding(new Insets(0, 0, 0, 10));
         updatesView.setLeft(hBox1);
         updatesView.setRight(hBox);
         updatesView.setBottom(new StatisticsView().getStatisticsView());

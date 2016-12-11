@@ -34,30 +34,30 @@ public class ClientHandler implements Runnable, Repository {
         try (
                 BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
                 PrintWriter out = new PrintWriter(socket.getOutputStream())) {
-                clientOutput = out;
-                String ip = (((InetSocketAddress) Server.getClient().getRemoteSocketAddress()).getAddress()).toString().replace("/", "");
-                client = new ClientObject(socket, "Maus.Maus Machine " + (PseudoBase.getMausData().size() + 1), ip);
-                Controller.updateStats();
-                Platform.runLater(() -> PseudoBase.getMausData().put(ip, client));
-                Platform.runLater(() -> {
-                            Stage stage = new Stage();
-                            stage.setWidth(300);
-                            stage.setHeight(100);
-                            Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
-                            NotificationView notificationView = new NotificationView();
-                            stage.setScene(new Scene(notificationView.getNotificationView(), 300, 100));
-                            stage.setResizable(false);
-                            stage.setAlwaysOnTop(true);
-                            stage.setX(primaryScreenBounds.getMinX() + primaryScreenBounds.getWidth() - 300);
-                            stage.setY(primaryScreenBounds.getMinY() + primaryScreenBounds.getHeight() - 100);
-                            stage.initStyle(StageStyle.UNDECORATED);
-                            notificationView.getNotificationText().setText("New Connection: " + client.getIP());
-                            stage.show();
-                            PauseTransition delay = new PauseTransition(Duration.seconds(5));
-                            delay.setOnFinished( event -> stage.close() );
-                            delay.play();
-                        });
-                requestHandler(in);
+            clientOutput = out;
+            String ip = (((InetSocketAddress) Server.getClient().getRemoteSocketAddress()).getAddress()).toString().replace("/", "");
+            client = new ClientObject(socket, "Maus Machine " + (PseudoBase.getMausData().size() + 1), ip);
+            Controller.updateStats();
+            Platform.runLater(() -> PseudoBase.getMausData().put(ip, client));
+            Platform.runLater(() -> {
+                Stage stage = new Stage();
+                stage.setWidth(300);
+                stage.setHeight(100);
+                Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+                NotificationView notificationView = new NotificationView();
+                stage.setScene(new Scene(notificationView.getNotificationView(), 300, 100));
+                stage.setResizable(false);
+                stage.setAlwaysOnTop(true);
+                stage.setX(primaryScreenBounds.getMinX() + primaryScreenBounds.getWidth() - 300);
+                stage.setY(primaryScreenBounds.getMinY() + primaryScreenBounds.getHeight() - 100);
+                stage.initStyle(StageStyle.UNDECORATED);
+                notificationView.getNotificationText().setText("New Connection: " + client.getIP());
+                stage.show();
+                PauseTransition delay = new PauseTransition(Duration.seconds(5));
+                delay.setOnFinished(event -> stage.close());
+                delay.play();
+            });
+            requestHandler(in);
         } catch (IOException | ClassNotFoundException e) {
             client.setOnlineStatus("Offline");
         }
@@ -70,11 +70,11 @@ public class ClientHandler implements Runnable, Repository {
             inp = clientInput.readLine();
             assert inp != null;
             client.clientCommunicate("e");
-                if (inp.equals("1")) {
-                    client.clientCommunicate("1");
-                } else if (inp.equals("forciblyclose")) {
-                    client.clientCommunicate("forciblyclose");
-                }
-        } while (!inp.contains("forciblyclose")) ;
+            if (inp.equals("1")) {
+                client.clientCommunicate("1");
+            } else if (inp.equals("forciblyclose")) {
+                client.clientCommunicate("forciblyclose");
+            }
+        } while (!inp.contains("forciblyclose"));
     }
 }

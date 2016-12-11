@@ -11,8 +11,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-import java.util.zip.InflaterInputStream;
-
 
 public class TopBar {
 
@@ -24,16 +22,16 @@ public class TopBar {
         vBox.setAlignment(Pos.CENTER);
         Label label = (Label) Styler.styleAdd(new Label("Dashboard"), "label-medium");
         vBox.getChildren().addAll(new ImageView(new Image("Resources/Images/Icons/home.png")), label);
-        vBox.setPadding(new Insets(5,10,0,5));
+        vBox.setPadding(new Insets(5, 10, 0, 5));
         vBox.setId("homeButton");
 
 
         VBox vBox1 = new VBox();
         vBox1.setAlignment(Pos.CENTER);
         vBox1.getChildren().add(new ImageView(new Image("Resources/Images/logo.png")));
-        vBox1.setPadding(new Insets(5,10,5,5));
+        vBox1.setPadding(new Insets(5, 10, 5, 5));
 
-        HBox hBox = Styler.hContainer(new HBox(), vBox , vBox1);
+        HBox hBox = Styler.hContainer(new HBox(), vBox, vBox1);
         vBox.setOnMouseClicked(event -> Controller.changePrimaryStage(new MainView().getMainView()));
         imageView.setFitWidth(100);
         imageView.setFitHeight(50);

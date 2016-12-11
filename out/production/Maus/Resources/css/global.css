@@ -10,16 +10,18 @@
 }
 
 .table-row-cell:selected {
-    -fx-background-color: #2a8863;
+    -fx-background-color: black;
     -fx-background-insets: 0, 1, 2;
 }
 
 .table-row-cell:selected .text {
-    -fx-text-fill: #171c28;
+    -fx-text-fill: #4EFFBB;
 }
+
 .table-row-cell:selected .menu-item .label {
-    -fx-text-fil: #171c28;
+    -fx-text-fil: #4EFFBB;
 }
+
 .label-medium {
     -fx-font-size: 12px;
     -fx-font-family: "Segoe UI Semibold";
@@ -107,9 +109,11 @@
 .text-area:focused .content {
     -fx-background-color: black;
 }
+
 .text-area:focused {
     -fx-highlight-fill: #302C58;
 }
+
 .text-area {
     -fx-background-color: black;
     -fx-border-width: 4px;
@@ -146,6 +150,7 @@
     -fx-background-color: #383367;
 
 }
+
 #homeButton:hover {
     -fx-background-color: #332f5e;
     -fx-cursor: hand;
@@ -156,5 +161,9 @@
 }
 
 #updatesView {
+    -fx-background-color: #3c376f;
+}
+
+#clientBuilder {
     -fx-background-color: #3c376f;
 }

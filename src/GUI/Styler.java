@@ -28,7 +28,8 @@ public class Styler {
         }
         return vBox;
     }
-    public static VBox vContainer( int spacing, Node... region) {
+
+    public static VBox vContainer(int spacing, Node... region) {
         VBox vBox = new VBox(spacing);
         VBox.setVgrow(vBox, Priority.ALWAYS);
         vBox.setMaxWidth(Double.MAX_VALUE);

@@ -1,14 +1,12 @@
 package GUI.Components;
 
-import Server.ClientObject;
 import GUI.Controller;
-import GUI.Styler;
 import GUI.Views.SendCommandView;
 import Logger.Level;
 import Logger.Logger;
+import Server.ClientObject;
 import Server.Data.PseudoBase;
 import Server.Data.Repository;
-import Server.ServerSettings;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.ContextMenu;
@@ -45,23 +43,13 @@ class IPContextMenu implements Repository {
                         String comm;
                         BufferedReader in = new BufferedReader(new InputStreamReader(clientObject.getClient().getInputStream()));
                         clientObject.clientCommunicate("CMD " + sendCommandView.getTextField().getText());
-                        sendCommandView.getConsole().appendText("ran");
-
                     } catch (IOException e1) {
                         e1.printStackTrace();
                     }
                 });
             });
         });
-        Menu sb3 = new Menu("Beacon...");
-        String bStatus = ServerSettings.isBeaconStatus() ? "On" : "Off";
-        MenuItem beaconStatus = new MenuItem("Status: " + bStatus);
-        beaconStatus = Styler.styleAdd(beaconStatus, "beacon");
-        beaconStatus.setDisable(true);
-        MenuItem ssm1 = new MenuItem("Start Beacon");
-        MenuItem ssm2 = new MenuItem("Stop Beacon");
-        sb3.getItems().addAll(beaconStatus, ssm1, ssm2);
-        mi1.getItems().addAll(sb1, sb2, sb3);
+        mi1.getItems().addAll(sb1, sb2);
         MenuItem mi2 = new MenuItem("Copy IP");
         mi2.setOnAction(evnt -> {
             final Clipboard clipboard = Clipboard.getSystemClipboard();

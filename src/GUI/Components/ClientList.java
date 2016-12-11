@@ -1,8 +1,8 @@
 package GUI.Components;
 
-import Server.ClientObject;
 import GUI.Controller;
 import GUI.Styler;
+import Server.ClientObject;
 import Server.Data.PseudoBase;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -69,8 +69,8 @@ public class ClientList {
             });
             return cell;
         });
-        ObservableList<ClientObject> list =  FXCollections.observableArrayList();
-        for(ClientObject value : PseudoBase.getMausData().values()){
+        ObservableList<ClientObject> list = FXCollections.observableArrayList();
+        for (ClientObject value : PseudoBase.getMausData().values()) {
             list.add(value);
         }
         tableView.setItems(list);

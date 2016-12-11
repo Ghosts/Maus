@@ -1,9 +1,9 @@
 package Server.Data;
 
 
-import Server.ClientObject;
 import Logger.Level;
 import Logger.Logger;
+import Server.ClientObject;
 import Server.ServerSettings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
@@ -13,19 +13,16 @@ import java.io.*;
 public class PseudoBase implements Repository {
     private static ObservableMap<String, ClientObject> mausData = FXCollections.observableHashMap();
 
-    public PseudoBase() {
-    }
-
     public synchronized static ObservableMap<String, ClientObject> getMausData() {
         return mausData;
     }
 
     public void createMausData() throws IOException {
-        final File parent = new File(System.getProperty("user.home") + "/Maus.Maus/clients");
+        final File parent = new File(System.getProperty("user.home") + "/Maus/clients");
         if (!parent.mkdirs()) {
             Logger.log(Level.WARNING, "Unable to make necessary directories, may already exist.");
         }
-        File settings = new File(System.getProperty("user.home") + "/Maus.Maus/.serverSettings");
+        File settings = new File(System.getProperty("user.home") + "/Maus/.serverSettings");
         if (!settings.exists()) {
             boolean create = settings.createNewFile();
         }
@@ -47,7 +44,6 @@ public class PseudoBase implements Repository {
         File data = new File(System.getProperty("user.home") + "/Maus.Maus/.serverSettings");
         try (BufferedWriter writer =
                      new BufferedWriter(new FileWriter(data))) {
-            /* Save Server Settings For On Load */
             writer.write(ServerSettings.isShowNotifications() + " ");
             writer.write(ServerSettings.isBackgroundPersistent() + " ");
             writer.write(ServerSettings.getRefreshRate() + " ");
@@ -60,7 +56,7 @@ public class PseudoBase implements Repository {
     }
 
     private void loadServerSettings() {
-        try (BufferedReader reader = new BufferedReader(new FileReader(System.getProperty("user.home") + "/Maus.Maus/.serverSettings"))
+        try (BufferedReader reader = new BufferedReader(new FileReader(System.getProperty("user.home") + "/Maus/.serverSettings"))
         ) {
             String line;
             StringBuilder stringBuilder = new StringBuilder();

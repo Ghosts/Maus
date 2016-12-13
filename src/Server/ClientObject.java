@@ -15,6 +15,7 @@ public class ClientObject implements Serializable, Repository {
     private String nickName;
     private String IP;
     private transient PrintWriter clientOutput;
+
     ClientObject(Socket client, String nickName, String IP) {
         this.client = client;
         this.nickName = nickName;

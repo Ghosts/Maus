@@ -3,18 +3,18 @@ package GUI.Views;
 
 import GUI.Components.TopBar;
 import GUI.Styler;
+import Logger.Level;
+import Logger.Logger;
 import Maus.ClientBuilder;
 import Server.ServerSettings;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import Logger.*;
+
 import java.io.IOException;
 
 class ClientBuilderView {
@@ -33,11 +33,11 @@ class ClientBuilderView {
         HBox hBox = Styler.hContainer(20);
         hBox.getStylesheets().add(Styler.globalCSS);
         hBox.setId("clientBuilder");
-        hBox.setPadding(new Insets(20,20,20,20));
-        Label title = (Label) Styler.styleAdd(new Label("Client Builder"),"title");
+        hBox.setPadding(new Insets(20, 20, 20, 20));
+        Label title = (Label) Styler.styleAdd(new Label("Client Builder"), "title");
         CheckBox checkBox = new CheckBox("Persistent");
         CheckBox checkBox1 = new CheckBox("Auto-Spread");
-        hBox.getChildren().add(Styler.vContainer(20, title,checkBox,checkBox1));
+        hBox.getChildren().add(Styler.vContainer(20, title, checkBox, checkBox1));
         return hBox;
     }
 
@@ -45,21 +45,21 @@ class ClientBuilderView {
         HBox hBox = Styler.hContainer(20);
         hBox.getStylesheets().add(Styler.globalCSS);
         hBox.setId("clientBuilder");
-        hBox.setPadding(new Insets(20,20,20,20));
-        Label title = (Label) Styler.styleAdd(new Label(" "),"title");
+        hBox.setPadding(new Insets(20, 20, 20, 20));
+        Label title = (Label) Styler.styleAdd(new Label(" "), "title");
 
         Label serverIPLabel = (Label) Styler.styleAdd(new Label("Server IP: "), "label-bright");
         TextField serverIP = new TextField("");
-        HBox serverIPBox = Styler.hContainer(serverIPLabel,serverIP);
+        HBox serverIPBox = Styler.hContainer(serverIPLabel, serverIP);
         serverIP.setEditable(true);
 
         Label portLabel = (Label) Styler.styleAdd(new Label("Port: "), "label-bright");
         TextField port = new TextField("");
-        HBox portBox = Styler.hContainer(portLabel,port);
+        HBox portBox = Styler.hContainer(portLabel, port);
         port.setEditable(true);
         port.textProperty().addListener(((observable, oldValue, newValue) -> {
-            if(!newValue.matches("\\d*")){
-                port.setText(newValue.replaceAll("[^\\d]",""));
+            if (!newValue.matches("\\d*")) {
+                port.setText(newValue.replaceAll("[^\\d]", ""));
             }
         }));
 
@@ -72,13 +72,13 @@ class ClientBuilderView {
         buildClient.setPrefWidth(150);
         buildClient.setPrefHeight(50);
         buildClient.setOnAction(event -> {
-            if ( (!serverIP.getText().equals("")) && !serverIP.getText().equals(ServerSettings.getConnectionIp())) {
+            if ((!serverIP.getText().equals("")) && !serverIP.getText().equals(ServerSettings.getConnectionIp())) {
                 ServerSettings.setConnectionIp(serverIP.getText());
             }
-            if ( (!port.getText().equals("")) && Integer.parseInt(port.getText()) != ServerSettings.getPORT()) {
+            if ((!port.getText().equals("")) && Integer.parseInt(port.getText()) != ServerSettings.getPORT()) {
                 ServerSettings.setPORT(Integer.parseInt(port.getText()));
             }
-            if( (!clientName.getText().equals(""))){
+            if ((!clientName.getText().equals(""))) {
                 ClientBuilder clientBuilder = new ClientBuilder(clientName.getText());
                 try {
                     clientBuilder.run();
@@ -87,7 +87,7 @@ class ClientBuilderView {
                 }
             }
         });
-        hBox.getChildren().add(Styler.vContainer(20,title, serverIPBox, portBox, clientNameBox, buildClient));
+        hBox.getChildren().add(Styler.vContainer(20, title, serverIPBox, portBox, clientNameBox, buildClient));
         return hBox;
     }
 }

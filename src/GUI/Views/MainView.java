@@ -18,11 +18,11 @@ public class MainView {
 
     private FlowPane getIconFlow() {
         FlowPane flow = new FlowPane();
-        flow.setPadding(new Insets(5, 0, 5, 0));
+        flow.setPadding(new Insets(10, 50, 10, 50));
         flow.getStylesheets().add(Styler.globalCSS);
         flow.setId("iconFlow");
-        flow.setVgap(50);
-        flow.setHgap(25);
+        flow.setVgap(10);
+        flow.setHgap(50);
 
         HBox icons[] = new HBox[8];
         String resourcePath = "Resources/Images/Icons/";

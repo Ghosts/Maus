@@ -124,6 +124,7 @@
     -fx-background-color: black;
     -fx-text-fill: #4EFFBB;
 }
+
 .check-box *.box {
     -fx-background-color: #171c28;
     -fx-text-fill: #4EFFBB;
@@ -136,13 +137,13 @@
     -fx-text-fill: #4EFFBB;
     -fx-opacity: 1;
 }
+
 .check-box:selected .mark {
     -fx-background-color: #4EFFBB;
     -fx-background-insets: 1 0 -1 0, 0;
     -fx-padding: 0.333333em; /* 4 -- this is half the size of the mark */
     -fx-shape: "M0,4H2L3,6L6,0H8L4,8H2Z";
 }
-
 
 #settingsView {
     -fx-background-color: #171c28;

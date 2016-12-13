@@ -1,7 +1,6 @@
 package GUI;
 
 import javafx.scene.Node;
-import javafx.scene.control.MenuItem;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;

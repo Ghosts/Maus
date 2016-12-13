@@ -69,7 +69,7 @@ public class ClientHandler implements Runnable, Repository {
         do {
             inp = clientInput.readLine();
             assert inp != null;
-          if (inp.equals("forciblyclose")) {
+            if (inp.equals("forciblyclose")) {
                 client.clientCommunicate("forciblyclose");
             }
         } while (!inp.contains("forciblyclose"));

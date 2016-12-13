@@ -2,14 +2,6 @@ package Server;
 
 
 public class ServerSettings {
-    public static String getConnectionIp() {
-        return CONNECTION_IP;
-    }
-
-    public static void setConnectionIp(String connectionIp) {
-        CONNECTION_IP = connectionIp;
-    }
-
     private static String CONNECTION_IP = "141.219.247.5";
     private static boolean SHOW_NOTIFICATIONS = true;
     private static boolean BACKGROUND_PERSISTENT = false;
@@ -18,6 +10,14 @@ public class ServerSettings {
     private static boolean P2P_CONNECTIONS = true;
     private static boolean BEACON_STATUS = false;
     private static int PORT = 22122;
+
+    public static String getConnectionIp() {
+        return CONNECTION_IP;
+    }
+
+    public static void setConnectionIp(String connectionIp) {
+        CONNECTION_IP = connectionIp;
+    }
 
     public static boolean isBeaconStatus() {
         return BEACON_STATUS;

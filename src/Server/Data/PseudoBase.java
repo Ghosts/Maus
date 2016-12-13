@@ -17,25 +17,6 @@ public class PseudoBase implements Repository {
         return mausData;
     }
 
-    /* Creates necessary files for Maus to run. Including the directories for client + server setting data. */
-    public void createMausData() throws IOException {
-        final File parent = new File(System.getProperty("user.home") + "/Maus/clients");
-        if (!parent.mkdirs()) {
-            Logger.log(Level.WARNING, "Unable to make necessary directories, may already exist.");
-        }
-        File settings = new File(System.getProperty("user.home") + "/Maus/.serverSettings");
-        if (!settings.exists()) {
-            boolean create = settings.createNewFile();
-        }
-        File data = new File(parent, ".mp");
-        try (BufferedWriter writer =
-                     new BufferedWriter(new FileWriter(data))) {
-            writer.write("");
-        } catch (IOException i) {
-            Logger.log(Level.ERROR, i.toString());
-        }
-    }
-
     /* Serializes client objects  & writes server settings */
     public static void writeMausData() throws IOException {
         for (ClientObject o : mausData.values()) {
@@ -58,9 +39,28 @@ public class PseudoBase implements Repository {
         }
 
         File mauscs = new File(System.getProperty("user.home") + "/Maus/.mauscs");
-        try(BufferedWriter writer = new BufferedWriter(new FileWriter(mauscs))){
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(mauscs))) {
             writer.write(ServerSettings.getConnectionIp() + "\n" + " ");
-            writer.write(""+ServerSettings.getPORT());
+            writer.write("" + ServerSettings.getPORT());
+        } catch (IOException i) {
+            Logger.log(Level.ERROR, i.toString());
+        }
+    }
+
+    /* Creates necessary files for Maus to run. Including the directories for client + server setting data. */
+    public void createMausData() throws IOException {
+        final File parent = new File(System.getProperty("user.home") + "/Maus/clients");
+        if (!parent.mkdirs()) {
+            Logger.log(Level.WARNING, "Unable to make necessary directories, may already exist.");
+        }
+        File settings = new File(System.getProperty("user.home") + "/Maus/.serverSettings");
+        if (!settings.exists()) {
+            boolean create = settings.createNewFile();
+        }
+        File data = new File(parent, ".mp");
+        try (BufferedWriter writer =
+                     new BufferedWriter(new FileWriter(data))) {
+            writer.write("");
         } catch (IOException i) {
             Logger.log(Level.ERROR, i.toString());
         }

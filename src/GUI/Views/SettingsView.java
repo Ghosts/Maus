@@ -3,77 +3,74 @@ package GUI.Views;
 
 import GUI.Components.TopBar;
 import GUI.Styler;
+import Logger.Level;
+import Logger.Logger;
+import Maus.ClientBuilder;
 import Server.ServerSettings;
-import javafx.geometry.Pos;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
+
+import java.io.IOException;
 
 class SettingsView {
 
     BorderPane getSettingsView() {
         BorderPane borderPane = new BorderPane();
         borderPane.getStylesheets().add(Styler.globalCSS);
-        HBox hBox = getSettingsPanel();
-        VBox vBox = Styler.vContainer(hBox);
-        vBox.setId("settingsView");
         borderPane.setTop(new TopBar().getTopBar());
-        borderPane.setCenter(vBox);
+        borderPane.setLeft(clientBuilderSettingsLeft());
+        borderPane.setCenter(clientBuilderSettingsCenter());
         borderPane.setBottom(new StatisticsView().getStatisticsView());
         return borderPane;
     }
 
-    private HBox getSettingsPanel() {
-        VBox settingsPanel = new VBox(5);
-        settingsPanel.setAlignment(Pos.CENTER);
-        VBox.setVgrow(settingsPanel, Priority.ALWAYS);
-        Label titleText = new Label("Settings");
-        titleText = (Label) Styler.styleAdd(titleText, "title");
-        titleText.setMaxWidth(Double.MAX_VALUE);
-        titleText.setAlignment(Pos.CENTER);
+    private HBox clientBuilderSettingsLeft() {
+        HBox hBox = Styler.hContainer(20);
+        hBox.getStylesheets().add(Styler.globalCSS);
+        hBox.setId("clientBuilder");
+        hBox.setPadding(new Insets(20, 20, 20, 20));
+        Label title = (Label) Styler.styleAdd(new Label("Settings"), "title");
+        hBox.getChildren().add(Styler.vContainer(20, title));
+        return hBox;
+    }
 
-        HBox title = Styler.hContainer(titleText);
-        title.setAlignment(Pos.CENTER);
+    private HBox clientBuilderSettingsCenter() {
+        HBox hBox = Styler.hContainer(20);
+        hBox.getStylesheets().add(Styler.globalCSS);
+        hBox.setId("settingsView");
+        hBox.setPadding(new Insets(20, 20, 20, 20));
+        Label title = (Label) Styler.styleAdd(new Label(" "), "title");
 
-        Label maxConnections = new Label("Max Connections: ");
-        maxConnections = (Label) Styler.styleAdd(maxConnections, "label-bright");
-        String maxConnectionsNumber = ServerSettings.getMaxConnections() == Integer.MAX_VALUE ? "Max" : "" + ServerSettings.getMaxConnections();
-        TextField maxConnectionsField = new TextField(maxConnectionsNumber);
-        maxConnectionsField.setEditable(true);
-        maxConnectionsField.textProperty().addListener((observable, oldValue, newValue) -> {
+        Label serverIPLabel = (Label) Styler.styleAdd(new Label("Refresh Rate: "), "label-bright");
+        TextField serverIP = new TextField("");
+        HBox serverIPBox = Styler.hContainer(serverIPLabel, serverIP);
+        serverIP.setEditable(true);
+        serverIP.textProperty().addListener(((observable, oldValue, newValue) -> {
             if (!newValue.matches("\\d*")) {
-                maxConnectionsField.setText(newValue.replaceAll("[^\\d]", ""));
-            }
-        });
-
-        Label refreshRate = new Label("Refresh Rate: ");
-        refreshRate = (Label) Styler.styleAdd(refreshRate, "label-bright");
-        TextField refreshRateField = new TextField("" + ServerSettings.getRefreshRate());
-        refreshRateField.textProperty().addListener(((observable, oldValue, newValue) -> {
-            if (!newValue.matches("\\d*")) {
-                refreshRateField.setText(newValue.replaceAll("[^\\d]", ""));
+                serverIP.setText(newValue.replaceAll("[^\\d]", ""));
             }
         }));
 
-        Button saveSettings = new Button("Apply");
-        saveSettings.setOnAction(event -> {
-            if (Integer.parseInt(maxConnectionsField.getText()) != ServerSettings.getMaxConnections()) {
-                ServerSettings.setMaxConnections(Integer.parseInt(maxConnectionsField.getText()));
+        Label clientNameLabel = (Label) Styler.styleAdd(new Label("Max Connections: "), "label-bright");
+        TextField clientName = new TextField("");
+        HBox clientNameBox = Styler.hContainer(clientNameLabel, clientName);
+        clientName.setEditable(true);
+        clientName.textProperty().addListener(((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                serverIP.setText(newValue.replaceAll("[^\\d]", ""));
             }
-            if (!maxConnectionsField.getText().contains("Max") && Integer.parseInt(refreshRateField.getText()) != ServerSettings.getRefreshRate()) {
-                ServerSettings.setRefreshRate(Integer.parseInt(refreshRateField.getText()));
-            }
-        });
+        }));
 
-        settingsPanel.getChildren().addAll(title, maxConnections, maxConnectionsField,
-                refreshRate, refreshRateField, saveSettings);
+        Button applySettings  = new Button("Apply Settings");
+        applySettings.setPrefWidth(150);
+        applySettings.setPrefHeight(50);
 
-        return Styler.hContainer(settingsPanel);
+        hBox.getChildren().add(Styler.vContainer(20, title, serverIPBox, clientNameBox, applySettings));
+        return hBox;
     }
-
-
 }

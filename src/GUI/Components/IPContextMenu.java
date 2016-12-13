@@ -36,7 +36,7 @@ class IPContextMenu implements Repository {
             stage.setScene(new Scene(sendCommandView.getSendCommandView(), 300, 200));
             stage.show();
             sendCommandView.getsendCommandButton().setOnAction(a -> {
-                if(clientObject != null) {
+                if (clientObject != null) {
                     clientObject.clientCommunicate("CMD " + sendCommandView.getTextField().getText());
                     Platform.runLater(() -> {
                         try {

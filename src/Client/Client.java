@@ -73,7 +73,7 @@ public class Client {
                     new BufferedReader(new InputStreamReader(proc.getInputStream()));
 
             String line = "";
-            while((line = reader.readLine()) != null) {
+            while ((line = reader.readLine()) != null) {
                 System.out.print(line + "\n");
                 communicate(line);
             }

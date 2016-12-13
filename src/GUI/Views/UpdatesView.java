@@ -2,12 +2,20 @@ package GUI.Views;
 
 import GUI.Components.TopBar;
 import GUI.Styler;
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
 import javafx.geometry.Insets;
+import javafx.geometry.Rectangle2D;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.stage.Screen;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
@@ -39,6 +47,24 @@ class UpdatesView {
                 "easy to use UI."), "label-bright");
         Button checkUpdates = new Button("Check for Updates");
         checkUpdates.setOnMouseClicked(event -> {
+            Platform.runLater(() -> {
+                Stage stage = new Stage();
+                stage.setWidth(300);
+                stage.setHeight(100);
+                Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+                NotificationView notificationView = new NotificationView();
+                stage.setScene(new Scene(notificationView.getNotificationView(), 300, 100));
+                stage.setResizable(false);
+                stage.setAlwaysOnTop(true);
+                stage.setX(primaryScreenBounds.getMinX() + primaryScreenBounds.getWidth() - 300);
+                stage.setY(primaryScreenBounds.getMinY() + primaryScreenBounds.getHeight() - 100);
+                stage.initStyle(StageStyle.UNDECORATED);
+                notificationView.getNotificationText().setText("Update Check Complete!");
+                stage.show();
+                PauseTransition delay = new PauseTransition(Duration.seconds(3));
+                delay.setOnFinished(e -> stage.close());
+                delay.play();
+            });
             HBox hBox = getUpdatesPanel();
             hBox.setId("updatesView");
             updatesView.setRight(hBox);

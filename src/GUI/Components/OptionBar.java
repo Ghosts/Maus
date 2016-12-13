@@ -26,10 +26,7 @@ class OptionBar {
             Logger.log(Level.INFO, "Exit event detected. ");
         });
         menuOptions.getItems().add(exitMenuItem);
-        Menu menuBuild = new Menu("Build");
-        Menu menuControl = new Menu("Control");
-        Menu menuView = new Menu("View");
-        menuBar.getMenus().addAll(menuOptions, menuBuild, menuControl, menuView);
+        menuBar.getMenus().addAll(menuOptions);
         return menuBar;
     }
 }

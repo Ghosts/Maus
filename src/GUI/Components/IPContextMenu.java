@@ -36,17 +36,21 @@ class IPContextMenu implements Repository {
             stage.setScene(new Scene(sendCommandView.getSendCommandView(), 300, 200));
             stage.show();
             sendCommandView.getsendCommandButton().setOnAction(a -> {
-                clientObject.clientCommunicate("CMD " + sendCommandView.getTextField().getText());
-
-                Platform.runLater(() -> {
-                    try {
-                        String comm;
-                        BufferedReader in = new BufferedReader(new InputStreamReader(clientObject.getClient().getInputStream()));
-                        clientObject.clientCommunicate("CMD " + sendCommandView.getTextField().getText());
-                    } catch (IOException e1) {
-                        e1.printStackTrace();
-                    }
-                });
+                if(clientObject != null) {
+                    clientObject.clientCommunicate("CMD " + sendCommandView.getTextField().getText());
+                    Platform.runLater(() -> {
+                        try {
+                            String comm;
+                            BufferedReader in = new BufferedReader(new InputStreamReader(clientObject.getClient().getInputStream()));
+                            clientObject.clientCommunicate("CMD " + sendCommandView.getTextField().getText());
+//                        while((comm = in.readLine()) != null && !comm.contains("end") ){
+//                            sendCommandView.getConsole().appendText(comm);
+//                        }
+                        } catch (IOException e1) {
+                            e1.printStackTrace();
+                        }
+                    });
+                }
             });
         });
         mi1.getItems().addAll(sb1, sb2);

@@ -2,6 +2,15 @@ package Server;
 
 
 public class ServerSettings {
+    public static String getConnectionIp() {
+        return CONNECTION_IP;
+    }
+
+    public static void setConnectionIp(String connectionIp) {
+        CONNECTION_IP = connectionIp;
+    }
+
+    private static String CONNECTION_IP = "141.219.247.5";
     private static boolean SHOW_NOTIFICATIONS = true;
     private static boolean BACKGROUND_PERSISTENT = false;
     private static int REFRESH_RATE = 12000;

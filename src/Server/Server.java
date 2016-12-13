@@ -11,13 +11,12 @@ public class Server implements Runnable {
         return client;
     }
 
-    public void startServer() {
+    private void startServer() {
         startServer(ServerSettings.getPORT());
     }
 
-    public void startServer(int port) {
-        boolean running = true;
-        while (running) {
+    private void startServer(int port) {
+        while (true) {
             try {
                 ServerSocket server = new ServerSocket(port);
                 client = server.accept();

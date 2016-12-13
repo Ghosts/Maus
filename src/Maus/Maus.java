@@ -28,8 +28,11 @@ public class Maus extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException, ClassNotFoundException {
         Maus.primaryStage = primaryStage;
+        /* Ensure that the necessary files exist */
         new PseudoBase().createMausData();
+        /* Load data from files - including client data, server settings, etc. */
         new PseudoBase().loadData(System.getProperty("user.home") + "/Maus/clients/");
+        /* Set up primary view */
         getPrimaryStage().setTitle("Maus 0.1a");
         getPrimaryStage().setMinWidth(600);
         getPrimaryStage().setMinHeight(500);
@@ -38,13 +41,17 @@ public class Maus extends Application {
         Scene mainScene = new Scene(new MainView().getMainView(), 900, 500);
         mainScene.getStylesheets().add(Styler.globalCSS);
         getPrimaryStage().setScene(mainScene);
-        Logger.log(Level.INFO, "Maus is running.");
         getPrimaryStage().getIcons().add(new Image("Resources/Images/Icons/icon.png"));
         getPrimaryStage().setOnCloseRequest(event -> System.exit(0));
+        /* Maus is running! */
+        Logger.log(Level.INFO, "Maus is running.");
         getPrimaryStage().show();
 
+        /* Start the server to listen for client connections. */
         Runnable startServer = server;
         new Thread(startServer).start();
+
+        /*Before Maus is closed - write Maus data to file (server settings, clients, etc.) */
         Runtime.getRuntime().addShutdownHook(
                 new Thread("mausData") {
                     @Override

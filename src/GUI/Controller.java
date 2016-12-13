@@ -14,7 +14,8 @@ import javafx.scene.layout.Pane;
 
 public class Controller {
 
-    public static synchronized void updateTable() {
+    /* Reloads the table to ensure Offline/Online status is accurate. */
+    public static void updateTable() {
         ObservableList<ClientObject> list = FXCollections.observableArrayList();
         for (ClientObject value : PseudoBase.getMausData().values()) {
             list.add(value);
@@ -24,10 +25,12 @@ public class Controller {
         tableView.refresh();
     }
 
-    public static synchronized void updateStats() {
+    /* Refreshes the number of connections based on MausData size. */
+    public static void updateStats() {
         Platform.runLater(() -> StatisticsView.getConnectionsLabel().setText("Connections: " + PseudoBase.getMausData().size()));
     }
 
+    /* Changes the primary view to the provided scene. */
     public static void changePrimaryStage(Pane newScene) {
         Maus.getPrimaryStage().setScene(new Scene(newScene, 900, 500));
 

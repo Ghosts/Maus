@@ -63,16 +63,13 @@ public class ClientHandler implements Runnable, Repository {
         }
     }
 
+    /* Handles all requests from the client connection. */
     private void requestHandler(BufferedReader clientInput) throws IOException, ClassNotFoundException {
         String inp;
         do {
-
             inp = clientInput.readLine();
             assert inp != null;
-            client.clientCommunicate("e");
-            if (inp.equals("1")) {
-                client.clientCommunicate("1");
-            } else if (inp.equals("forciblyclose")) {
+          if (inp.equals("forciblyclose")) {
                 client.clientCommunicate("forciblyclose");
             }
         } while (!inp.contains("forciblyclose"));

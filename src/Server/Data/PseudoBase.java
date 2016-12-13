@@ -17,6 +17,7 @@ public class PseudoBase implements Repository {
         return mausData;
     }
 
+    /* Creates necessary files for Maus to run. Including the directories for client + server setting data. */
     public void createMausData() throws IOException {
         final File parent = new File(System.getProperty("user.home") + "/Maus/clients");
         if (!parent.mkdirs()) {
@@ -35,15 +36,17 @@ public class PseudoBase implements Repository {
         }
     }
 
-    public void writeMausData() throws IOException {
+    /* Serializes client objects  & writes server settings */
+    public static void writeMausData() throws IOException {
         for (ClientObject o : mausData.values()) {
             if (o != null) {
                 o.serialize();
             }
         }
-        File data = new File(System.getProperty("user.home") + "/Maus.Maus/.serverSettings");
+        File data = new File(System.getProperty("user.home") + "/Maus/.serverSettings");
         try (BufferedWriter writer =
                      new BufferedWriter(new FileWriter(data))) {
+            writer.write(ServerSettings.getConnectionIp() + " ");
             writer.write(ServerSettings.isShowNotifications() + " ");
             writer.write(ServerSettings.isBackgroundPersistent() + " ");
             writer.write(ServerSettings.getRefreshRate() + " ");
@@ -53,8 +56,17 @@ public class PseudoBase implements Repository {
         } catch (IOException i) {
             Logger.log(Level.ERROR, i.toString());
         }
+
+        File mauscs = new File(System.getProperty("user.home") + "/Maus/.mauscs");
+        try(BufferedWriter writer = new BufferedWriter(new FileWriter(mauscs))){
+            writer.write(ServerSettings.getConnectionIp() + "\n" + " ");
+            writer.write(""+ServerSettings.getPORT());
+        } catch (IOException i) {
+            Logger.log(Level.ERROR, i.toString());
+        }
     }
 
+    /* Loads .ServerSettings file to Maus server settings*/
     private void loadServerSettings() {
         try (BufferedReader reader = new BufferedReader(new FileReader(System.getProperty("user.home") + "/Maus/.serverSettings"))
         ) {
@@ -65,18 +77,20 @@ public class PseudoBase implements Repository {
             }
             String[] settings = stringBuilder.toString().split(" ");
             if (settings.length == 7) {
-                ServerSettings.setShowNotifications(Boolean.getBoolean(settings[0].trim()));
-                ServerSettings.setBackgroundPersistent(Boolean.getBoolean(settings[1].trim()));
-                ServerSettings.setRefreshRate(Integer.parseInt(settings[2].trim()));
-                ServerSettings.setMaxConnections(Integer.parseInt(settings[3].trim()));
-                ServerSettings.setP2pConnections(Boolean.getBoolean(settings[4].trim()));
-                ServerSettings.setPORT(Integer.parseInt(settings[5].trim()));
+                ServerSettings.setConnectionIp(settings[0].trim());
+                ServerSettings.setShowNotifications(Boolean.getBoolean(settings[1].trim()));
+                ServerSettings.setBackgroundPersistent(Boolean.getBoolean(settings[2].trim()));
+                ServerSettings.setRefreshRate(Integer.parseInt(settings[3].trim()));
+                ServerSettings.setMaxConnections(Integer.parseInt(settings[4].trim()));
+                ServerSettings.setP2pConnections(Boolean.getBoolean(settings[5].trim()));
+                ServerSettings.setPORT(Integer.parseInt(settings[6].trim()));
             }
         } catch (IOException e) {
             Logger.log(Level.ERROR, e.toString());
         }
     }
 
+    /* Loads data for server settings and from .client objects (serialized) and adds them to MausData & CONNECTIONS */
     public ObservableMap<String, ClientObject> loadData(String directory) throws IOException, ClassNotFoundException {
         loadServerSettings();
         File folder = new File(directory);

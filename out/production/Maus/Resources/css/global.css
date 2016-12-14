@@ -183,7 +183,15 @@
     -fx-background-color: #332f5e;
     -fx-cursor: hand;
 }
+#file-icon {
+    -fx-background-radius: 15px;
+    -fx-background-color: #141924;
+}
 
+#file-icon:hover {
+    -fx-background-color: black;
+    -fx-cursor: hand;
+}
 #homeButton {
     -fx-background-color: #383367;
 
@@ -290,4 +298,12 @@
 .scroll-bar:vertical:focused,
 .scroll-bar:horizontal:focused {
     -fx-background-color: transparent, rgb(96, 96, 96), rgb(96, 96, 96);
+}
+
+#scroll-pane {
+    -fx-background-color: black;
+}
+
+#file-pane {
+    -fx-background-color: #171c28;
 }

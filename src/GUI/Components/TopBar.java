@@ -37,4 +37,13 @@ public class TopBar {
         imageView.setFitHeight(50);
         return Styler.vContainer(new VBox(), new OptionBar().getMenuBar(), hBox);
     }
+
+    public VBox getTopBarSansOptions() {
+        VBox vBox1 = new VBox();
+        vBox1.setAlignment(Pos.CENTER);
+        vBox1.getChildren().add(new ImageView(new Image("Resources/Images/logo.png")));
+        vBox1.setPadding(new Insets(5, 10, 5, 5));
+
+        return Styler.vContainer(new VBox(), vBox1);
+    }
 }

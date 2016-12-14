@@ -1,7 +1,9 @@
 package Server;
 
 import GUI.Controller;
+import GUI.Views.FileExplorerView;
 import GUI.Views.NotificationView;
+import GUI.Views.SendCommandView;
 import Logger.*;
 import Server.Data.PseudoBase;
 import Server.Data.Repository;
@@ -29,9 +31,7 @@ public class ClientHandler implements Runnable, Repository {
 
     @Override
     public void run() {
-        try (
-                BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-                PrintWriter out = new PrintWriter(socket.getOutputStream())) {
+        try (PrintWriter out = new PrintWriter(socket.getOutputStream())) {
             clientOutput = out;
             String ip = (((InetSocketAddress) Server.getClient().getRemoteSocketAddress()).getAddress()).toString().replace("/", "");
             if (!CONNECTIONS.containsKey(ip)) {
@@ -73,6 +73,22 @@ public class ClientHandler implements Runnable, Repository {
         while((read = is.read(buffer)) != -1) {
             String output = new String(buffer, 0, read);
             System.out.print(output);
+            if(output.contains("FILELIST")){
+                BufferedInputStream bis = new BufferedInputStream(client.getClient().getInputStream());
+                DataInputStream dis = new DataInputStream(bis);
+                int filesCount = dis.readInt();
+                String[] fileNames = new String[filesCount];
+                for(int i = 0; i < filesCount; i++) {
+                    fileNames[i] = dis.readUTF();
+                }
+               dis.close();
+               Platform.runLater(() ->{
+                   Stage stage = new Stage();
+                   stage.setTitle("Maus File Explorer");
+                   stage.setScene(new Scene(FileExplorerView.getFileExplorerView(fileNames), 900, 500));
+                   stage.show();
+               });
+            }
             if(output.contains("FILES")){
                 BufferedInputStream bis = new BufferedInputStream(client.getClient().getInputStream());
                 DataInputStream dis = new DataInputStream(bis);
@@ -95,8 +111,15 @@ public class ClientHandler implements Runnable, Repository {
 
                 dis.close();
             }
+            /* Uninstall and close remote server - remove from Maus */
             if(output.contains("forciblbyclose")){
                 client.clientCommunicate("forciblyclose");
+                PseudoBase.getMausData().remove(client.getIP());
+                CONNECTIONS.remove(client.getIP());
+                Controller.updateStats();
+                Controller.updateTable();
+                client.getClient().close();
+                client = null;
                 break;
             }
         }

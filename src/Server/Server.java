@@ -23,8 +23,7 @@ public class Server implements Runnable {
                 client = server.accept();
                 Runnable clientHandler = new ClientHandler(client);
                 new Thread(clientHandler).start();
-            } catch (IOException e) {
-                Logger.log(Level.ERROR, e.toString());
+            } catch (IOException ignored) {
             }
         }
     }

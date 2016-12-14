@@ -36,6 +36,28 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="ClientObject.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Server/ClientObject.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="225">
+              <caret line="100" column="0" lean-forward="false" selection-start-line="100" selection-start-column="0" selection-end-line="100" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="IPContextMenu.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/GUI/Components/IPContextMenu.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="225">
+              <caret line="32" column="38" lean-forward="true" selection-start-line="32" selection-start-column="38" selection-end-line="32" selection-end-column="38" />
+              <folding>
+                <marker date="1481670724454" expanded="true" signature="3612:3736" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="Server.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Server/Server.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -46,21 +68,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ClientHandler.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ClientHandler.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Server/ClientHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="263">
-              <caret line="40" column="12" lean-forward="false" selection-start-line="40" selection-start-column="12" selection-end-line="40" selection-end-column="12" />
+            <state relative-caret-position="311">
+              <caret line="40" column="20" lean-forward="true" selection-start-line="40" selection-start-column="20" selection-end-line="40" selection-end-column="20" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="NotificationView.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/GUI/Views/NotificationView.java">
+      <file leaf-file-name="Repository.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Server/Data/Repository.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="128">
-              <caret line="10" column="13" lean-forward="false" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+            <state relative-caret-position="160">
+              <caret line="7" column="34" lean-forward="false" selection-start-line="7" selection-start-column="34" selection-end-line="7" selection-end-column="34" />
               <folding />
             </state>
           </provider>
@@ -86,44 +108,24 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SettingsView.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/GUI/Views/SettingsView.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-921">
-              <caret line="21" column="26" lean-forward="false" selection-start-line="21" selection-start-column="26" selection-end-line="21" selection-end-column="26" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="Maus.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Maus/Maus.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-345">
+            <state relative-caret-position="-633">
               <caret line="36" column="44" lean-forward="false" selection-start-line="36" selection-start-column="44" selection-end-line="36" selection-end-column="44" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="OptionBar.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="OptionBar.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/GUI/Components/OptionBar.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1536">
-              <caret line="48" column="61" lean-forward="false" selection-start-line="48" selection-start-column="61" selection-end-line="48" selection-end-column="61" />
+            <state relative-caret-position="1568">
+              <caret line="49" column="43" lean-forward="false" selection-start-line="49" selection-start-column="43" selection-end-line="49" selection-end-column="43" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="StatisticsView.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/GUI/Views/StatisticsView.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="32">
-              <caret line="21" column="4" lean-forward="false" selection-start-line="21" selection-start-column="4" selection-end-line="21" selection-end-column="4" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -188,11 +190,11 @@
         <option value="$PROJECT_DIR$/src/GUI/Views/SettingsView.java" />
         <option value="$PROJECT_DIR$/src/Resources/CSS/global.css" />
         <option value="$PROJECT_DIR$/src/Server/Server.java" />
-        <option value="$PROJECT_DIR$/src/Server/ClientHandler.java" />
         <option value="$PROJECT_DIR$/src/Client/Client.java" />
         <option value="$PROJECT_DIR$/src/Maus/Maus.java" />
         <option value="$PROJECT_DIR$/src/GUI/Views/UpdatesView.java" />
         <option value="$PROJECT_DIR$/src/GUI/Components/OptionBar.java" />
+        <option value="$PROJECT_DIR$/src/Server/ClientHandler.java" />
       </list>
     </option>
   </component>
@@ -989,8 +991,8 @@
     </list>
     <recent_temporary>
       <list size="4">
-        <item index="0" class="java.lang.String" itemvalue="Application.Maus (1)" />
-        <item index="1" class="java.lang.String" itemvalue="Application.Client (1)" />
+        <item index="0" class="java.lang.String" itemvalue="Application.Client (1)" />
+        <item index="1" class="java.lang.String" itemvalue="Application.Maus (1)" />
         <item index="2" class="java.lang.String" itemvalue="Application.Maus" />
         <item index="3" class="java.lang.String" itemvalue="Application.Client" />
       </list>
@@ -1019,12 +1021,12 @@
       <workItem from="1481602199572" duration="4138000" />
       <workItem from="1481657266357" duration="48000" />
       <workItem from="1481657430091" duration="5007000" />
-      <workItem from="1481670632811" duration="9890000" />
+      <workItem from="1481670632811" duration="10656000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="75054000" />
+    <option name="totallyTimeSpent" value="75820000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1049,12 +1051,12 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33125648" sideWeight="0.5022051" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2689512" sideWeight="0.49779493" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2689512" sideWeight="0.49779493" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14994487" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14994487" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3281412" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1267,14 +1269,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Client/ClientObject.java" />
-    <entry file="file://$PROJECT_DIR$/src/Server/Data/Repository.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="7" column="34" lean-forward="false" selection-start-line="7" selection-start-column="34" selection-end-line="7" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/Desktop/New folder/Program5.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-954">
@@ -1310,24 +1304,6 @@
           <caret line="29" column="23" lean-forward="false" selection-start-line="29" selection-start-column="23" selection-end-line="29" selection-end-column="23" />
           <folding>
             <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Server/ClientObject.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2240">
-          <caret line="100" column="0" lean-forward="false" selection-start-line="100" selection-start-column="0" selection-end-line="100" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/GUI/Components/IPContextMenu.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="608">
-          <caret line="39" column="102" lean-forward="false" selection-start-line="39" selection-start-column="102" selection-end-line="39" selection-end-column="102" />
-          <folding>
-            <marker date="1481670724454" expanded="true" signature="3612:3736" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -1472,14 +1448,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Server/ClientHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="263">
-          <caret line="40" column="12" lean-forward="false" selection-start-line="40" selection-start-column="12" selection-end-line="40" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Client/Client.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-455">
@@ -1498,14 +1466,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Maus/Maus.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-345">
-          <caret line="36" column="44" lean-forward="false" selection-start-line="36" selection-start-column="44" selection-end-line="36" selection-end-column="44" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/GUI/Views/UpdatesView.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="96">
@@ -1516,11 +1476,53 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/GUI/Components/OptionBar.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1536">
-          <caret line="48" column="61" lean-forward="false" selection-start-line="48" selection-start-column="61" selection-end-line="48" selection-end-column="61" />
+        <state relative-caret-position="1568">
+          <caret line="49" column="43" lean-forward="false" selection-start-line="49" selection-start-column="43" selection-end-line="49" selection-end-column="43" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Server/Data/Repository.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="160">
+          <caret line="7" column="34" lean-forward="false" selection-start-line="7" selection-start-column="34" selection-end-line="7" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Maus/Maus.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-633">
+          <caret line="36" column="44" lean-forward="false" selection-start-line="36" selection-start-column="44" selection-end-line="36" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Server/ClientObject.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="100" column="0" lean-forward="false" selection-start-line="100" selection-start-column="0" selection-end-line="100" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/GUI/Components/IPContextMenu.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="32" column="38" lean-forward="true" selection-start-line="32" selection-start-column="38" selection-end-line="32" selection-end-column="38" />
+          <folding>
+            <marker date="1481670724454" expanded="true" signature="3612:3736" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Server/ClientHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="311">
+          <caret line="40" column="20" lean-forward="true" selection-start-line="40" selection-start-column="20" selection-end-line="40" selection-end-column="20" />
+          <folding />
         </state>
       </provider>
     </entry>

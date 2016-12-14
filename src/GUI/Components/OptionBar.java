@@ -46,7 +46,8 @@ class OptionBar {
                     "Spreche sie Deutsche?",
                     "Telegram @Luxington",
                     "Carrier pigeons are faster",
-                    "Duct Tape is more stable than this shit"
+                    "Duct Tape is more stable than this shit",
+                    "Cat got your tongue?",
             };
             Random rn = new Random();
             int rnn = rn.nextInt(MausEsterEgg.length);

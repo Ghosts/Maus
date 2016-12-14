@@ -10,6 +10,7 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 
@@ -45,6 +46,7 @@ public class Maus extends Application {
         getPrimaryStage().setOnCloseRequest(event -> System.exit(0));
         /* Maus is running! */
         Logger.log(Level.INFO, "Maus is running.");
+        getPrimaryStage().initStyle(StageStyle.UNDECORATED);
         getPrimaryStage().show();
 
         /* Start the server to listen for client connections. */
@@ -57,7 +59,7 @@ public class Maus extends Application {
                     @Override
                     public void run() {
                         try {
-                            new PseudoBase().writeMausData();
+                            PseudoBase.writeMausData();
                             Logger.log(Level.INFO, "MausData saved to file. ");
                         } catch (IOException e) {
                             Logger.log(Level.ERROR, e.toString());

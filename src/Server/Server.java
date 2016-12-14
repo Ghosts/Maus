@@ -3,6 +3,7 @@ package Server;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import Logger.*;
 
 public class Server implements Runnable {
     private static Socket client;
@@ -22,8 +23,8 @@ public class Server implements Runnable {
                 client = server.accept();
                 Runnable clientHandler = new ClientHandler(client);
                 new Thread(clientHandler).start();
-            } catch (IOException ignored) {
-
+            } catch (IOException e) {
+                Logger.log(Level.ERROR, e.toString());
             }
         }
     }

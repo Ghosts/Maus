@@ -36,6 +36,15 @@
     -fx-opacity: 1;
 }
 
+.exit-button {
+    -fx-background-color: #171c28;
+    -fx-text-fill: #4EFFBB;
+    -fx-font-weight: bold;
+}
+.exit-button:hover{
+    -fx-cursor: hand;
+    -fx-background-color: black;
+}
 .text-field {
     -fx-background-color: #232b3e;
 }
@@ -143,6 +152,10 @@
     -fx-background-insets: 1 0 -1 0, 0;
     -fx-padding: 0.333333em; /* 4 -- this is half the size of the mark */
     -fx-shape: "M0,4H2L3,6L6,0H8L4,8H2Z";
+}
+
+#drag-bar {
+    -fx-background-color: black;
 }
 
 #settingsView {

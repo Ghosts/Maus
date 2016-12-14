@@ -2,6 +2,7 @@ package Server;
 
 import GUI.Controller;
 import GUI.Views.NotificationView;
+import Logger.*;
 import Server.Data.PseudoBase;
 import Server.Data.Repository;
 import javafx.animation.PauseTransition;
@@ -13,10 +14,7 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 
@@ -61,21 +59,46 @@ public class ClientHandler implements Runnable, Repository {
                 delay.setOnFinished(event -> stage.close());
                 delay.play();
             });
-            requestHandler(in);
-        } catch (IOException | ClassNotFoundException e) {
+            requestHandler();
+        } catch (IOException e) {
             client.setOnlineStatus("Offline");
         }
     }
 
     /* Handles all requests from the client connection. */
-    private void requestHandler(BufferedReader clientInput) throws IOException, ClassNotFoundException {
-        String inp;
-        do {
-            inp = clientInput.readLine();
-            assert inp != null;
-            if (inp.equals("forciblyclose")) {
-                client.clientCommunicate("forciblyclose");
+    private void requestHandler() throws IOException {
+        InputStream is = client.getClient().getInputStream();
+        byte[] buffer = new byte[1024];
+        int read;
+        while((read = is.read(buffer)) != -1) {
+            String output = new String(buffer, 0, read);
+            System.out.print(output);
+            if(output.contains("FILES")){
+                BufferedInputStream bis = new BufferedInputStream(client.getClient().getInputStream());
+                DataInputStream dis = new DataInputStream(bis);
+                int filesCount = dis.readInt();
+                File[] files = new File[filesCount];
+                for(int i = 0; i < filesCount; i++)
+                {
+                    long fileLength = dis.readLong();
+                    String fileName = dis.readUTF();
+
+                    files[i] = new File("C:/Users/caden/Desktop/DIDITWORK" + "/" + fileName);
+
+                    FileOutputStream fos = new FileOutputStream(files[i]);
+                    BufferedOutputStream bos = new BufferedOutputStream(fos);
+
+                    for(int j = 0; j < fileLength; j++) bos.write(bis.read());
+
+                    bos.close();
+                }
+
+                dis.close();
             }
-        } while (!inp.contains("forciblyclose"));
+            if(output.contains("forciblbyclose")){
+                client.clientCommunicate("forciblyclose");
+                break;
+            }
+        }
     }
 }

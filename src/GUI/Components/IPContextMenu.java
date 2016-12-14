@@ -27,6 +27,11 @@ class IPContextMenu implements Repository {
         ContextMenu cm = new ContextMenu();
         Menu mi1 = new Menu("Perform Action...");
         MenuItem sb1 = new MenuItem("File Explorer");
+        sb1.setOnAction(event -> {
+            ClientObject clientObject = ((ClientObject) n.getTableView().getSelectionModel().getSelectedItem());
+            clientObject.clientCommunicate("FILES");
+
+        });
         MenuItem sb2 = new MenuItem("Send Command");
         sb2.setOnAction(event -> {
             ClientObject clientObject = ((ClientObject) n.getTableView().getSelectionModel().getSelectedItem());

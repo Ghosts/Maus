@@ -100,7 +100,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="OptionBar.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="OptionBar.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/GUI/Components/OptionBar.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="487">
@@ -112,11 +112,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="global.css" pinned="false" current-in-tab="false">
+      <file leaf-file-name="global.css" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Resources/CSS/global.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="455">
-              <caret line="157" column="31" lean-forward="false" selection-start-line="157" selection-start-column="31" selection-end-line="157" selection-end-column="31" />
+            <state relative-caret-position="160">
+              <caret line="38" column="14" lean-forward="true" selection-start-line="38" selection-start-column="14" selection-end-line="38" selection-end-column="14" />
               <folding />
             </state>
           </provider>
@@ -193,8 +193,8 @@
         <option value="$PROJECT_DIR$/src/GUI/Views/SettingsView.java" />
         <option value="$PROJECT_DIR$/src/Server/Server.java" />
         <option value="$PROJECT_DIR$/src/Maus/Maus.java" />
-        <option value="$PROJECT_DIR$/src/Resources/CSS/global.css" />
         <option value="$PROJECT_DIR$/src/GUI/Components/OptionBar.java" />
+        <option value="$PROJECT_DIR$/src/Resources/CSS/global.css" />
       </list>
     </option>
   </component>
@@ -1021,12 +1021,12 @@
       <workItem from="1481602199572" duration="4138000" />
       <workItem from="1481657266357" duration="48000" />
       <workItem from="1481657430091" duration="5007000" />
-      <workItem from="1481670632811" duration="3118000" />
+      <workItem from="1481670632811" duration="3340000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="68282000" />
+    <option name="totallyTimeSpent" value="68504000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1509,14 +1509,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Resources/CSS/global.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="455">
-          <caret line="157" column="31" lean-forward="false" selection-start-line="157" selection-start-column="31" selection-end-line="157" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/GUI/Components/OptionBar.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="487">
@@ -1524,6 +1516,14 @@
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Resources/CSS/global.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="160">
+          <caret line="38" column="14" lean-forward="true" selection-start-line="38" selection-start-column="14" selection-end-line="38" selection-end-column="14" />
+          <folding />
         </state>
       </provider>
     </entry>

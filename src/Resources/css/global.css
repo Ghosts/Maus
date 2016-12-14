@@ -37,11 +37,13 @@
 }
 
 .exit-button {
-    -fx-background-color: #171c28;
-    -fx-text-fill: #4EFFBB;
+    -fx-background-color: #4EFFBB;
+    -fx-text-fill: #171c28;
     -fx-font-weight: bold;
+    -fx-background-radius: 5px;
 }
 .exit-button:hover{
+    -fx-text-fill: #4EFFBB;
     -fx-cursor: hand;
     -fx-background-color: black;
 }
@@ -155,7 +157,7 @@
 }
 
 #drag-bar {
-    -fx-background-color: black;
+    -fx-background-color: #232b3e;
 }
 
 #settingsView {

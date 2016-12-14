@@ -1,3 +1,37 @@
+::Maus 0.5a::
+_______________
+
+==Current Working Features:
+
+Execute remote commands on client
+Uninstall client server ( Partial )
+Copy IP Address of client
+Notifications on new connections
+Client Builder ( Partial )
+
+
+==Known bugs:
+
+Cannot view CMD response after command execution
+Context menu visual bug with multiple instances
+Context menu color bug (text)
+Uninstall server does not fully work
+FileNotFound during the loading of .mauscs and other /out/production located files
+
+==Upcoming Features:
+
+Fully integrated command line control
+Persistent client connection
+File explorer
+Beacon
+Client clipboard control
+UI Improvements
+Client Executable Builder
+Save client nicknames on close (Partially Integrated)
+Allow background notifications + icon in taskbar
+
+== PRIOR VERSIONS: ==
+
 ::Maus 0.1a::
 _______________
 

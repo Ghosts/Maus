@@ -23,19 +23,18 @@ import java.util.Scanner;
 
 
 class UpdatesView {
-    BorderPane updatesView;
+    BorderPane updatesView = new BorderPane();
 
     BorderPane getUpdatesView() {
-        updatesView = new BorderPane();
         updatesView.getStylesheets().add(Styler.globalCSS);
-        HBox hBox = getUpdatesPanel();
-        HBox hBox1 = getAboutPanel();
+        HBox hBox1 = getUpdatesPanel();
+        HBox hBox = getAboutPanel();
         hBox.setId("updatesView");
         hBox1.setId("updatesView");
+        hBox.setPadding(new Insets(0, 0, 0, 10));
         updatesView.setTop(new TopBar().getTopBar());
-        hBox1.setPadding(new Insets(0, 0, 0, 10));
-        updatesView.setLeft(hBox1);
-        updatesView.setRight(hBox);
+        updatesView.setLeft(hBox);
+        updatesView.setCenter(hBox1);
         updatesView.setBottom(new StatisticsView().getStatisticsView());
         return updatesView;
     }
@@ -67,7 +66,7 @@ class UpdatesView {
             });
             HBox hBox = getUpdatesPanel();
             hBox.setId("updatesView");
-            updatesView.setRight(hBox);
+            updatesView.setCenter(hBox);
         });
         return Styler.hContainer(Styler.vContainer(10, title, desc, checkUpdates));
     }

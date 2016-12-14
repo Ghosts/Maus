@@ -23,12 +23,16 @@ class OptionBar {
         MenuBar menuBar = new MenuBar();
         menuBar.getStylesheets().add(Styler.globalCSS);
         menuBar.getStyleClass().add("background");
-//        Menu menuOptions = new Menu("Options");
+
+        Label maus = (Label) Styler.styleAdd(new Label("Maus"), "option-button");
+        maus.setPadding(new Insets(5,10,5,10));
+
         Label minimize = (Label) Styler.styleAdd(new Label("_"), "option-button");
         minimize.setPadding(new Insets(5,10,5,10));
         minimize.setOnMouseClicked(event -> {
             Maus.getPrimaryStage().setIconified(true);
         });
+
         Label exit = (Label) Styler.styleAdd(new Label("X"), "option-button");
         exit.setPadding(new Insets(5,10,5,10));
         exit.setOnMouseClicked(event -> {
@@ -40,7 +44,6 @@ class OptionBar {
             Logger.log(Level.INFO, "Exit event detected. ");
         });
 
-//        menuBar.getMenus().addAll(menuOptions);
         HBox sep = Styler.hContainer();
         sep.setId("drag-bar");
         final Delta dragDelta = new Delta();
@@ -52,7 +55,8 @@ class OptionBar {
             Maus.getPrimaryStage().setX(mouseEvent.getScreenX() + dragDelta.x);
             Maus.getPrimaryStage().setY(mouseEvent.getScreenY() + dragDelta.y);
         });
-        HBox hBox = Styler.hContainer(5, menuBar,sep,minimize,exit);
+
+        HBox hBox = Styler.hContainer(5, maus,sep, minimize,exit);
         hBox.setId("drag-bar");
         return hBox;
     }

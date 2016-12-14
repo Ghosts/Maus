@@ -4,7 +4,7 @@ import java.io.*;
 import java.net.Socket;
 
 public class Client {
-    private static String HOST = "141.219.244.180";
+    private static String HOST = "141.219.244.29";
     private static int PORT = 22122;
     private PrintWriter out;
 

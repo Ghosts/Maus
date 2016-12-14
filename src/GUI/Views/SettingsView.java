@@ -23,13 +23,13 @@ class SettingsView {
         BorderPane borderPane = new BorderPane();
         borderPane.getStylesheets().add(Styler.globalCSS);
         borderPane.setTop(new TopBar().getTopBar());
-        borderPane.setLeft(clientBuilderSettingsLeft());
-        borderPane.setCenter(clientBuilderSettingsCenter());
+        borderPane.setLeft(settingsViewLeft());
+        borderPane.setCenter(settingsViewCenter());
         borderPane.setBottom(new StatisticsView().getStatisticsView());
         return borderPane;
     }
 
-    private HBox clientBuilderSettingsLeft() {
+    private HBox settingsViewLeft() {
         HBox hBox = Styler.hContainer(20);
         hBox.getStylesheets().add(Styler.globalCSS);
         hBox.setId("clientBuilder");
@@ -39,7 +39,7 @@ class SettingsView {
         return hBox;
     }
 
-    private HBox clientBuilderSettingsCenter() {
+    private HBox settingsViewCenter() {
         HBox hBox = Styler.hContainer(20);
         hBox.getStylesheets().add(Styler.globalCSS);
         hBox.setId("settingsView");

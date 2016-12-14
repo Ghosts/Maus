@@ -3,7 +3,7 @@
     <output-path>$PROJECT_DIR$/out/artifacts/Maus</output-path>
     <properties id="javafx-properties">
       <options>
-        <option name="appClass" value="Maus" />
+        <option name="appClass" value="Maus.Maus" />
         <option name="description" value="" />
         <option name="htmlPlaceholderId" value="" />
         <option name="title" value="" />
@@ -14,9 +14,6 @@
     <root id="root">
       <element id="archive" name="Maus.jar">
         <element id="module-output" name="Maus" />
-        <element id="directory" name="META-INF">
-          <element id="file-copy" path="$PROJECT_DIR$/META-INF/MANIFEST.MF" />
-        </element>
       </element>
     </root>
   </artifact>

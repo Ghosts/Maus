@@ -17,27 +17,28 @@ import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
 class IPContextMenu implements Repository {
-    ContextMenu getIPContextMenu(TableCell n, MouseEvent e) {
+    public static ContextMenu getIPContextMenu(TableCell n, MouseEvent e) {
+        ClientObject clientObject = ((ClientObject) n.getTableView().getSelectionModel().getSelectedItem());
         ContextMenu cm = new ContextMenu();
         Menu mi1 = new Menu("Perform Action...");
         MenuItem sb1 = new MenuItem("File Explorer");
         sb1.setOnAction(event -> {
-            ClientObject clientObject = ((ClientObject) n.getTableView().getSelectionModel().getSelectedItem());
             clientObject.clientCommunicate("FILELIST");
         });
         MenuItem sb2 = new MenuItem("Send Command");
         sb2.setOnAction(event -> {
-            ClientObject clientObject = ((ClientObject) n.getTableView().getSelectionModel().getSelectedItem());
             Stage stage = new Stage();
             SendCommandView sendCommandView = new SendCommandView();
             stage.setTitle("Send a command...");
-            stage.setScene(new Scene(sendCommandView.getSendCommandView(), 300, 200));
+            stage.initStyle(StageStyle.UNDECORATED);
+            stage.setScene(new Scene(sendCommandView.getSendCommandView(stage), 400, 400));
             stage.show();
             sendCommandView.getsendCommandButton().setOnAction(a -> {
                 if (clientObject != null) {
@@ -67,7 +68,6 @@ class IPContextMenu implements Repository {
         });
         MenuItem mi3 = new MenuItem("Uninstall Server");
         mi3.setOnAction(evnt -> {
-            ClientObject clientObject = ((ClientObject) n.getTableView().getSelectionModel().getSelectedItem());
             try {
                 if (clientObject.getClient() != null) {
                     ((ClientObject) n.getTableRow().getItem()).clientCommunicate("forciblyclose");

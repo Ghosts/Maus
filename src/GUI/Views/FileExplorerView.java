@@ -1,10 +1,9 @@
 package GUI.Views;
 
+import GUI.Components.FileContextMenu;
 import GUI.Components.TopBar;
 import GUI.Styler;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.geometry.Bounds;
+import Maus.Maus;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -12,19 +11,20 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
 
 
 public class FileExplorerView {
 
-    public static BorderPane getFileExplorerView(String[] files){
+    public static BorderPane getFileExplorerView(String[] files, Stage stage){
         BorderPane borderPane = new BorderPane();
         borderPane.getStylesheets().add(Styler.globalCSS);
-        borderPane.setTop(new TopBar().getTopBarSansOptions());
+        borderPane.setTop(new TopBar().getTopBar(stage));
         borderPane.setCenter(getFileExplorerViewCenter(files));
         borderPane.setBottom(new StatisticsView().getStatisticsView());
         return borderPane;
@@ -57,6 +57,11 @@ public class FileExplorerView {
             Tooltip.install(hBox, t);
             vBox.getChildren().addAll(new ImageView(new Image(resourcePath + getExtensionImage(s))), label);
             hBox.getChildren().add(vBox);
+            hBox.setOnMouseClicked(event -> {
+                if (event.getButton().equals(MouseButton.SECONDARY)) {
+                    FileContextMenu.getFileContextMenu(hBox, s, event);
+                }
+            });
             icons[rot] = hBox;
             flow.getChildren().add(icons[rot]);
             rot++;

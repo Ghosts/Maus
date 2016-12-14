@@ -16,7 +16,7 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
-
+import Maus.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Scanner;
@@ -32,7 +32,7 @@ class UpdatesView {
         hBox.setId("updatesView");
         hBox1.setId("updatesView");
         hBox.setPadding(new Insets(0, 0, 0, 10));
-        updatesView.setTop(new TopBar().getTopBar());
+        updatesView.setTop(new TopBar().getTopBar(Maus.getPrimaryStage()));
         updatesView.setLeft(hBox);
         updatesView.setCenter(hBox1);
         updatesView.setBottom(new StatisticsView().getStatisticsView());

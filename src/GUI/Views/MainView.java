@@ -13,7 +13,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-
+import Maus.*;
 public class MainView {
 
     private FlowPane getIconFlow() {
@@ -105,7 +105,7 @@ public class MainView {
         BorderPane borderPane = new BorderPane();
         borderPane.getStylesheets().add(Styler.globalCSS);
         borderPane.getStyleClass().add("root");
-        borderPane.setTop(new TopBar().getTopBar());
+        borderPane.setTop(new TopBar().getTopBar(Maus.getPrimaryStage()));
         borderPane.setCenter(getIconFlow());
         borderPane.setBottom(new StatisticsView().getStatisticsView());
         return borderPane;

@@ -14,7 +14,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-
+import Maus.*;
 import java.io.IOException;
 
 class ClientBuilderView {
@@ -22,7 +22,7 @@ class ClientBuilderView {
     BorderPane getClientBuilderView() {
         BorderPane borderPane = new BorderPane();
         borderPane.getStylesheets().add(Styler.globalCSS);
-        borderPane.setTop(new TopBar().getTopBar());
+        borderPane.setTop(new TopBar().getTopBar(Maus.getPrimaryStage()));
         borderPane.setLeft(clientBuilderSettingsLeft());
         borderPane.setCenter(clientBuilderSettingsCenter());
         borderPane.setBottom(new StatisticsView().getStatisticsView());

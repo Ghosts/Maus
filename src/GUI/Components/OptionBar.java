@@ -10,12 +10,13 @@ import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuBar;
 import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
 
 import java.util.Random;
 
 class OptionBar {
 
-    HBox getMenuBar() {
+    HBox getMenuBar(Stage stage) {
         MenuBar menuBar = new MenuBar();
         menuBar.getStylesheets().add(Styler.globalCSS);
         menuBar.getStyleClass().add("background");
@@ -43,11 +44,12 @@ class OptionBar {
                     "Deditated Wam",
                     "Meow",
                     "Luminosity Maus 1.5",
-                    "Spreche sie Deutsche?",
+                    "Spreche du Deutsche?",
                     "Telegram @Luxington",
                     "Carrier pigeons are faster",
                     "Duct Tape is more stable than this shit",
                     "Cat got your tongue?",
+                    "Stay Tuned!",
             };
             Random rn = new Random();
             int rnn = rn.nextInt(MausEsterEgg.length);
@@ -57,30 +59,34 @@ class OptionBar {
         Label minimize = (Label) Styler.styleAdd(new Label("_"), "option-button");
         minimize.setPadding(new Insets(5, 10, 5, 10));
         minimize.setOnMouseClicked(event -> {
-            Maus.getPrimaryStage().setIconified(true);
+            stage.setIconified(true);
         });
 
         Label exit = (Label) Styler.styleAdd(new Label("X"), "option-button");
         exit.setPadding(new Insets(5, 10, 5, 10));
         exit.setOnMouseClicked(event -> {
-            if (ServerSettings.isBackgroundPersistent()) {
-                Platform.exit();
+            if(stage.equals(Maus.getPrimaryStage())){
+                Logger.log(Level.INFO, "Exit event detected. ");
+                if (ServerSettings.isBackgroundPersistent()) {
+                    Platform.exit();
+                } else {
+                    System.exit(0);
+                }
             } else {
-                System.exit(0);
+                stage.close();
             }
-            Logger.log(Level.INFO, "Exit event detected. ");
         });
 
         HBox sep = Styler.hContainer();
         sep.setId("drag-bar");
         final Delta dragDelta = new Delta();
         sep.setOnMousePressed(mouseEvent -> {
-            dragDelta.x = Maus.getPrimaryStage().getX() - mouseEvent.getScreenX();
-            dragDelta.y = Maus.getPrimaryStage().getY() - mouseEvent.getScreenY();
+            dragDelta.x = stage.getX() - mouseEvent.getScreenX();
+            dragDelta.y = stage.getY() - mouseEvent.getScreenY();
         });
         sep.setOnMouseDragged(mouseEvent -> {
-            Maus.getPrimaryStage().setX(mouseEvent.getScreenX() + dragDelta.x);
-            Maus.getPrimaryStage().setY(mouseEvent.getScreenY() + dragDelta.y);
+            stage.setX(mouseEvent.getScreenX() + dragDelta.x);
+            stage.setY(mouseEvent.getScreenY() + dragDelta.y);
         });
 
         HBox hBox = Styler.hContainer(5, maus, sep, minimize, exit);

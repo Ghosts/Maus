@@ -64,7 +64,7 @@ public class ClientList {
             cell.textProperty().bind(cell.itemProperty()); // in general might need to subclass TableCell and override updateItem(...) here
             cell.setOnMouseClicked(event -> {
                 if (event.getButton().equals(MouseButton.SECONDARY)) {
-                    new IPContextMenu().getIPContextMenu(cell, event);
+                    IPContextMenu.getIPContextMenu(cell, event);
                 }
             });
             return cell;

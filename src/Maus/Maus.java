@@ -34,7 +34,7 @@ public class Maus extends Application {
         /* Load data from files - including client data, server settings, etc. */
         new PseudoBase().loadData(System.getProperty("user.home") + "/Maus/clients/");
         /* Set up primary view */
-        getPrimaryStage().setTitle("Maus 0.1a");
+        getPrimaryStage().setTitle("Maus 0.5a");
         getPrimaryStage().setMinWidth(600);
         getPrimaryStage().setMinHeight(500);
         getPrimaryStage().setMaxWidth(900);

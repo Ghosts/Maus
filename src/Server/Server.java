@@ -3,7 +3,6 @@ package Server;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import Logger.*;
 
 public class Server implements Runnable {
     private static Socket client;

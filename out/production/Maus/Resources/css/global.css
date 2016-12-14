@@ -42,11 +42,13 @@
     -fx-font-weight: bold;
     -fx-background-radius: 5px;
 }
-.option-button:hover{
+
+.option-button:hover {
     -fx-text-fill: #4EFFBB;
     -fx-cursor: hand;
     -fx-background-color: black;
 }
+
 .text-field {
     -fx-background-color: #232b3e;
 }
@@ -204,76 +206,88 @@
     -fx-background-color: #3c376f;
 }
 
-
-.scroll-bar{
+.scroll-bar {
     -fx-background-color: black;
     -fx-background-radius: 2em;
 }
+
 .scroll-bar:horizontal .track,
 .scroll-bar:vertical .track {
     -fx-background-color: transparent;
-    -fx-border-color:transparent;
+    -fx-border-color: transparent;
     -fx-background-radius: 2em;
 }
+
 .scroll-bar:vertical .track-background,
 .scroll-bar:horizontal .track-background {
     -fx-background-color: transparent;
     -fx-background-insets: 0;
     -fx-background-radius: 2em;
 }
+
 .scroll-bar:horizontal .thumb {
     -fx-background-color: #4EFFBB;
     -fx-background-insets: 4 0 4 0;
     -fx-background-radius: 2em;
 }
+
 .scroll-bar:vertical .thumb {
     -fx-background-color: #4EFFBB;
     -fx-background-insets: 0 4 0 4;
     -fx-background-radius: 2em;
 }
+
 .scroll-bar:horizontal .thumb:hover,
 .scroll-bar:vertical .thumb:hover {
-    -fx-background-color: rgb(231,231,231);
+    -fx-background-color: rgb(231, 231, 231);
 }
+
 .scroll-bar:horizontal .thumb:pressed,
 .scroll-bar:vertical .thumb:pressed {
-    -fx-background-color: rgb(255,255,255);
+    -fx-background-color: rgb(255, 255, 255);
 }
+
 .scroll-bar:vertical .increment-button, .scroll-bar:vertical .decrement-button {
-    -fx-background-color:transparent;
+    -fx-background-color: transparent;
     -fx-background-radius: 2em;
     -fx-padding: 5;
 }
+
 .scroll-bar:horizontal .increment-button, .scroll-bar:horizontal .decrement-button {
-    -fx-background-color:transparent;
+    -fx-background-color: transparent;
     -fx-background-radius: 2em;
     -fx-padding: 5;
 }
+
 .scroll-bar:horizontal .increment-arrow {
     -fx-shape: "M 0 0 L 4 8 L 8 0 Z";
-    -fx-background-color: rgb(211,211,211);
+    -fx-background-color: rgb(211, 211, 211);
     -fx-padding: 0.25em;
     -fx-rotate: -90;
 }
+
 .scroll-bar:vertical .increment-arrow {
-    -fx-background-color: rgb(211,211,211);
+    -fx-background-color: rgb(211, 211, 211);
     -fx-shape: "M 0 0 L 4 8 L 8 0 Z";
     -fx-padding: 0.25em;
     -fx-rotate: 0;
 }
+
 .scroll-bar:horizontal .decrement-arrow {
-    -fx-background-color: rgb(211,211,211);
+    -fx-background-color: rgb(211, 211, 211);
     -fx-shape: "M 0 0 L 4 8 L 8 0 Z";
     -fx-padding: 0.25em;
     -fx-rotate: 90;
 }
+
 .scroll-bar:vertical .decrement-arrow {
-    -fx-background-color: rgb(211,211,211);
+    -fx-background-color: rgb(211, 211, 211);
     -fx-shape: "M 0 0 L 4 8 L 8 0 Z";
     -fx-padding: 0.25em;
     -fx-rotate: -180;
 }
+
 .scroll-bar:vertical:focused,
 .scroll-bar:horizontal:focused {
-    -fx-background-color: transparent,rgb(96,96,96),rgb(96,96,96);
+    -fx-background-color: transparent, rgb(96, 96, 96), rgb(96, 96, 96);
 }

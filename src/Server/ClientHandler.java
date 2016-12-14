@@ -36,7 +36,7 @@ public class ClientHandler implements Runnable, Repository {
                 PrintWriter out = new PrintWriter(socket.getOutputStream())) {
             clientOutput = out;
             String ip = (((InetSocketAddress) Server.getClient().getRemoteSocketAddress()).getAddress()).toString().replace("/", "");
-            if (CONNECTIONS.containsKey(ip)){
+            if (CONNECTIONS.containsKey(ip)) {
                 client = new ClientObject(socket, "Maus Machine " + (PseudoBase.getMausData().size() + 1), ip);
             }
             Controller.updateStats();

@@ -3,19 +3,12 @@ package GUI.Views;
 
 import GUI.Components.TopBar;
 import GUI.Styler;
-import Logger.Level;
-import Logger.Logger;
-import Maus.ClientBuilder;
-import Server.ServerSettings;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-
-import java.io.IOException;
 
 class SettingsView {
 
@@ -66,7 +59,7 @@ class SettingsView {
             }
         }));
 
-        Button applySettings  = new Button("Apply Settings");
+        Button applySettings = new Button("Apply Settings");
         applySettings.setPrefWidth(150);
         applySettings.setPrefHeight(50);
 

@@ -53,9 +53,7 @@ public class ClientBuilder {
             fileList.add(new File(System.getProperty("user.home").replace("\\","/") + "/Maus/.mauscs"));
 
             for (File file : fileList){
-                if(file == null){
-
-                } else {
+                if(file == null){} else {
                     if (file.isDirectory()) {
                         JarEntry jar = new JarEntry(file.getName()+"/");
                         jar.setTime(file.lastModified());

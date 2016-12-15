@@ -3,6 +3,8 @@ package Server.Data;
 import Maus.Maus;
 
 import java.io.*;
+import java.net.URISyntaxException;
+
 public class FileUtils {
 
     static public String ExportResource(String resourceName) throws Exception {
@@ -59,6 +61,15 @@ public class FileUtils {
     public static void deleteFiles(){
         File dir = new File(System.getProperty("user.home").replace("\\","/")+"/Maus/Client");
         File fil = new File(System.getProperty("user.home").replace("\\","/")+"/Maus/Client/Client.class");
+        try {
+            String d = new File(Maus.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath()).getParentFile().getPath().replace('\\', '/');
+            File dir2 = new File(d+"/Client/");
+            File fil2 = new File(d+"/Client/Client.class");
+            fil2.delete();
+            dir2.delete();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
         fil.delete();
         dir.delete();
     }

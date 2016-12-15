@@ -3,8 +3,8 @@ package GUI.Views;
 import GUI.Components.ClientList;
 import GUI.Components.TopBar;
 import GUI.Styler;
+import Maus.Maus;
 import javafx.scene.layout.BorderPane;
-import Maus.*;
 class ClientView {
     BorderPane getClientView() {
         BorderPane borderPane = new BorderPane();

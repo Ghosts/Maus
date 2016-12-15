@@ -2,6 +2,7 @@ package GUI.Views;
 
 import GUI.Components.TopBar;
 import GUI.Styler;
+import Maus.Maus;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
@@ -16,7 +17,7 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
-import Maus.*;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.Scanner;

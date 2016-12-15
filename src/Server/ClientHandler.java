@@ -3,8 +3,6 @@ package Server;
 import GUI.Controller;
 import GUI.Views.FileExplorerView;
 import GUI.Views.NotificationView;
-import GUI.Views.SendCommandView;
-import Logger.*;
 import Server.Data.PseudoBase;
 import Server.Data.Repository;
 import javafx.animation.PauseTransition;
@@ -76,6 +74,7 @@ public class ClientHandler implements Runnable, Repository {
             if(input.contains("FILELIST")){
                 BufferedInputStream bis = new BufferedInputStream(client.getClient().getInputStream());
                 DataInputStream dis = new DataInputStream(bis);
+                String pathName = dis.readUTF();
                 int filesCount = dis.readInt();
                 String[] fileNames = new String[filesCount];
                 for(int i = 0; i < filesCount; i++) {
@@ -86,7 +85,7 @@ public class ClientHandler implements Runnable, Repository {
                    Stage stage = new Stage();
                    stage.setTitle("Maus File Explorer");
                    stage.initStyle(StageStyle.UNDECORATED);
-                   stage.setScene(new Scene(FileExplorerView.getFileExplorerView(fileNames,stage), 900, 500));
+                   stage.setScene(new Scene(FileExplorerView.getFileExplorerView(pathName, fileNames,stage), 900, 500));
                    stage.show();
                });
             }

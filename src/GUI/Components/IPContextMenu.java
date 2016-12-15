@@ -30,7 +30,9 @@ class IPContextMenu implements Repository {
         Menu mi1 = new Menu("Perform Action...");
         MenuItem sb1 = new MenuItem("File Explorer");
         sb1.setOnAction(event -> {
-            clientObject.clientCommunicate("FILELIST");
+            if(clientObject.getClient().isConnected()) {
+                clientObject.clientCommunicate("FILELIST");
+            }
         });
         MenuItem sb2 = new MenuItem("Send Command");
         sb2.setOnAction(event -> {
@@ -41,7 +43,7 @@ class IPContextMenu implements Repository {
             stage.setScene(new Scene(sendCommandView.getSendCommandView(stage), 400, 400));
             stage.show();
             sendCommandView.getsendCommandButton().setOnAction(a -> {
-                if (clientObject != null) {
+                if (clientObject.getClient().isConnected()) {
                     clientObject.clientCommunicate("CMD " + sendCommandView.getTextField().getText());
                     Platform.runLater(() -> {
                         try {
@@ -69,8 +71,8 @@ class IPContextMenu implements Repository {
         MenuItem mi3 = new MenuItem("Uninstall Server");
         mi3.setOnAction(evnt -> {
             try {
-                if (clientObject.getClient() != null) {
-                    ((ClientObject) n.getTableRow().getItem()).clientCommunicate("forciblyclose");
+                if (clientObject.getClient().isConnected()) {
+                    clientObject.clientCommunicate("forciblyclose");
                     if (clientObject.getClient().isConnected()) {
                         clientObject.getClient().close();
                     }

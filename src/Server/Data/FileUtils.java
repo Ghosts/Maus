@@ -1,13 +1,16 @@
 package Server.Data;
 
+import Maus.Maus;
+
 import java.io.*;
-import Maus.*;
 public class FileUtils {
 
     static public String ExportResource(String resourceName) throws Exception {
         String jarFolder = new File(Maus.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath()).getParentFile().getPath().replace('\\', '/');
+        File r = new File(jarFolder+"/Client/");
+        r.mkdir();
         try (InputStream stream = Maus.class.getResourceAsStream(resourceName);
-             OutputStream resStreamOut = new FileOutputStream(jarFolder + "/Client.class")) {
+             OutputStream resStreamOut = new FileOutputStream(jarFolder + "/Client/Client.class")) {
             if (stream == null) {
                 throw new Exception("Cannot get resource \"" + resourceName + "\" from Jar file.");
             }
@@ -21,7 +24,7 @@ public class FileUtils {
             ex.printStackTrace();
         }
 
-        return jarFolder + "/Client.class";
+        return jarFolder + "/Client/Client.class";
     }
 
     public static void copyFile(String filea, String fileb){
@@ -51,5 +54,12 @@ public class FileUtils {
         }catch(IOException e){
             e.printStackTrace();
         }
+    }
+
+    public static void deleteFiles(){
+        File dir = new File(System.getProperty("user.home").replace("\\","/")+"/Maus/Client");
+        File fil = new File(System.getProperty("user.home").replace("\\","/")+"/Maus/Client/Client.class");
+        fil.delete();
+        dir.delete();
     }
 }

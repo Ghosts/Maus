@@ -4,6 +4,7 @@ package GUI.Views;
 import GUI.Components.TopBar;
 import GUI.Controller;
 import GUI.Styler;
+import Maus.Maus;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -13,7 +14,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import Maus.*;
 public class MainView {
 
     private FlowPane getIconFlow() {

@@ -3,13 +3,14 @@ package GUI.Views;
 
 import GUI.Components.TopBar;
 import GUI.Styler;
+import Maus.Maus;
+import Server.ServerSettings;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import Maus.*;
 class SettingsView {
 
     BorderPane getSettingsView() {
@@ -40,7 +41,7 @@ class SettingsView {
         Label title = (Label) Styler.styleAdd(new Label(" "), "title");
 
         Label serverIPLabel = (Label) Styler.styleAdd(new Label("Refresh Rate: "), "label-bright");
-        TextField serverIP = new TextField("");
+        TextField serverIP = new TextField(""+ServerSettings.getRefreshRate());
         HBox serverIPBox = Styler.hContainer(serverIPLabel, serverIP);
         serverIP.setEditable(true);
         serverIP.textProperty().addListener(((observable, oldValue, newValue) -> {
@@ -50,7 +51,7 @@ class SettingsView {
         }));
 
         Label clientNameLabel = (Label) Styler.styleAdd(new Label("Max Connections: "), "label-bright");
-        TextField clientName = new TextField("");
+        TextField clientName = new TextField(""+ ServerSettings.getMaxConnections());
         HBox clientNameBox = Styler.hContainer(clientNameLabel, clientName);
         clientName.setEditable(true);
         clientName.textProperty().addListener(((observable, oldValue, newValue) -> {

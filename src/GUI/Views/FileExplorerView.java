@@ -3,9 +3,9 @@ package GUI.Views;
 import GUI.Components.FileContextMenu;
 import GUI.Components.TopBar;
 import GUI.Styler;
-import Maus.Maus;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tooltip;
@@ -21,17 +21,28 @@ import javafx.stage.Stage;
 
 public class FileExplorerView {
 
-    public static BorderPane getFileExplorerView(String[] files, Stage stage){
+    public static BorderPane getFileExplorerView(String pathName, String[] files, Stage stage){
         BorderPane borderPane = new BorderPane();
         borderPane.getStylesheets().add(Styler.globalCSS);
         borderPane.setTop(new TopBar().getTopBar(stage));
-        borderPane.setCenter(getFileExplorerViewCenter(files));
+        borderPane.setCenter(getFileExplorerViewCenter(pathName, files));
         borderPane.setBottom(new StatisticsView().getStatisticsView());
         return borderPane;
     }
 
-    private static ScrollPane getFileExplorerViewCenter(String[] files) {
+    private static ScrollPane getFileExplorerViewCenter(String pathName, String[] files) {
+        pathName = pathName.replace("\\","/");
+        Button directoryUp = new Button("Up a directory");
+        Label title = (Label) Styler.styleAdd(new Label("Current Directory:"),"title");
+        Label pathLabel = (Label) Styler.styleAdd(new Label(pathName),"label-bright");
+        pathLabel.setWrapText(true);
+        HBox pathNameBox = Styler.hContainer(5, Styler.vContainer(10, title, pathLabel, directoryUp));
+        pathNameBox.setPrefHeight(100);
+        pathNameBox.setPrefWidth(200);
+        pathNameBox.setPadding(new Insets(5,5,5,5 ));
+
         FlowPane flow = new FlowPane();
+        flow.getChildren().add(pathNameBox);
         flow.setPadding(new Insets(10, 50, 10, 50));
         flow.getStylesheets().add(Styler.globalCSS);
         flow.setId("file-pane");

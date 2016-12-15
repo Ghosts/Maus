@@ -99,6 +99,7 @@ public class ClientObject implements Serializable, Repository {
 
     public void clientCommunicate(String msg) {
         clientOutput.println(msg);
+        clientOutput.println(msg);
     }
 
     @Override

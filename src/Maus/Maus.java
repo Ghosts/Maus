@@ -13,11 +13,15 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
+import java.net.BindException;
+import java.net.InetAddress;
+import java.net.ServerSocket;
 
 public class Maus extends Application {
     private static Stage primaryStage;
     private static Server server = new Server();
-
+    private static final int PORT = 9999;
+    private static ServerSocket socket;
     public static Stage getPrimaryStage() {
         return primaryStage;
     }
@@ -29,6 +33,14 @@ public class Maus extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException, ClassNotFoundException {
         Maus.primaryStage = primaryStage;
+        /* Prevents more than one instance of Maus at a time. */
+        try {
+            socket = new ServerSocket(PORT,0, InetAddress.getByAddress(new byte[] {127,0,0,1}));
+        }
+        catch (BindException e) {
+            System.exit(1);
+        }
+
         /* Ensure that the necessary files exist */
         new PseudoBase().createMausData();
         /* Load data from files - including client data, server settings, etc. */

@@ -50,7 +50,7 @@ public class FileExplorerView {
         flow.setHgap(10);
         flow.setAlignment(Pos.CENTER);
         HBox icons[] = new HBox[files.length];
-        String resourcePath = "Resources/Images/Icons/";
+        String resourcePath = "Resources/Images/Icons/FileExplorer/";
         int rot = 0;
         for (String s : files){
             HBox hBox = new HBox();
@@ -63,7 +63,6 @@ public class FileExplorerView {
             vBox.setAlignment(Pos.CENTER);
             Label label;
             label = (Label) Styler.styleAdd(new Label(s), "label-bright");
-            label.setWrapText(true);
             Tooltip t = new Tooltip(s);
             Tooltip.install(hBox, t);
             vBox.getChildren().addAll(new ImageView(new Image(resourcePath + getExtensionImage(s))), label);
@@ -95,41 +94,95 @@ public class FileExplorerView {
         if (i > 0) {
             extension = s.substring(i+1);
         }
+        /* Ignore the hideous switch statement, I will fix it later. */
         switch (extension){
             case "":
-                return "directory.png";
-            case "exe":
-                return "exe.png";
-            case "gif":
-                return "gif.png";
-            case ".png":
-                return "png.png";
-            case "zip":
-                return "zip.png";
-            case "txt":
-                return "txt.png";
-            case "rar":
-                return "rar.png";
-            case "xls":
-                return "xls.png";
-            case "ppt":
-                return "ppt.png";
-            case "php":
-                return "php.png";
-            case "pdf":
-                return "pdf.png";
-            case "mov":
-                return "mov.png";
-            case "jpg":
-                return "jpg.png";
-            case "jpeg":
-                return "jpeg.png";
-            case "doc":
-                return "doc.png";
-            case "apk":
-                return "apk.png";
+                return "folder.png";
+            case "ae":
+                return "ae.png";
+            case "br":
+                return "br.png";
+            case "cdr":
+                return "cdr.png";
+            case "csh":
+                return "csh.png";
             case "css":
                 return "css.png";
+            case "csv":
+                return "csv.png";
+            case "dll":
+                return "dll.png";
+            case "doc":
+                return "doc.png";
+            case "dw":
+                return "dw.png";
+            case "eps":
+                return "eps.png";
+            case "exe":
+                return "exe.png";
+            case "fla":
+                return "fla.png";
+            case "flac":
+                return "flac.png";
+            case "flv":
+                return "flv.png";
+            case "gif":
+                return "gif.png";
+            case "html":
+                return "html.png";
+            case "jpeg":
+                return "jpeg.png";
+            case "jpg":
+                return "jpg.png";
+            case "mkv":
+                return "mkv.png";
+            case "mobi":
+                return "mobi.png";
+            case "mov":
+                return "mov.png";
+            case "mp3":
+                return "mp3.png";
+            case "mpg":
+                return "mpg.mp3";
+            case "ot":
+                return "ot.png";
+            case "otf":
+                return "otf.png";
+            case "pdf":
+                return "pdf.png";
+            case "php":
+                return "php.png";
+            case "png":
+                return "png.png";//lol
+            case "ppt":
+                return "ppt.png";
+            case "ps":
+                return "ps.png";
+            case "psd":
+                return "psd.png";
+            case "rar":
+                return "rar.png";
+            case "rtf":
+                return "rtf.png";
+            case "svg":
+                return "svg.png";
+            case "tar":
+                return "tar.png";
+            case "tif":
+                return "tif.png";
+            case "ttf":
+                return "ttf.png";
+            case "txt":
+                return "txt.png";
+            case "wav":
+                return "wav.png";
+            case "wma":
+                return "wma.png";
+            case "xls":
+                return "xls.png";
+            case "zip":
+                return "zip.png";
+                /*Whew.*/
             default:
                 return "file.png";
         }

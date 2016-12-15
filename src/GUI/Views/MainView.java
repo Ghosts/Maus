@@ -39,7 +39,7 @@ public class MainView {
             switch (i) {
                 case 0:
                     label = (Label) Styler.styleAdd(new Label("Clients"), "label-bright");
-                    vBox.getChildren().addAll(new ImageView(new Image(resourcePath + "monitor.png")), label);
+                    vBox.getChildren().addAll(new ImageView(new Image(resourcePath + "clients.png")), label);
                     hBox.getChildren().add(vBox);
                     icons[0] = hBox;
                     icons[0].setOnMouseClicked(event -> {
@@ -57,7 +57,7 @@ public class MainView {
                     break;
                 case 2:
                     label = (Label) Styler.styleAdd(new Label("Mutate"), "label-bright");
-                    vBox.getChildren().addAll(new ImageView(new Image(resourcePath + "dna.png")), label);
+                    vBox.getChildren().addAll(new ImageView(new Image(resourcePath + "mutate.png")), label);
                     hBox.getChildren().addAll(vBox);
                     icons[2] = hBox;
                     break;
@@ -69,13 +69,13 @@ public class MainView {
                     break;
                 case 4:
                     label = (Label) Styler.styleAdd(new Label("Statistics"), "label-bright");
-                    vBox.getChildren().addAll(new ImageView(new Image(resourcePath + "laptop.png")), label);
+                    vBox.getChildren().addAll(new ImageView(new Image(resourcePath + "statistics.png")), label);
                     hBox.getChildren().addAll(vBox);
                     icons[4] = hBox;
                     break;
                 case 5:
                     label = (Label) Styler.styleAdd(new Label("Updates"), "label-bright");
-                    vBox.getChildren().addAll(new ImageView(new Image(resourcePath + "newspaper.png")), label);
+                    vBox.getChildren().addAll(new ImageView(new Image(resourcePath + "updates.png")), label);
                     hBox.getChildren().addAll(vBox);
                     icons[5] = hBox;
                     icons[5].setOnMouseClicked(event -> {
@@ -84,7 +84,7 @@ public class MainView {
                     break;
                 case 6:
                     label = (Label) Styler.styleAdd(new Label("Settings"), "label-bright");
-                    vBox.getChildren().addAll(new ImageView(new Image(resourcePath + "levels.png")), label);
+                    vBox.getChildren().addAll(new ImageView(new Image(resourcePath + "settings.png")), label);
                     hBox.getChildren().addAll(vBox);
                     icons[6] = hBox;
                     icons[6].setOnMouseClicked(event -> {

@@ -29,9 +29,10 @@ public class StatisticsView {
         vBox.getStylesheets().add(Styler.globalCSS);
         VBox.setVgrow(vBox, Priority.ALWAYS);
         connectionsLabel = new Label("Connections: " + PseudoBase.getMausData().size());
-        connectionsLabel = (Label) Styler.styleAdd(connectionsLabel, "label-bright");
+        connectionsLabel = (Label) Styler.styleAdd(connectionsLabel, "label-light");
         vBox.getChildren().add(connectionsLabel);
         hBox.getChildren().add(vBox);
+        hBox.setId("stat-bar");
         return hBox;
     }
 }

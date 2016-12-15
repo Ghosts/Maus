@@ -62,16 +62,16 @@ class IPContextMenu implements Repository {
         });
         mi1.getItems().addAll(sb1, sb2);
         MenuItem mi2 = new MenuItem("Copy IP");
-        mi2.setOnAction(evnt -> {
+        mi2.setOnAction(event -> {
             final Clipboard clipboard = Clipboard.getSystemClipboard();
             final ClipboardContent content = new ClipboardContent();
             content.putString(n.getText());
             clipboard.setContent(content);
         });
         MenuItem mi3 = new MenuItem("Uninstall Server");
-        mi3.setOnAction(evnt -> {
+        mi3.setOnAction(event -> {
             try {
-                if (clientObject.getClient().isConnected()) {
+                if (clientObject.getClient().isConnected() && clientObject.getOnlineStatus().equals("Online")) {
                     clientObject.clientCommunicate("forciblyclose");
                     if (clientObject.getClient().isConnected()) {
                         clientObject.getClient().close();
@@ -82,7 +82,7 @@ class IPContextMenu implements Repository {
                 Controller.updateStats();
                 Controller.updateTable();
             } catch (IOException e1) {
-                Logger.log(Level.WARNING, "Exception thrown: " + e);
+                Logger.log(Level.WARNING, e1.toString());
             }
         });
         cm.getItems().addAll(mi1, mi2, mi3);

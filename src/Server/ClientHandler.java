@@ -1,6 +1,7 @@
 package Server;
 
 import GUI.Controller;
+import GUI.ResizeHelper;
 import GUI.Views.FileExplorerView;
 import GUI.Views.NotificationView;
 import Server.Data.PseudoBase;
@@ -89,6 +90,7 @@ public class ClientHandler implements Runnable, Repository {
                    stage.setTitle("Maus File Explorer");
                    stage.initStyle(StageStyle.UNDECORATED);
                    stage.setScene(new Scene(FileExplorerView.getFileExplorerView(pathName, fileNames,stage), 900, 500));
+                   ResizeHelper.addResizeListener(stage);
                    stage.show();
                });
             }

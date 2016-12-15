@@ -32,13 +32,16 @@ public class ClientHandler implements Runnable, Repository {
         try (PrintWriter out = new PrintWriter(socket.getOutputStream())) {
             clientOutput = out;
             String ip = (((InetSocketAddress) Server.getClient().getRemoteSocketAddress()).getAddress()).toString().replace("/", "");
-            if (!CONNECTIONS.containsKey(ip)) {
-                client = new ClientObject(socket, "Maus Machine " + (PseudoBase.getMausData().size() + 1), ip);
-            } else {
-                client = new ClientObject(socket, CONNECTIONS.get(ip).getNickName(),ip);
+            /* Check to ensure there's room left via Max Connections setting. */
+            if(CONNECTIONS.size() < ServerSettings.getMaxConnections()) {
+                if (!CONNECTIONS.containsKey(ip)) {
+                    client = new ClientObject(socket, "Maus Machine " + (PseudoBase.getMausData().size() + 1), ip);
+                } else {
+                    client = new ClientObject(socket, CONNECTIONS.get(ip).getNickName(), ip);
+                }
+                Platform.runLater(() -> PseudoBase.getMausData().put(ip, client));
             }
             Controller.updateStats();
-            Platform.runLater(() -> PseudoBase.getMausData().put(ip, client));
             Platform.runLater(() -> {
                 Stage stage = new Stage();
                 stage.setWidth(300);

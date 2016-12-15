@@ -28,8 +28,18 @@
       <file leaf-file-name="ClientHandler.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Server/ClientHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="512">
-              <caret line="115" column="31" lean-forward="false" selection-start-line="115" selection-start-column="31" selection-end-line="115" selection-end-column="31" />
+            <state relative-caret-position="256">
+              <caret line="34" column="77" lean-forward="false" selection-start-line="34" selection-start-column="77" selection-end-line="34" selection-end-column="77" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SettingsView.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/GUI/Views/SettingsView.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1760">
+              <caret line="65" column="40" lean-forward="true" selection-start-line="65" selection-start-column="40" selection-end-line="65" selection-end-column="40" />
               <folding />
             </state>
           </provider>
@@ -55,7 +65,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ClientObject.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ClientObject.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Server/ClientObject.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="394">
@@ -63,20 +73,6 @@
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#2681#2682#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PseudoBase.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Server/Data/PseudoBase.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1888">
-              <caret line="68" column="0" lean-forward="false" selection-start-line="68" selection-start-column="0" selection-end-line="68" selection-end-column="0" />
-              <folding>
-                <element signature="imports" expanded="false" />
-                <element signature="e#457#458#0" expanded="false" />
-                <element signature="e#488#489#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -214,10 +210,8 @@
         <option value="$PROJECT_DIR$/src/GUI/FileUtils.java" />
         <option value="$PROJECT_DIR$/src/Server/Data/Controller.java" />
         <option value="$PROJECT_DIR$/src/GUI/Controller.java" />
-        <option value="$PROJECT_DIR$/src/GUI/Views/SettingsView.java" />
         <option value="$PROJECT_DIR$/src/Client.java" />
         <option value="$PROJECT_DIR$/src/Server/Data/PseudoBase.java" />
-        <option value="$PROJECT_DIR$/src/Server/ClientHandler.java" />
         <option value="$PROJECT_DIR$/src/GUI/Views/FileExplorerView.java" />
         <option value="$PROJECT_DIR$/src/GUI/Components/IPContextMenu.java" />
         <option value="$PROJECT_DIR$/src/Server/Data/FileUtils.java" />
@@ -225,6 +219,8 @@
         <option value="$PROJECT_DIR$/src/GUI/Views/ClientBuilderView.java" />
         <option value="$PROJECT_DIR$/src/Client/Client.java" />
         <option value="$PROJECT_DIR$/src/Server/ClientObject.java" />
+        <option value="$PROJECT_DIR$/src/Server/ClientHandler.java" />
+        <option value="$PROJECT_DIR$/src/GUI/Views/SettingsView.java" />
       </list>
     </option>
   </component>
@@ -971,12 +967,12 @@
       <workItem from="1481670632811" duration="20958000" />
       <workItem from="1481740717308" duration="14262000" />
       <workItem from="1481770224737" duration="7359000" />
-      <workItem from="1481811544272" duration="2239000" />
+      <workItem from="1481811544272" duration="2654000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="109982000" />
+    <option name="totallyTimeSpent" value="110397000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1361,14 +1357,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/GUI/Views/SettingsView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1088">
-          <caret line="43" column="77" lean-forward="false" selection-start-line="43" selection-start-column="77" selection-end-line="43" selection-end-column="77" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Maus/Maus.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="448">
@@ -1458,14 +1446,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Server/ClientHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="512">
-          <caret line="115" column="31" lean-forward="false" selection-start-line="115" selection-start-column="31" selection-end-line="115" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Server/ClientObject.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="394">
@@ -1474,6 +1454,22 @@
             <element signature="imports" expanded="true" />
             <element signature="e#2681#2682#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Server/ClientHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="256">
+          <caret line="34" column="77" lean-forward="false" selection-start-line="34" selection-start-column="77" selection-end-line="34" selection-end-column="77" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/GUI/Views/SettingsView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1760">
+          <caret line="65" column="40" lean-forward="true" selection-start-line="65" selection-start-column="40" selection-end-line="65" selection-end-column="40" />
+          <folding />
         </state>
       </provider>
     </entry>

@@ -4,6 +4,7 @@ package GUI.Views;
 import GUI.Components.TopBar;
 import GUI.Styler;
 import Maus.Maus;
+import Server.Server;
 import Server.ServerSettings;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
@@ -40,31 +41,38 @@ class SettingsView {
         hBox.setPadding(new Insets(20, 20, 20, 20));
         Label title = (Label) Styler.styleAdd(new Label(" "), "title");
 
-        Label serverIPLabel = (Label) Styler.styleAdd(new Label("Refresh Rate: "), "label-bright");
-        TextField serverIP = new TextField(""+ServerSettings.getRefreshRate());
-        HBox serverIPBox = Styler.hContainer(serverIPLabel, serverIP);
-        serverIP.setEditable(true);
-        serverIP.textProperty().addListener(((observable, oldValue, newValue) -> {
+        Label refreshRateLabel = (Label) Styler.styleAdd(new Label("Refresh Rate: "), "label-bright");
+        TextField refreshRate = new TextField(""+ServerSettings.getRefreshRate());
+        HBox refreshRateBox = Styler.hContainer(refreshRateLabel, refreshRate);
+        refreshRate.setEditable(true);
+        refreshRate.textProperty().addListener(((observable, oldValue, newValue) -> {
             if (!newValue.matches("\\d*")) {
-                serverIP.setText(newValue.replaceAll("[^\\d]", ""));
+                refreshRate.setText(newValue.replaceAll("[^\\d]", ""));
             }
         }));
 
-        Label clientNameLabel = (Label) Styler.styleAdd(new Label("Max Connections: "), "label-bright");
-        TextField clientName = new TextField(""+ ServerSettings.getMaxConnections());
-        HBox clientNameBox = Styler.hContainer(clientNameLabel, clientName);
-        clientName.setEditable(true);
-        clientName.textProperty().addListener(((observable, oldValue, newValue) -> {
+        Label maxConnectionsLabel = (Label) Styler.styleAdd(new Label("Max Connections: "), "label-bright");
+        TextField maxConnections = new TextField(""+ ServerSettings.getMaxConnections());
+        HBox maxConnectionsBox = Styler.hContainer(maxConnectionsLabel, maxConnections);
+        maxConnections.setEditable(true);
+        maxConnections.textProperty().addListener(((observable, oldValue, newValue) -> {
             if (!newValue.matches("\\d*")) {
-                serverIP.setText(newValue.replaceAll("[^\\d]", ""));
+                maxConnections.setText(newValue.replaceAll("[^\\d]", ""));
             }
         }));
 
         Button applySettings = new Button("Apply Settings");
         applySettings.setPrefWidth(150);
         applySettings.setPrefHeight(50);
-
-        hBox.getChildren().add(Styler.vContainer(20, title, serverIPBox, clientNameBox, applySettings));
+        applySettings.setOnAction(event -> {
+            if(Integer.parseInt(refreshRate.getText()) != ServerSettings.getRefreshRate()){
+                ServerSettings.setRefreshRate(Integer.parseInt(refreshRate.getText()));
+            }
+            if(Integer.parseInt(maxConnections.getText()) != ServerSettings.getMaxConnections()){
+                ServerSettings.setMaxConnections(Integer.parseInt(maxConnections.getText()));
+            }
+        });
+        hBox.getChildren().add(Styler.vContainer(20, title, refreshRateBox, maxConnectionsBox, applySettings));
         return hBox;
     }
 }

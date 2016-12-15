@@ -32,7 +32,7 @@ public class ClientBuilder {
         Manifest manifest = new Manifest();
         manifest.getMainAttributes().put(Attributes.Name.MANIFEST_VERSION, "1.0");
         manifest.getMainAttributes().put(new Attributes.Name("Created-By"), "Maus");
-        manifest.getMainAttributes().put(Attributes.Name.CLASS_PATH,".");
+        manifest.getMainAttributes().put(Attributes.Name.CLASS_PATH, ".");
         manifest.getMainAttributes().put(Attributes.Name.MAIN_CLASS, "Client.Client");
         String jarFileName = System.getProperty("user.home") + "/Maus/" + clientName + ".jar";
         File jarFile = new File(jarFileName);
@@ -44,23 +44,24 @@ public class ClientBuilder {
             try {
                 String file = FileUtils.ExportResource("/Client/Client.class");
                 Thread.sleep(2000);
-                FileUtils.copyFile(file , System.getProperty("user.home").replace("\\", "/") + "/Maus/Client/Client.class");
+                FileUtils.copyFile(file, System.getProperty("user.home").replace("\\", "/") + "/Maus/Client/Client.class");
             } catch (Exception e) {
                 Logger.log(Level.ERROR, e.toString());
             }
             fileList.add(new File("Client"));
-            fileList.add(new File(System.getProperty("user.home").replace("\\","/") + "/Maus/Client/Client.class"));
-            fileList.add(new File(System.getProperty("user.home").replace("\\","/") + "/Maus/.mauscs"));
+            fileList.add(new File(System.getProperty("user.home").replace("\\", "/") + "/Maus/Client/Client.class"));
+            fileList.add(new File(System.getProperty("user.home").replace("\\", "/") + "/Maus/.mauscs"));
 
-            for (File file : fileList){
-                if(file == null){} else {
+            for (File file : fileList) {
+                if (file == null) {
+                } else {
                     if (file.isDirectory()) {
-                        JarEntry jar = new JarEntry(file.getName()+"/");
+                        JarEntry jar = new JarEntry(file.getName() + "/");
                         jar.setTime(file.lastModified());
                         out.putNextEntry(jar);
                         out.closeEntry();
                     } else {
-                        JarEntry jar = new JarEntry("Client/"+file.getName());
+                        JarEntry jar = new JarEntry("Client/" + file.getName());
                         jar.setTime(file.lastModified());
                         out.putNextEntry(jar);
                         FileInputStream in = new FileInputStream(file);
@@ -79,9 +80,9 @@ public class ClientBuilder {
             out.close();
             stream.close();
             Desktop.getDesktop().open(new File(System.getProperty("user.home") + "/Maus/"));
-            Logger.log(Level.INFO,"Build Complete!");
+            Logger.log(Level.INFO, "Build Complete!");
             FileUtils.deleteFiles();
-        } catch (Exception e){
+        } catch (Exception e) {
             Logger.log(Level.ERROR, e.toString());
         }
     }

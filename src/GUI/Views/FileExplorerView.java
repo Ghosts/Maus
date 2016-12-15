@@ -21,7 +21,7 @@ import javafx.stage.Stage;
 
 public class FileExplorerView {
 
-    public static BorderPane getFileExplorerView(String pathName, String[] files, Stage stage){
+    public static BorderPane getFileExplorerView(String pathName, String[] files, Stage stage) {
         BorderPane borderPane = new BorderPane();
         borderPane.getStylesheets().add(Styler.globalCSS);
         borderPane.setTop(new TopBar().getTopBar(stage));
@@ -31,15 +31,15 @@ public class FileExplorerView {
     }
 
     private static ScrollPane getFileExplorerViewCenter(String pathName, String[] files) {
-        pathName = pathName.replace("\\","/");
+        pathName = pathName.replace("\\", "/");
         Button directoryUp = new Button("Up a directory");
-        Label title = (Label) Styler.styleAdd(new Label("Current Directory:"),"title");
-        Label pathLabel = (Label) Styler.styleAdd(new Label(pathName),"label-bright");
+        Label title = (Label) Styler.styleAdd(new Label("Current Directory:"), "title");
+        Label pathLabel = (Label) Styler.styleAdd(new Label(pathName), "label-bright");
         pathLabel.setWrapText(true);
         HBox pathNameBox = Styler.hContainer(5, Styler.vContainer(10, title, pathLabel, directoryUp));
         pathNameBox.setPrefHeight(100);
         pathNameBox.setPrefWidth(200);
-        pathNameBox.setPadding(new Insets(5,5,5,5 ));
+        pathNameBox.setPadding(new Insets(5, 5, 5, 5));
 
         FlowPane flow = new FlowPane();
         flow.getChildren().add(pathNameBox);
@@ -52,13 +52,13 @@ public class FileExplorerView {
         HBox icons[] = new HBox[files.length];
         String resourcePath = "Resources/Images/Icons/FileExplorer/";
         int rot = 0;
-        for (String s : files){
+        for (String s : files) {
             HBox hBox = new HBox();
             hBox.setAlignment(Pos.CENTER);
             hBox.setPrefWidth(100);
             hBox.setPrefHeight(100);
             hBox.setId("file-icon");
-            hBox.setPadding(new Insets(5,5,5,5 ));
+            hBox.setPadding(new Insets(5, 5, 5, 5));
             VBox vBox = new VBox(5);
             vBox.setAlignment(Pos.CENTER);
             Label label;
@@ -88,14 +88,14 @@ public class FileExplorerView {
         return scroll;
     }
 
-    private static String getExtensionImage(String s){
+    private static String getExtensionImage(String s) {
         String extension = "";
         int i = s.lastIndexOf('.');
         if (i > 0) {
-            extension = s.substring(i+1);
+            extension = s.substring(i + 1);
         }
         /* Ignore the hideous switch statement, I will fix it later. */
-        switch (extension){
+        switch (extension) {
             case "":
                 return "folder.png";
             case "ae":

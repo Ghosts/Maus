@@ -21,7 +21,7 @@ public class ClientObject implements Serializable, Repository {
         this.nickName = nickName;
         this.IP = IP;
         try {
-            this.clientOutput = new PrintWriter(client.getOutputStream(),true);
+            this.clientOutput = new PrintWriter(client.getOutputStream(), true);
         } catch (IOException e) {
             Logger.log(Level.WARNING, "Exception thrown: " + e);
         }

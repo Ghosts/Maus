@@ -50,12 +50,12 @@ class ClientBuilderView {
         Label title = (Label) Styler.styleAdd(new Label(" "), "title");
 
         Label serverIPLabel = (Label) Styler.styleAdd(new Label("Server IP: "), "label-bright");
-        TextField serverIP = new TextField(""+ServerSettings.getConnectionIp());
+        TextField serverIP = new TextField("" + ServerSettings.getConnectionIp());
         HBox serverIPBox = Styler.hContainer(serverIPLabel, serverIP);
         serverIP.setEditable(true);
 
         Label portLabel = (Label) Styler.styleAdd(new Label("Port: "), "label-bright");
-        TextField port = new TextField(""+ServerSettings.getPORT());
+        TextField port = new TextField("" + ServerSettings.getPORT());
         HBox portBox = Styler.hContainer(portLabel, port);
         port.setEditable(true);
         port.textProperty().addListener(((observable, oldValue, newValue) -> {

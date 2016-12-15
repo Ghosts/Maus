@@ -65,7 +65,7 @@ class OptionBar {
         Label exit = (Label) Styler.styleAdd(new Label("X"), "option-button");
         exit.setPadding(new Insets(5, 10, 5, 10));
         exit.setOnMouseClicked(event -> {
-            if(stage.equals(Maus.getPrimaryStage())){
+            if (stage.equals(Maus.getPrimaryStage())) {
                 Logger.log(Level.INFO, "Exit event detected. ");
                 if (ServerSettings.isBackgroundPersistent()) {
                     Platform.exit();

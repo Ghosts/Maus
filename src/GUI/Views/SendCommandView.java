@@ -13,9 +13,13 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class SendCommandView {
+    private static TextArea console;
     private Button sendCommandButton;
     private TextField textField;
-    private TextArea console;
+
+    public static TextArea getConsole() {
+        return console;
+    }
 
     public BorderPane getSendCommandView(Stage stage) {
         BorderPane borderPane = new BorderPane();
@@ -31,8 +35,9 @@ public class SendCommandView {
         textField = new TextField("");
         sendCommandButton = new Button("Send Command");
         console = new TextArea("");
+        console.setId("console");
         console.setEditable(false);
-        vBox.getChildren().addAll(label, textField, sendCommandButton, console);
+        vBox.getChildren().addAll(label, textField, sendCommandButton, Styler.vContainer(console));
         vBox.getStylesheets().add(Styler.globalCSS);
         borderPane.setCenter(vBox);
         return borderPane;
@@ -40,10 +45,6 @@ public class SendCommandView {
 
     public Button getsendCommandButton() {
         return sendCommandButton;
-    }
-
-    public TextArea getConsole() {
-        return console;
     }
 
     public TextField getTextField() {

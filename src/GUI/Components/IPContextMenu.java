@@ -1,6 +1,7 @@
 package GUI.Components;
 
 import GUI.Controller;
+import GUI.ResizeHelper;
 import GUI.Views.SendCommandView;
 import Logger.Level;
 import Logger.Logger;
@@ -30,7 +31,7 @@ class IPContextMenu implements Repository {
         Menu mi1 = new Menu("Perform Action...");
         MenuItem sb1 = new MenuItem("File Explorer");
         sb1.setOnAction(event -> {
-            if(clientObject.getClient().isConnected()) {
+            if (clientObject != null && clientObject.getClient().isConnected() && clientObject.getOnlineStatus().equals("Online")) {
                 clientObject.clientCommunicate("FILELIST");
             }
         });
@@ -38,21 +39,21 @@ class IPContextMenu implements Repository {
         sb2.setOnAction(event -> {
             Stage stage = new Stage();
             SendCommandView sendCommandView = new SendCommandView();
-            stage.setTitle("Send a command...");
             stage.initStyle(StageStyle.UNDECORATED);
+            stage.setMinWidth(300);
+            stage.setMinWidth(300);
             stage.setScene(new Scene(sendCommandView.getSendCommandView(stage), 400, 400));
+            ResizeHelper.addResizeListener(stage);
             stage.show();
             sendCommandView.getsendCommandButton().setOnAction(a -> {
-                if (clientObject.getClient().isConnected()) {
+                if (clientObject != null && clientObject.getClient().isConnected() && clientObject.getOnlineStatus().equals("Online")) {
                     clientObject.clientCommunicate("CMD " + sendCommandView.getTextField().getText());
                     Platform.runLater(() -> {
                         try {
                             String comm;
                             BufferedReader in = new BufferedReader(new InputStreamReader(clientObject.getClient().getInputStream()));
                             clientObject.clientCommunicate("CMD " + sendCommandView.getTextField().getText());
-//                        while((comm = in.readLine()) != null && !comm.contains("end") ){
-//                            sendCommandView.getConsole().appendText(comm);
-//                        }
+
                         } catch (IOException e1) {
                             e1.printStackTrace();
                         }
@@ -71,7 +72,7 @@ class IPContextMenu implements Repository {
         MenuItem mi3 = new MenuItem("Uninstall Server");
         mi3.setOnAction(event -> {
             try {
-                if (clientObject.getClient().isConnected() && clientObject.getOnlineStatus().equals("Online")) {
+                if (clientObject != null && clientObject.getClient().isConnected() && clientObject.getOnlineStatus().equals("Online")) {
                     clientObject.clientCommunicate("forciblyclose");
                     if (clientObject.getClient().isConnected()) {
                         clientObject.getClient().close();

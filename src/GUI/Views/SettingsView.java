@@ -4,7 +4,6 @@ package GUI.Views;
 import GUI.Components.TopBar;
 import GUI.Styler;
 import Maus.Maus;
-import Server.Server;
 import Server.ServerSettings;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
@@ -12,6 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+
 class SettingsView {
 
     BorderPane getSettingsView() {
@@ -42,7 +42,7 @@ class SettingsView {
         Label title = (Label) Styler.styleAdd(new Label(" "), "title");
 
         Label refreshRateLabel = (Label) Styler.styleAdd(new Label("Refresh Rate: "), "label-bright");
-        TextField refreshRate = new TextField(""+ServerSettings.getRefreshRate());
+        TextField refreshRate = new TextField("" + ServerSettings.getRefreshRate());
         HBox refreshRateBox = Styler.hContainer(refreshRateLabel, refreshRate);
         refreshRate.setEditable(true);
         refreshRate.textProperty().addListener(((observable, oldValue, newValue) -> {
@@ -52,7 +52,7 @@ class SettingsView {
         }));
 
         Label maxConnectionsLabel = (Label) Styler.styleAdd(new Label("Max Connections: "), "label-bright");
-        TextField maxConnections = new TextField(""+ ServerSettings.getMaxConnections());
+        TextField maxConnections = new TextField("" + ServerSettings.getMaxConnections());
         HBox maxConnectionsBox = Styler.hContainer(maxConnectionsLabel, maxConnections);
         maxConnections.setEditable(true);
         maxConnections.textProperty().addListener(((observable, oldValue, newValue) -> {
@@ -65,10 +65,10 @@ class SettingsView {
         applySettings.setPrefWidth(150);
         applySettings.setPrefHeight(50);
         applySettings.setOnAction(event -> {
-            if(Integer.parseInt(refreshRate.getText()) != ServerSettings.getRefreshRate()){
+            if (Integer.parseInt(refreshRate.getText()) != ServerSettings.getRefreshRate()) {
                 ServerSettings.setRefreshRate(Integer.parseInt(refreshRate.getText()));
             }
-            if(Integer.parseInt(maxConnections.getText()) != ServerSettings.getMaxConnections()){
+            if (Integer.parseInt(maxConnections.getText()) != ServerSettings.getMaxConnections()) {
                 ServerSettings.setMaxConnections(Integer.parseInt(maxConnections.getText()));
             }
         });

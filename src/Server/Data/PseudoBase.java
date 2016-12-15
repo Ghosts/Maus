@@ -50,7 +50,7 @@ public class PseudoBase implements Repository {
     /* Creates necessary files for Maus to run. Including the directories for client + server setting data. */
     public void createMausData() throws IOException {
         final File parent = new File(System.getProperty("user.home") + "/Maus/clients");
-        final File parent2 =new File(System.getProperty("user.home") + "/Maus/Client");
+        final File parent2 = new File(System.getProperty("user.home") + "/Maus/Client");
         if (!parent.mkdirs() && !parent2.mkdirs()) {
             Logger.log(Level.WARNING, "Unable to make necessary directories, may already exist.");
         }

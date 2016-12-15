@@ -9,7 +9,7 @@ public class FileUtils {
 
     static public String ExportResource(String resourceName) throws Exception {
         String jarFolder = new File(Maus.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath()).getParentFile().getPath().replace('\\', '/');
-        File r = new File(jarFolder+"/Client/");
+        File r = new File(jarFolder + "/Client/");
         r.mkdir();
         try (InputStream stream = Maus.class.getResourceAsStream(resourceName);
              OutputStream resStreamOut = new FileOutputStream(jarFolder + "/Client/Client.class")) {
@@ -29,14 +29,14 @@ public class FileUtils {
         return jarFolder + "/Client/Client.class";
     }
 
-    public static void copyFile(String filea, String fileb){
+    public static void copyFile(String filea, String fileb) {
         InputStream inStream = null;
         OutputStream outStream = null;
 
-        try{
+        try {
 
-            File afile =new File(filea);
-            File bfile =new File(fileb);
+            File afile = new File(filea);
+            File bfile = new File(fileb);
 
             inStream = new FileInputStream(afile);
             outStream = new FileOutputStream(bfile);
@@ -45,7 +45,7 @@ public class FileUtils {
 
             int length;
             //copy the file content in bytes
-            while ((length = inStream.read(buffer)) > 0){
+            while ((length = inStream.read(buffer)) > 0) {
 
                 outStream.write(buffer, 0, length);
 
@@ -53,18 +53,18 @@ public class FileUtils {
 
             inStream.close();
             outStream.close();
-        }catch(IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public static void deleteFiles(){
-        File dir = new File(System.getProperty("user.home").replace("\\","/")+"/Maus/Client");
-        File fil = new File(System.getProperty("user.home").replace("\\","/")+"/Maus/Client/Client.class");
+    public static void deleteFiles() {
+        File dir = new File(System.getProperty("user.home").replace("\\", "/") + "/Maus/Client");
+        File fil = new File(System.getProperty("user.home").replace("\\", "/") + "/Maus/Client/Client.class");
         try {
             String d = new File(Maus.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath()).getParentFile().getPath().replace('\\', '/');
-            File dir2 = new File(d+"/Client/");
-            File fil2 = new File(d+"/Client/Client.class");
+            File dir2 = new File(d + "/Client/");
+            File fil2 = new File(d + "/Client/Client.class");
             fil2.delete();
             dir2.delete();
         } catch (URISyntaxException e) {

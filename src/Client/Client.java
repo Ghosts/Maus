@@ -9,7 +9,8 @@ public class Client {
     private static int PORT = 22122;
     private BufferedOutputStream out;
     private Socket socket;
-
+    private boolean isPersstent = false;
+    private boolean autoSpread = false;
 
     private static String getHOST() {
         return HOST;

@@ -105,7 +105,7 @@ public class PseudoBase implements Repository {
                     ObjectInputStream in = new ObjectInputStream(new FileInputStream(file));
                     o = (ClientObject) in.readObject();
                     CONNECTIONS.put(o.getIP(), o);
-                    mausData.put(o.getIP(), o);
+//                    mausData.put(o.getIP(), o);
                     in.close();
                 }
             } else {

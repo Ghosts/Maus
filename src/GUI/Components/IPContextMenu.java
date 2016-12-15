@@ -25,7 +25,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 class IPContextMenu implements Repository {
-    public static ContextMenu getIPContextMenu(TableCell n, MouseEvent e) {
+    static ContextMenu getIPContextMenu(TableCell n, MouseEvent e) {
         ClientObject clientObject = ((ClientObject) n.getTableView().getSelectionModel().getSelectedItem());
         ContextMenu cm = new ContextMenu();
         Menu mi1 = new Menu("Perform Action...");

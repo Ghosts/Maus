@@ -2,7 +2,7 @@ package Server;
 
 
 public class ServerSettings {
-    private static String CONNECTION_IP = "141.219.247.5";
+    private static String CONNECTION_IP = "127.0.0.1";
     private static boolean SHOW_NOTIFICATIONS = true;
     private static boolean BACKGROUND_PERSISTENT = false;
     private static int REFRESH_RATE = 12000;

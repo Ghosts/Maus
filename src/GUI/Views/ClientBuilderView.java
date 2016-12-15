@@ -7,6 +7,7 @@ import Logger.Level;
 import Logger.Logger;
 import Maus.ClientBuilder;
 import Maus.Maus;
+import Server.Data.PseudoBase;
 import Server.ServerSettings;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
@@ -64,7 +65,7 @@ class ClientBuilderView {
             }
         }));
 
-        Label clientNameLabel = (Label) Styler.styleAdd(new Label("Client.Client Name: "), "label-bright");
+        Label clientNameLabel = (Label) Styler.styleAdd(new Label("Client Name: "), "label-bright");
         TextField clientName = new TextField("Client");
         HBox clientNameBox = Styler.hContainer(clientNameLabel, clientName);
         clientName.setEditable(true);
@@ -78,6 +79,11 @@ class ClientBuilderView {
             }
             if ((!port.getText().equals("")) && Integer.parseInt(port.getText()) != ServerSettings.getPORT()) {
                 ServerSettings.setPORT(Integer.parseInt(port.getText()));
+            }
+            try {
+                PseudoBase.writeMausData();
+            } catch (IOException e) {
+                Logger.log(Level.ERROR, e.toString());
             }
             if ((!clientName.getText().equals(""))) {
                 ClientBuilder clientBuilder = new ClientBuilder(clientName.getText());

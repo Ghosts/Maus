@@ -16,7 +16,6 @@ public class FileUtils {
             if (stream == null) {
                 throw new Exception("Cannot get resource \"" + resourceName + "\" from Jar file.");
             }
-
             int readBytes;
             byte[] buffer = new byte[4096];
             while ((readBytes = stream.read(buffer)) > 0) {
@@ -25,16 +24,14 @@ public class FileUtils {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-
         return jarFolder + "/Client/Client.class";
     }
 
     public static void copyFile(String filea, String fileb) {
-        InputStream inStream = null;
-        OutputStream outStream = null;
+        InputStream inStream;
+        OutputStream outStream;
 
         try {
-
             File afile = new File(filea);
             File bfile = new File(fileb);
 
@@ -46,9 +43,7 @@ public class FileUtils {
             int length;
             //copy the file content in bytes
             while ((length = inStream.read(buffer)) > 0) {
-
                 outStream.write(buffer, 0, length);
-
             }
 
             inStream.close();

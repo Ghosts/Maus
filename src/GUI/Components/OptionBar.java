@@ -58,9 +58,7 @@ class OptionBar {
 
         Label minimize = (Label) Styler.styleAdd(new Label("_"), "option-button");
         minimize.setPadding(new Insets(5, 10, 5, 10));
-        minimize.setOnMouseClicked(event -> {
-            stage.setIconified(true);
-        });
+        minimize.setOnMouseClicked(event -> stage.setIconified(true));
 
         Label exit = (Label) Styler.styleAdd(new Label("X"), "option-button");
         exit.setPadding(new Insets(5, 10, 5, 10));

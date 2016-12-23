@@ -48,16 +48,7 @@ class IPContextMenu implements Repository {
             sendCommandView.getsendCommandButton().setOnAction(a -> {
                 if (clientObject != null && clientObject.getClient().isConnected() && clientObject.getOnlineStatus().equals("Online")) {
                     clientObject.clientCommunicate("CMD " + sendCommandView.getTextField().getText());
-                    Platform.runLater(() -> {
-                        try {
-                            String comm;
-                            BufferedReader in = new BufferedReader(new InputStreamReader(clientObject.getClient().getInputStream()));
-                            clientObject.clientCommunicate("CMD " + sendCommandView.getTextField().getText());
-
-                        } catch (IOException e1) {
-                            e1.printStackTrace();
-                        }
-                    });
+                    Platform.runLater(() -> clientObject.clientCommunicate("CMD " + sendCommandView.getTextField().getText()));
                 }
             });
         });
@@ -73,7 +64,7 @@ class IPContextMenu implements Repository {
         mi3.setOnAction(event -> {
             try {
                 if (clientObject != null && clientObject.getClient().isConnected() && clientObject.getOnlineStatus().equals("Online")) {
-                    clientObject.clientCommunicate("forciblyclose");
+                    clientObject.clientCommunicate("EXIT");
                     if (clientObject.getClient().isConnected()) {
                         clientObject.getClient().close();
                     }

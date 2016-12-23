@@ -43,18 +43,14 @@ public class MainView {
                     vBox.getChildren().addAll(new ImageView(new Image(resourcePath + "clients.png")), label);
                     hBox.getChildren().add(vBox);
                     icons[0] = hBox;
-                    icons[0].setOnMouseClicked(event -> {
-                        Controller.changePrimaryStage(new ClientView().getClientView());
-                    });
+                    icons[0].setOnMouseClicked(event -> Controller.changePrimaryStage(new ClientView().getClientView()));
                     break;
                 case 1:
                     label = (Label) Styler.styleAdd(new Label("Build"), "label-bright");
                     vBox.getChildren().addAll(new ImageView(new Image(resourcePath + "build.png")), label);
                     hBox.getChildren().addAll(vBox);
                     icons[1] = hBox;
-                    icons[1].setOnMouseClicked(event -> {
-                        Controller.changePrimaryStage(new ClientBuilderView().getClientBuilderView());
-                    });
+                    icons[1].setOnMouseClicked(event -> Controller.changePrimaryStage(new ClientBuilderView().getClientBuilderView()));
                     break;
                 case 2:
                     label = (Label) Styler.styleAdd(new Label("Mutate"), "label-bright");
@@ -79,18 +75,14 @@ public class MainView {
                     vBox.getChildren().addAll(new ImageView(new Image(resourcePath + "updates.png")), label);
                     hBox.getChildren().addAll(vBox);
                     icons[5] = hBox;
-                    icons[5].setOnMouseClicked(event -> {
-                        Controller.changePrimaryStage(new UpdatesView().getUpdatesView());
-                    });
+                    icons[5].setOnMouseClicked(event -> Controller.changePrimaryStage(new UpdatesView().getUpdatesView()));
                     break;
                 case 6:
                     label = (Label) Styler.styleAdd(new Label("Settings"), "label-bright");
                     vBox.getChildren().addAll(new ImageView(new Image(resourcePath + "settings.png")), label);
                     hBox.getChildren().addAll(vBox);
                     icons[6] = hBox;
-                    icons[6].setOnMouseClicked(event -> {
-                        Controller.changePrimaryStage(new SettingsView().getSettingsView());
-                    });
+                    icons[6].setOnMouseClicked(event -> Controller.changePrimaryStage(new SettingsView().getSettingsView()));
                     break;
                 case 7:
                     break;

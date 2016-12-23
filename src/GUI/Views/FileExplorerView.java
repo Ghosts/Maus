@@ -3,6 +3,7 @@ package GUI.Views;
 import GUI.Components.FileContextMenu;
 import GUI.Components.TopBar;
 import GUI.Styler;
+import Server.ClientObject;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -20,8 +21,14 @@ import javafx.stage.Stage;
 
 
 public class FileExplorerView {
+    private static void setClient(ClientObject client) {
+        FileExplorerView.client = client;
+    }
 
-    public static BorderPane getFileExplorerView(String pathName, String[] files, Stage stage) {
+    static ClientObject client;
+
+    public static BorderPane getFileExplorerView(String pathName, String[] files, Stage stage, ClientObject client) {
+        setClient(client);
         BorderPane borderPane = new BorderPane();
         borderPane.getStylesheets().add(Styler.globalCSS);
         borderPane.setTop(new TopBar().getTopBar(stage));
@@ -69,7 +76,7 @@ public class FileExplorerView {
             hBox.getChildren().add(vBox);
             hBox.setOnMouseClicked(event -> {
                 if (event.getButton().equals(MouseButton.SECONDARY)) {
-                    FileContextMenu.getFileContextMenu(hBox, s, event);
+                    FileContextMenu.getFileContextMenu(hBox, s, event, client);
                 }
             });
             icons[rot] = hBox;

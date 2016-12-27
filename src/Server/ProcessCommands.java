@@ -31,7 +31,6 @@ class ProcessCommands implements Repository {
                 for (int i = 0; i < outputCount; i++) {
                     sb.append(dis.readUTF()).append("\n");
                 }
-                dis.close();
                 SendCommandView.getConsole().appendText(sb.toString());
             }
             if (input.contains("FILELIST")) {

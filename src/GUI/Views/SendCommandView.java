@@ -14,14 +14,14 @@ import javafx.stage.Stage;
 
 public class SendCommandView {
     private static TextArea console;
-    private Button sendCommandButton;
-    private TextField textField;
+    private static Button sendCommandButton;
+    private static TextField textField;
 
     public static TextArea getConsole() {
         return console;
     }
 
-    public BorderPane getSendCommandView(Stage stage) {
+    public static BorderPane getSendCommandView(Stage stage) {
         BorderPane borderPane = new BorderPane();
         borderPane.getStylesheets().add(Styler.globalCSS);
         borderPane.setTop(new TopBar().getTopBarSansOptions(stage));
@@ -43,11 +43,11 @@ public class SendCommandView {
         return borderPane;
     }
 
-    public Button getsendCommandButton() {
+    public static Button getsendCommandButton() {
         return sendCommandButton;
     }
 
-    public TextField getTextField() {
+    public static TextField getTextField() {
         return textField;
     }
 }

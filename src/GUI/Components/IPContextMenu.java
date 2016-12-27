@@ -38,17 +38,15 @@ class IPContextMenu implements Repository {
         MenuItem sb2 = new MenuItem("Send Command");
         sb2.setOnAction(event -> {
             Stage stage = new Stage();
-            SendCommandView sendCommandView = new SendCommandView();
             stage.initStyle(StageStyle.UNDECORATED);
             stage.setMinWidth(300);
             stage.setMinWidth(300);
-            stage.setScene(new Scene(sendCommandView.getSendCommandView(stage), 400, 400));
+            stage.setScene(new Scene(SendCommandView.getSendCommandView(stage), 400, 400));
             ResizeHelper.addResizeListener(stage);
             stage.show();
-            sendCommandView.getsendCommandButton().setOnAction(a -> {
+            SendCommandView.getsendCommandButton().setOnAction(a -> {
                 if (clientObject != null && clientObject.getClient().isConnected() && clientObject.getOnlineStatus().equals("Online")) {
-                    clientObject.clientCommunicate("CMD " + sendCommandView.getTextField().getText());
-                    Platform.runLater(() -> clientObject.clientCommunicate("CMD " + sendCommandView.getTextField().getText()));
+                    clientObject.clientCommunicate("CMD " + SendCommandView.getTextField().getText());
                 }
             });
         });

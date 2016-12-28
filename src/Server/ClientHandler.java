@@ -1,24 +1,13 @@
 package Server;
 
 import GUI.Controller;
-import GUI.ResizeHelper;
-import GUI.Views.FileExplorerView;
 import GUI.Views.NotificationView;
-import GUI.Views.SendCommandView;
-import Logger.Level;
-import Logger.Logger;
 import Server.Data.PseudoBase;
 import Server.Data.Repository;
-import javafx.animation.PauseTransition;
 import javafx.application.Platform;
-import javafx.geometry.Rectangle2D;
-import javafx.scene.Scene;
-import javafx.stage.Screen;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-import javafx.util.Duration;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.InputStream;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 
@@ -47,6 +36,8 @@ public class ClientHandler implements Runnable, Repository {
             /* Notification on new client connection */
             Platform.runLater(() -> NotificationView.openNotification(client));
             InputStream is = client.getClient().getInputStream();
+
+            /* Begin listening for client commands via ProcessCommands */
             ProcessCommands.processCommands(is, client);
         } catch (IOException e) {
             client.setOnlineStatus("Offline");

@@ -1,10 +1,10 @@
 package Server;
 
-import Logger.Level;
 import GUI.Controller;
 import GUI.ResizeHelper;
 import GUI.Views.FileExplorerView;
 import GUI.Views.SendCommandView;
+import Logger.Level;
 import Logger.Logger;
 import Server.Data.PseudoBase;
 import Server.Data.Repository;
@@ -53,7 +53,7 @@ class ProcessCommands implements Repository {
                     stage.show();
                 });
             }
-            if (input.contains("DOWNLOAD")){
+            if (input.contains("DOWNLOAD")) {
                 BufferedInputStream bis = new BufferedInputStream(client.getClient().getInputStream());
                 DataInputStream dis = new DataInputStream(bis);
                 String saveDirectory = dis.readUTF();
@@ -85,10 +85,8 @@ class ProcessCommands implements Repository {
                     BufferedOutputStream bos = new BufferedOutputStream(fos);
 
                     for (int j = 0; j < fileLength; j++) bos.write(bis.read());
-
                     bos.close();
                 }
-
                 dis.close();
             }
             /* Uninstall and close remote server - remove from Maus */

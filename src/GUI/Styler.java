@@ -5,6 +5,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
+/* Styler provides methods and components useful for quickly creating UI elements or accessing shared resources. */
 public class Styler {
     public static final String globalCSS = "Resources/CSS/global.css";
 

@@ -7,6 +7,7 @@ import java.net.URISyntaxException;
 
 public class FileUtils {
 
+    /* Pulls files outside of a .jar */
     static public String ExportResource(String resourceName) throws Exception {
         String jarFolder = new File(Maus.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath()).getParentFile().getPath().replace('\\', '/');
         File r = new File(jarFolder + "/Client/");
@@ -27,6 +28,7 @@ public class FileUtils {
         return jarFolder + "/Client/Client.class";
     }
 
+    /* Copies a file to another location */
     public static void copyFile(String filea, String fileb) {
         InputStream inStream;
         OutputStream outStream;
@@ -53,6 +55,7 @@ public class FileUtils {
         }
     }
 
+    /* Deletes temporary files created by Maus */
     public static void deleteFiles() {
         File dir = new File(System.getProperty("user.home").replace("\\", "/") + "/Maus/Client");
         File fil = new File(System.getProperty("user.home").replace("\\", "/") + "/Maus/Client/Client.class");

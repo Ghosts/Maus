@@ -21,11 +21,11 @@ import javafx.stage.Stage;
 
 
 public class FileExplorerView {
+    static ClientObject client;
+
     private static void setClient(ClientObject client) {
         FileExplorerView.client = client;
     }
-
-    static ClientObject client;
 
     public static BorderPane getFileExplorerView(String pathName, String[] files, Stage stage, ClientObject client) {
         setClient(client);

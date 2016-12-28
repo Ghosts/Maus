@@ -11,6 +11,7 @@ import javafx.collections.ObservableMap;
 import java.io.*;
 
 public class PseudoBase implements Repository {
+    /* Collection of client connections by representation of ClientObjects*/
     private static ObservableMap<String, ClientObject> mausData = FXCollections.observableHashMap();
 
     public synchronized static ObservableMap<String, ClientObject> getMausData() {

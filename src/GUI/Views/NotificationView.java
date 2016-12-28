@@ -19,25 +19,7 @@ import javafx.util.Duration;
 public class NotificationView {
     private Label notificationText;
 
-    Label getNotificationText() {
-        return notificationText;
-    }
-
-    VBox getNotificationView() {
-        VBox vBox = new VBox(5);
-        vBox.setId("notification");
-        vBox.setAlignment(Pos.CENTER);
-        VBox.setVgrow(vBox, Priority.ALWAYS);
-        Image alert = new Image("Resources/Images/Icons/alert.png");
-        ImageView imageView = new ImageView(alert);
-        notificationText = new Label("New Client.Client Connected.");
-        notificationText = (Label) Styler.styleAdd(notificationText, "label-bright");
-        vBox.getChildren().addAll(imageView, notificationText);
-        vBox.getStylesheets().add(Styler.globalCSS);
-        return vBox;
-    }
-
-    public static void openNotification(ClientObject client){
+    public static void openNotification(ClientObject client) {
         Stage stage = new Stage();
         stage.setWidth(300);
         stage.setHeight(100);
@@ -54,5 +36,23 @@ public class NotificationView {
         PauseTransition delay = new PauseTransition(Duration.seconds(5));
         delay.setOnFinished(event -> stage.close());
         delay.play();
+    }
+
+    Label getNotificationText() {
+        return notificationText;
+    }
+
+    VBox getNotificationView() {
+        VBox vBox = new VBox(5);
+        vBox.setId("notification");
+        vBox.setAlignment(Pos.CENTER);
+        VBox.setVgrow(vBox, Priority.ALWAYS);
+        Image alert = new Image("Resources/Images/Icons/alert.png");
+        ImageView imageView = new ImageView(alert);
+        notificationText = new Label("New Client.Client Connected.");
+        notificationText = (Label) Styler.styleAdd(notificationText, "label-bright");
+        vBox.getChildren().addAll(imageView, notificationText);
+        vBox.getStylesheets().add(Styler.globalCSS);
+        return vBox;
     }
 }

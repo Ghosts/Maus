@@ -141,7 +141,6 @@ public class Client {
                 stringBuilder.append(line);
             }
             String[] settings = stringBuilder.toString().split(" ");
-            System.out.println(settings[0]);
             if (settings.length == 2) {
                 setHOST(settings[0]);
                 setPORT(Integer.parseInt(settings[1]));

@@ -1,7 +1,5 @@
 package Client;
 
-import Logger.Level;
-
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;

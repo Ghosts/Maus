@@ -1,3 +1,19 @@
+::Maus 0.6a::
+==Current Working Features:
+Send and view remote command line commands
+View specific remote file directory
+Copy IP address of client
+Notifications on new connections
+Client Builder (partial)
+
+==Known bugs:
+JavaFX IpContext menu visual bug
+
+==Upcoming:
+Completed file manager (download, delete, etc.)
+Completed persistence
+
+
 ::Maus 0.5a::
 _______________
 

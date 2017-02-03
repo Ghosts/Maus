@@ -40,6 +40,7 @@ public class ClientHandler implements Runnable, Repository {
             /* Begin listening for client commands via ProcessCommands */
             ProcessCommands.processCommands(is, client);
         } catch (IOException e) {
+            e.printStackTrace();
             client.setOnlineStatus("Offline");
         }
     }

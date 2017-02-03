@@ -33,29 +33,24 @@ public class ClientList {
         tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         tableView.getStylesheets().add(Styler.globalCSS);
 
-        TableColumn<String, String> onlineStatus = new TableColumn("Status");
+        TableColumn<String, String> onlineStatus = new TableColumn<>("Status");
         onlineStatus.setMaxWidth(100);
         onlineStatus.setResizable(false);
         onlineStatus.setCellValueFactory(
                 new PropertyValueFactory<>("onlineStatus"));
 
-        TableColumn nickName = new TableColumn<>("Nickname");
+        TableColumn<ClientObject, String> nickName = new TableColumn<>("Nickname");
         nickName.setMinWidth(100);
         nickName.setMaxWidth(900);
         nickName.setResizable(true);
-        nickName.setCellValueFactory(new PropertyValueFactory<ClientObject, String>("nickName"));
+        nickName.setCellValueFactory(new PropertyValueFactory<>("nickName"));
         nickName.setCellFactory(TextFieldTableCell.forTableColumn());
         nickName.setOnEditCommit(
-                new EventHandler<TableColumn.CellEditEvent<ClientObject, String>>() {
-                    @Override
-                    public void handle(TableColumn.CellEditEvent<ClientObject, String> t) {
-                        t.getTableView().getItems().get(
-                                t.getTablePosition().getRow()).setNickName(t.getNewValue());
-                    }
-                }
+                t -> t.getTableView().getItems().get(
+                        t.getTablePosition().getRow()).setNickName(t.getNewValue())
         );
 
-        TableColumn<ClientObject, String> IP = new TableColumn("IP");
+        TableColumn<ClientObject, String> IP = new TableColumn<>("IP");
         IP.setMinWidth(100);
         IP.setResizable(true);
         IP.setCellValueFactory(new PropertyValueFactory<>("IP"));

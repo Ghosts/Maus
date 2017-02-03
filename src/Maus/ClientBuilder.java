@@ -43,7 +43,7 @@ public class ClientBuilder {
             ArrayList<File> fileList = new ArrayList<>();
             try {
                 String file = FileUtils.ExportResource("/Client/Client.class");
-                Thread.sleep(2000);
+                Thread.sleep(100);
                 FileUtils.copyFile(file, System.getProperty("user.home").replace("\\", "/") + "/Maus/Client/Client.class");
             } catch (Exception e) {
                 Logger.log(Level.ERROR, e.toString());
@@ -53,8 +53,7 @@ public class ClientBuilder {
             fileList.add(new File(System.getProperty("user.home").replace("\\", "/") + "/Maus/.mauscs"));
 
             for (File file : fileList) {
-                if (file == null) {
-                } else {
+                if (file == null) {} else {
                     if (file.isDirectory()) {
                         JarEntry jar = new JarEntry(file.getName() + "/");
                         jar.setTime(file.lastModified());

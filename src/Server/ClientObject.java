@@ -15,6 +15,7 @@ public class ClientObject implements Serializable, Repository {
     private String nickName;
     private String IP;
     private transient PrintWriter clientOutput;
+    private transient DataOutputStream dis;
 
     ClientObject(Socket client, String nickName, String IP) {
         this.client = client;
@@ -22,6 +23,7 @@ public class ClientObject implements Serializable, Repository {
         this.IP = IP;
         try {
             this.clientOutput = new PrintWriter(client.getOutputStream(), true);
+            dis = new DataOutputStream(client.getOutputStream());
         } catch (IOException e) {
             Logger.log(Level.WARNING, "Exception thrown: " + e);
         }
@@ -97,8 +99,8 @@ public class ClientObject implements Serializable, Repository {
         }
     }
 
-    public void clientCommunicate(String msg) {
-        clientOutput.println(msg);
+    public void clientCommunicate(String msg) throws IOException {
+        dis.writeUTF(msg);
     }
 
     @Override

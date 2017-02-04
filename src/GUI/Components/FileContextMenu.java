@@ -8,10 +8,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.stage.DirectoryChooser;
 
-import java.io.BufferedOutputStream;
-import java.io.DataOutputStream;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 
 public class FileContextMenu {
     public static ContextMenu getFileContextMenu(HBox fileIcon, String fileName, MouseEvent e, ClientObject client) {
@@ -25,11 +22,9 @@ public class FileContextMenu {
                     directoryChooser.showDialog(Maus.getPrimaryStage());
             try {
                 client.clientCommunicate("DOWNLOAD");
-                BufferedOutputStream bos = new BufferedOutputStream(client.getClient().getOutputStream());
-                DataOutputStream dos = new DataOutputStream(bos);
-                dos.writeUTF(fileName);
-                dos.writeUTF(selectedDirectory.toString());
-                dos.close();
+                client.clientCommunicate(fileName);
+
+                DataInputStream dis = new DataInputStream(client.getClient().getInputStream());
             } catch (IOException e1) {
                 e1.printStackTrace();
             }

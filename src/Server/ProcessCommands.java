@@ -24,6 +24,7 @@ class ProcessCommands implements Repository {
             try {
                 input = dis.readUTF();
             } catch (EOFException e) {
+                Logger.log(Level.ERROR, e.toString());
                 break;
             }
             if (input.contains("CMD")) {

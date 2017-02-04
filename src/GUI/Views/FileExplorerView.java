@@ -21,7 +21,7 @@ import javafx.stage.Stage;
 
 
 public class FileExplorerView {
-    static ClientObject client;
+    private static ClientObject client;
 
     private static void setClient(ClientObject client) {
         FileExplorerView.client = client;

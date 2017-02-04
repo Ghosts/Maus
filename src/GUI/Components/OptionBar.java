@@ -45,7 +45,6 @@ class OptionBar {
                     "Meow",
                     "Luminosity Maus 1.5",
                     "Spreche du Deutsche?",
-                    "Telegram @Luxington",
                     "Carrier pigeons are faster",
                     "Duct Tape is more stable than this shit",
                     "Cat got your tongue?",

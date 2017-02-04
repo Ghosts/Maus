@@ -24,7 +24,7 @@ import java.util.Scanner;
 
 
 class UpdatesView {
-    BorderPane updatesView = new BorderPane();
+    private BorderPane updatesView = new BorderPane();
 
     BorderPane getUpdatesView() {
         updatesView.getStylesheets().add(Styler.globalCSS);

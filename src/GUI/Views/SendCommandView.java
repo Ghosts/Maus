@@ -21,15 +21,14 @@ public class SendCommandView {
         return console;
     }
 
-    public static BorderPane getSendCommandView(Stage stage) {
-        BorderPane borderPane = new BorderPane();
-        borderPane.getStylesheets().add(Styler.globalCSS);
-        borderPane.setTop(new TopBar().getTopBarSansOptions(stage));
-        borderPane.setBottom(new StatisticsView().getStatisticsView());
-        VBox vBox = new VBox(5);
-        vBox.setId("settingsView");
-        vBox.setAlignment(Pos.CENTER);
+    public VBox getSendCommandView(Stage stage) {
+        VBox vBox = new VBox();
         VBox.setVgrow(vBox, Priority.ALWAYS);
+        vBox.getStylesheets().add(getClass().getResource("/css/global.css").toExternalForm());
+        VBox vBox2 = new VBox(5);
+        vBox2.setId("settingsView");
+        vBox2.setAlignment(Pos.CENTER);
+        VBox.setVgrow(vBox2, Priority.ALWAYS);
         Label label = new Label("Command:");
         label = (Label) Styler.styleAdd(label, "label-bright");
         textField = new TextField("");
@@ -37,10 +36,9 @@ public class SendCommandView {
         console = new TextArea("");
         console.setId("console");
         console.setEditable(false);
-        vBox.getChildren().addAll(label, textField, sendCommandButton, Styler.vContainer(console));
-        vBox.getStylesheets().add(Styler.globalCSS);
-        borderPane.setCenter(vBox);
-        return borderPane;
+        vBox2.getChildren().addAll(label, textField, sendCommandButton, Styler.vContainer(console));
+        vBox.getChildren().addAll(new TopBar().getTopBarSansOptions(stage), vBox2, new StatisticsView().getStatisticsView());
+        return vBox;
     }
 
     public static Button getsendCommandButton() {

@@ -27,7 +27,7 @@ class UpdatesView {
     private BorderPane updatesView = new BorderPane();
 
     BorderPane getUpdatesView() {
-        updatesView.getStylesheets().add(Styler.globalCSS);
+        updatesView.getStylesheets().add(getClass().getResource("/css/global.css").toExternalForm());
         HBox hBox1 = getUpdatesPanel();
         HBox hBox = getAboutPanel();
         hBox.setId("updatesView");

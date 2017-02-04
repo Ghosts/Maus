@@ -31,7 +31,7 @@ public class ClientList {
         tableView = new TableView();
         tableView.setEditable(true);
         tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-        tableView.getStylesheets().add(Styler.globalCSS);
+        tableView.getStylesheets().add(getClass().getResource("/css/global.css").toExternalForm());
 
         TableColumn<String, String> onlineStatus = new TableColumn<>("Status");
         onlineStatus.setMaxWidth(100);

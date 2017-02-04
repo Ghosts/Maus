@@ -16,7 +16,7 @@ class SettingsView {
 
     BorderPane getSettingsView() {
         BorderPane borderPane = new BorderPane();
-        borderPane.getStylesheets().add(Styler.globalCSS);
+        borderPane.getStylesheets().add(getClass().getResource("/css/global.css").toExternalForm());
         borderPane.setTop(new TopBar().getTopBar(Maus.getPrimaryStage()));
         borderPane.setLeft(settingsViewLeft());
         borderPane.setCenter(settingsViewCenter());
@@ -26,7 +26,7 @@ class SettingsView {
 
     private HBox settingsViewLeft() {
         HBox hBox = Styler.hContainer(20);
-        hBox.getStylesheets().add(Styler.globalCSS);
+        hBox.getStylesheets().add(getClass().getResource("/css/global.css").toExternalForm());
         hBox.setId("clientBuilder");
         hBox.setPadding(new Insets(20, 20, 20, 20));
         Label title = (Label) Styler.styleAdd(new Label("Settings"), "title");
@@ -36,7 +36,7 @@ class SettingsView {
 
     private HBox settingsViewCenter() {
         HBox hBox = Styler.hContainer(20);
-        hBox.getStylesheets().add(Styler.globalCSS);
+        hBox.getStylesheets().add(getClass().getResource("/css/global.css").toExternalForm());
         hBox.setId("settingsView");
         hBox.setPadding(new Insets(20, 20, 20, 20));
         Label title = (Label) Styler.styleAdd(new Label(" "), "title");

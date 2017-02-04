@@ -7,8 +7,6 @@ import javafx.scene.layout.VBox;
 
 /* Styler provides methods and components useful for quickly creating UI elements or accessing shared resources. */
 public class Styler {
-    public static final String globalCSS = "Resources/CSS/global.css";
-
     /* Adds a CSS style class to a Node. */
     public static Node styleAdd(Node node, String styleName) {
         node.getStyleClass().add(styleName);

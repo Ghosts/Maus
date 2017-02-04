@@ -42,7 +42,7 @@ class IPContextMenu implements Repository {
             stage.initStyle(StageStyle.UNDECORATED);
             stage.setMinWidth(300);
             stage.setMinWidth(300);
-            stage.setScene(new Scene(SendCommandView.getSendCommandView(stage), 400, 400));
+            stage.setScene(new Scene(new SendCommandView().getSendCommandView(stage), 400, 500));
             ResizeHelper.addResizeListener(stage);
             stage.show();
             SendCommandView.getsendCommandButton().setOnAction(a -> {
@@ -72,7 +72,8 @@ class IPContextMenu implements Repository {
                         e1.printStackTrace();
                     }
                 }
-                PseudoBase.getMausData().remove(clientObject.getIP());
+            assert clientObject != null;
+            PseudoBase.getMausData().remove(clientObject.getIP());
                 CONNECTIONS.remove(clientObject.getIP());
                 Controller.updateStats();
                 Controller.updateTable();

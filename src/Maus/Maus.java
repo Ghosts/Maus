@@ -52,9 +52,9 @@ public class Maus extends Application {
         getPrimaryStage().setMaxWidth(900);
         getPrimaryStage().setMaxHeight(800);
         Scene mainScene = new Scene(new MainView().getMainView(), 900, 500);
-        mainScene.getStylesheets().add(Styler.globalCSS);
+        mainScene.getStylesheets().add(getClass().getResource("/css/global.css").toExternalForm());
         getPrimaryStage().setScene(mainScene);
-        getPrimaryStage().getIcons().add(new Image("Resources/Images/Icons/icon.png"));
+        getPrimaryStage().getIcons().add(new Image(getClass().getResourceAsStream("/Images/Icons/icon.png")));
         getPrimaryStage().setOnCloseRequest(event -> System.exit(0));
         /* Maus is running! */
         Logger.log(Level.INFO, "Maus is running.");

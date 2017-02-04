@@ -26,7 +26,7 @@ public class StatisticsView {
         HBox hBox = new HBox();
         HBox.setHgrow(hBox, Priority.ALWAYS);
         VBox vBox = new VBox();
-        vBox.getStylesheets().add(Styler.globalCSS);
+        vBox.getStylesheets().add(getClass().getResource("/css/global.css").toExternalForm());
         VBox.setVgrow(vBox, Priority.ALWAYS);
         connectionsLabel = new Label("Connections: " + PseudoBase.getMausData().size());
         connectionsLabel = (Label) Styler.styleAdd(connectionsLabel, "label-light");

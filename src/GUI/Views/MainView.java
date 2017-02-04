@@ -20,13 +20,12 @@ public class MainView {
     private FlowPane getIconFlow() {
         FlowPane flow = new FlowPane();
         flow.setPadding(new Insets(10, 50, 10, 50));
-        flow.getStylesheets().add(Styler.globalCSS);
+        flow.getStylesheets().add(getClass().getResource("/css/global.css").toExternalForm());
         flow.setId("iconFlow");
         flow.setVgap(10);
         flow.setHgap(50);
 
         HBox icons[] = new HBox[8];
-        String resourcePath = "Resources/Images/Icons/";
         for (int i = 0; i < 7; i++) {
             HBox hBox = new HBox();
             hBox.setAlignment(Pos.CENTER);
@@ -40,46 +39,46 @@ public class MainView {
             switch (i) {
                 case 0:
                     label = (Label) Styler.styleAdd(new Label("Clients"), "label-bright");
-                    vBox.getChildren().addAll(new ImageView(new Image(resourcePath + "clients.png")), label);
+                    vBox.getChildren().addAll(new ImageView(new Image(getClass().getResourceAsStream("/Images/Icons/clients.png"))), label);
                     hBox.getChildren().add(vBox);
                     icons[0] = hBox;
                     icons[0].setOnMouseClicked(event -> Controller.changePrimaryStage(new ClientView().getClientView()));
                     break;
                 case 1:
                     label = (Label) Styler.styleAdd(new Label("Build"), "label-bright");
-                    vBox.getChildren().addAll(new ImageView(new Image(resourcePath + "build.png")), label);
+                    vBox.getChildren().addAll(new ImageView(new Image(getClass().getResourceAsStream("/Images/Icons/build.png"))), label);
                     hBox.getChildren().addAll(vBox);
                     icons[1] = hBox;
                     icons[1].setOnMouseClicked(event -> Controller.changePrimaryStage(new ClientBuilderView().getClientBuilderView()));
                     break;
                 case 2:
                     label = (Label) Styler.styleAdd(new Label("Mutate"), "label-bright");
-                    vBox.getChildren().addAll(new ImageView(new Image(resourcePath + "mutate.png")), label);
+                    vBox.getChildren().addAll(new ImageView(new Image(getClass().getResourceAsStream("/Images/Icons/mutate.png"))), label);
                     hBox.getChildren().addAll(vBox);
                     icons[2] = hBox;
                     break;
                 case 3:
                     label = (Label) Styler.styleAdd(new Label("Beacon"), "label-bright");
-                    vBox.getChildren().addAll(new ImageView(new Image(resourcePath + "beacon.png")), label);
+                    vBox.getChildren().addAll(new ImageView(new Image(getClass().getResourceAsStream("/Images/Icons/beacon.png"))), label);
                     hBox.getChildren().addAll(vBox);
                     icons[3] = hBox;
                     break;
                 case 4:
                     label = (Label) Styler.styleAdd(new Label("Statistics"), "label-bright");
-                    vBox.getChildren().addAll(new ImageView(new Image(resourcePath + "statistics.png")), label);
+                    vBox.getChildren().addAll(new ImageView(new Image(getClass().getResourceAsStream("/Images/Icons/statistics.png"))), label);
                     hBox.getChildren().addAll(vBox);
                     icons[4] = hBox;
                     break;
                 case 5:
                     label = (Label) Styler.styleAdd(new Label("Updates"), "label-bright");
-                    vBox.getChildren().addAll(new ImageView(new Image(resourcePath + "updates.png")), label);
+                    vBox.getChildren().addAll(new ImageView(new Image(getClass().getResourceAsStream("/Images/Icons/updates.png"))), label);
                     hBox.getChildren().addAll(vBox);
                     icons[5] = hBox;
                     icons[5].setOnMouseClicked(event -> Controller.changePrimaryStage(new UpdatesView().getUpdatesView()));
                     break;
                 case 6:
                     label = (Label) Styler.styleAdd(new Label("Settings"), "label-bright");
-                    vBox.getChildren().addAll(new ImageView(new Image(resourcePath + "settings.png")), label);
+                    vBox.getChildren().addAll(new ImageView(new Image(getClass().getResourceAsStream("/Images/Icons/settings.png"))), label);
                     hBox.getChildren().addAll(vBox);
                     icons[6] = hBox;
                     icons[6].setOnMouseClicked(event -> Controller.changePrimaryStage(new SettingsView().getSettingsView()));
@@ -96,7 +95,7 @@ public class MainView {
 
     public BorderPane getMainView() {
         BorderPane borderPane = new BorderPane();
-        borderPane.getStylesheets().add(Styler.globalCSS);
+        borderPane.getStylesheets().add(getClass().getResource("/css/global.css").toExternalForm());
         borderPane.getStyleClass().add("root");
         borderPane.setTop(new TopBar().getTopBar(Maus.getPrimaryStage()));
         borderPane.setCenter(getIconFlow());

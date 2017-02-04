@@ -18,7 +18,7 @@ class OptionBar {
 
     HBox getMenuBar(Stage stage) {
         MenuBar menuBar = new MenuBar();
-        menuBar.getStylesheets().add(Styler.globalCSS);
+        menuBar.getStylesheets().add(getClass().getResource("/css/global.css").toExternalForm());
         menuBar.getStyleClass().add("background");
 
         Label maus = (Label) Styler.styleAdd(new Label("Maus 0.5a"), "option-button");

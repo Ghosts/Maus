@@ -3,7 +3,10 @@ package GUI.Views;
 import GUI.Components.FileContextMenu;
 import GUI.Components.TopBar;
 import GUI.Styler;
+import Logger.Level;
+import Logger.*;
 import Server.ClientObject;
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -19,6 +22,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 
 public class FileExplorerView {
     private static ClientObject client;
@@ -27,19 +32,26 @@ public class FileExplorerView {
         FileExplorerView.client = client;
     }
 
-    public static BorderPane getFileExplorerView(String pathName, String[] files, Stage stage, ClientObject client) {
+    public BorderPane getFileExplorerView(String pathName, String[] files, Stage stage, ClientObject client) {
         setClient(client);
         BorderPane borderPane = new BorderPane();
-        borderPane.getStylesheets().add(Styler.globalCSS);
+        borderPane.getStylesheets().add(getClass().getResource("/css/global.css").toExternalForm());
         borderPane.setTop(new TopBar().getTopBar(stage));
         borderPane.setCenter(getFileExplorerViewCenter(pathName, files));
         borderPane.setBottom(new StatisticsView().getStatisticsView());
         return borderPane;
     }
 
-    private static ScrollPane getFileExplorerViewCenter(String pathName, String[] files) {
+    private ScrollPane getFileExplorerViewCenter(String pathName, String[] files) {
         pathName = pathName.replace("\\", "/");
         Button directoryUp = new Button("Up a directory");
+        directoryUp.setOnAction(e -> {
+            try {
+                client.clientCommunicate("DIRECTORYUP");
+            } catch (IOException e1) {
+               Logger.log(Level.ERROR, e1.toString());
+            }
+        });
         Label title = (Label) Styler.styleAdd(new Label("Current Directory:"), "title");
         Label pathLabel = (Label) Styler.styleAdd(new Label(pathName), "label-bright");
         pathLabel.setWrapText(true);
@@ -51,13 +63,12 @@ public class FileExplorerView {
         FlowPane flow = new FlowPane();
         flow.getChildren().add(pathNameBox);
         flow.setPadding(new Insets(10, 50, 10, 50));
-        flow.getStylesheets().add(Styler.globalCSS);
+        flow.getStylesheets().add(getClass().getResource("/css/global.css").toExternalForm());
         flow.setId("file-pane");
         flow.setVgap(10);
         flow.setHgap(10);
         flow.setAlignment(Pos.CENTER);
         HBox icons[] = new HBox[files.length];
-        String resourcePath = "Resources/Images/Icons/FileExplorer/";
         int rot = 0;
         for (String s : files) {
             HBox hBox = new HBox();
@@ -72,7 +83,7 @@ public class FileExplorerView {
             label = (Label) Styler.styleAdd(new Label(s), "label-bright");
             Tooltip t = new Tooltip(s);
             Tooltip.install(hBox, t);
-            vBox.getChildren().addAll(new ImageView(new Image(resourcePath + getExtensionImage(s))), label);
+            vBox.getChildren().addAll(new ImageView(new Image(getClass().getResourceAsStream( "/Images/Icons/FileExplorer/" + getExtensionImage(s)))), label);
             hBox.getChildren().add(vBox);
             hBox.setOnMouseClicked(event -> {
                 if (event.getButton().equals(MouseButton.SECONDARY)) {

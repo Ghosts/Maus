@@ -23,7 +23,7 @@ class ClientBuilderView {
 
     BorderPane getClientBuilderView() {
         BorderPane borderPane = new BorderPane();
-        borderPane.getStylesheets().add(Styler.globalCSS);
+        borderPane.getStylesheets().add(getClass().getResource("/css/global.css").toExternalForm());
         borderPane.setTop(new TopBar().getTopBar(Maus.getPrimaryStage()));
         borderPane.setLeft(clientBuilderSettingsLeft());
         borderPane.setCenter(clientBuilderSettingsCenter());
@@ -33,7 +33,7 @@ class ClientBuilderView {
 
     private HBox clientBuilderSettingsLeft() {
         HBox hBox = Styler.hContainer(20);
-        hBox.getStylesheets().add(Styler.globalCSS);
+        hBox.getStylesheets().add(getClass().getResource("/css/global.css").toExternalForm());
         hBox.setId("clientBuilder");
         hBox.setPadding(new Insets(20, 20, 20, 20));
         Label title = (Label) Styler.styleAdd(new Label("Client Builder"), "title");
@@ -45,7 +45,7 @@ class ClientBuilderView {
 
     private HBox clientBuilderSettingsCenter() {
         HBox hBox = Styler.hContainer(20);
-        hBox.getStylesheets().add(Styler.globalCSS);
+        hBox.getStylesheets().add(getClass().getResource("/css/global.css").toExternalForm());
         hBox.setId("clientBuilder");
         hBox.setPadding(new Insets(20, 20, 20, 20));
         Label title = (Label) Styler.styleAdd(new Label(" "), "title");

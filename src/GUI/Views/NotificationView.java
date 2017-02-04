@@ -47,12 +47,12 @@ public class NotificationView {
         vBox.setId("notification");
         vBox.setAlignment(Pos.CENTER);
         VBox.setVgrow(vBox, Priority.ALWAYS);
-        Image alert = new Image("Resources/Images/Icons/alert.png");
+        Image alert = new Image(getClass().getResourceAsStream("/Images/Icons/alert.png"));
         ImageView imageView = new ImageView(alert);
         notificationText = new Label("New Client.Client Connected.");
         notificationText = (Label) Styler.styleAdd(notificationText, "label-bright");
         vBox.getChildren().addAll(imageView, notificationText);
-        vBox.getStylesheets().add(Styler.globalCSS);
+        vBox.getStylesheets().add(getClass().getResource("/css/global.css").toExternalForm());
         return vBox;
     }
 }

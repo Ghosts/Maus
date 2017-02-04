@@ -11,6 +11,7 @@ import javafx.stage.DirectoryChooser;
 import java.io.*;
 
 public class FileContextMenu {
+    public static String selectedDirectory;
     public static ContextMenu getFileContextMenu(HBox fileIcon, String fileName, MouseEvent e, ClientObject client) {
         ContextMenu cm = new ContextMenu();
         MenuItem sb1 = new MenuItem("Delete File");
@@ -20,11 +21,10 @@ public class FileContextMenu {
             directoryChooser.setTitle("Select download location");
             File selectedDirectory =
                     directoryChooser.showDialog(Maus.getPrimaryStage());
+            FileContextMenu.selectedDirectory = selectedDirectory.getAbsolutePath();
             try {
                 client.clientCommunicate("DOWNLOAD");
                 client.clientCommunicate(fileName);
-
-                DataInputStream dis = new DataInputStream(client.getClient().getInputStream());
             } catch (IOException e1) {
                 e1.printStackTrace();
             }

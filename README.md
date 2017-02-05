@@ -1,4 +1,4 @@
-# Maus 0.5a
+# Maus 1.0b!
 Lightweight remote administrative client written in Java.
 
 

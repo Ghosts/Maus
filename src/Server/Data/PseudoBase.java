@@ -29,11 +29,10 @@ public class PseudoBase implements Repository {
         try (BufferedWriter writer =
                      new BufferedWriter(new FileWriter(data))) {
             writer.write(ServerSettings.getConnectionIp() + " ");
-            writer.write(ServerSettings.isShowNotifications() + " ");
-            writer.write(ServerSettings.isBackgroundPersistent() + " ");
+            writer.write(ServerSettings.getShowNotifications() + " ");
+            writer.write(ServerSettings.getBackgroundPersistent() + " ");
             writer.write(ServerSettings.getRefreshRate() + " ");
             writer.write(ServerSettings.getMaxConnections() + " ");
-            writer.write(ServerSettings.isP2pConnections() + " ");
             writer.write(ServerSettings.getPORT() + " ");
             writer.write(ServerSettings.getSOUND() + " ");
         } catch (IOException i) {
@@ -79,15 +78,14 @@ public class PseudoBase implements Repository {
                 stringBuilder.append(line);
             }
             String[] settings = stringBuilder.toString().split(" ");
-            if (settings.length == 8) {
+            if (settings.length == 7) {
                 ServerSettings.setConnectionIp(settings[0].trim());
                 ServerSettings.setShowNotifications(Boolean.getBoolean(settings[1].trim()));
                 ServerSettings.setBackgroundPersistent(Boolean.getBoolean(settings[2].trim()));
                 ServerSettings.setRefreshRate(Integer.parseInt(settings[3].trim()));
                 ServerSettings.setMaxConnections(Integer.parseInt(settings[4].trim()));
-                ServerSettings.setP2pConnections(Boolean.getBoolean(settings[5].trim()));
-                ServerSettings.setPORT(Integer.parseInt(settings[6].trim()));
-                ServerSettings.setSOUND(Boolean.getBoolean(settings[7].trim()));
+                ServerSettings.setPORT(Integer.parseInt(settings[5].trim()));
+                ServerSettings.setSOUND(Boolean.getBoolean(settings[6].trim()));
             }
         } catch (IOException e) {
             Logger.log(Level.ERROR, e.toString());

@@ -75,7 +75,7 @@ class OptionBar {
         exit.setOnMouseClicked(event -> {
             if (stage.equals(Maus.getPrimaryStage())) {
                 Logger.log(Level.INFO, "Exit event detected. ");
-                if (ServerSettings.isBackgroundPersistent()) {
+                if (ServerSettings.getBackgroundPersistent()) {
                     Platform.exit();
                 } else {
                     System.exit(0);

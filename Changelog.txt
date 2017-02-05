@@ -17,11 +17,13 @@ File download
 JavaFX IpContext menu visual bug (rare - does not affect functionality)
 File explorer disconnect (possibly due to restricted folders)
 Uninstall server (may not always work, however due to not currently being persistent it is fine.)
+Is not currently fully cross-platform compatible (will be soon)
 
 ==Upcoming:
 Persistent server option
 Delete file (explorer view)
 Optimize code
+Fully cross platform
 
 ::Maus 0.6a::
 ==Current Working Features:

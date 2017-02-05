@@ -1,3 +1,28 @@
+::Maus 1.0b::
+We've got a beta!
+
+It's been a long process with some slow development but I feel comfortable releasing Maus as a beta software.
+
+==Current Working Features:
+Full Maus UI.
+Client Builder - create and distribute .jar files for client connections.
+Client nick names
+Client notifications (with sound!)
+Server settings
+Send commands
+File explorer
+File download
+
+==Known bugs:
+JavaFX IpContext menu visual bug (rare - does not affect functionality)
+File explorer disconnect (possibly due to restricted folders)
+Uninstall server (may not always work, however due to not currently being persistent it is fine.)
+
+==Upcoming:
+Persistent server option
+Delete file (explorer view)
+Optimize code
+
 ::Maus 0.6a::
 ==Current Working Features:
 Send and view remote command line commands

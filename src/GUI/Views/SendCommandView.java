@@ -7,7 +7,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -19,6 +18,14 @@ public class SendCommandView {
 
     public static TextArea getConsole() {
         return console;
+    }
+
+    public static Button getsendCommandButton() {
+        return sendCommandButton;
+    }
+
+    public static TextField getTextField() {
+        return textField;
     }
 
     public VBox getSendCommandView(Stage stage) {
@@ -39,13 +46,5 @@ public class SendCommandView {
         vBox2.getChildren().addAll(label, textField, sendCommandButton, Styler.vContainer(console));
         vBox.getChildren().addAll(new TopBar().getTopBarSansOptions(stage), vBox2, new StatisticsView().getStatisticsView());
         return vBox;
-    }
-
-    public static Button getsendCommandButton() {
-        return sendCommandButton;
-    }
-
-    public static TextField getTextField() {
-        return textField;
     }
 }

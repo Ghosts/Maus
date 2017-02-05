@@ -1,6 +1,5 @@
 package Maus;
 
-import GUI.Styler;
 import GUI.Views.MainView;
 import Logger.Level;
 import Logger.Logger;

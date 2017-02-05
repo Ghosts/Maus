@@ -3,8 +3,6 @@ package GUI.Components;
 import GUI.Controller;
 import GUI.ResizeHelper;
 import GUI.Views.SendCommandView;
-import Logger.Level;
-import Logger.Logger;
 import Server.ClientObject;
 import Server.Data.PseudoBase;
 import Server.Data.Repository;
@@ -65,18 +63,18 @@ class IPContextMenu implements Repository {
         });
         MenuItem mi3 = new MenuItem("Uninstall Server");
         mi3.setOnAction(event -> {
-                if (clientObject != null && clientObject.getClient().isConnected() && clientObject.getOnlineStatus().equals("Online")) {
-                    try {
-                        clientObject.clientCommunicate("EXIT");
-                    } catch (IOException e1) {
-                        e1.printStackTrace();
-                    }
+            if (clientObject != null && clientObject.getClient().isConnected() && clientObject.getOnlineStatus().equals("Online")) {
+                try {
+                    clientObject.clientCommunicate("EXIT");
+                } catch (IOException e1) {
+                    e1.printStackTrace();
                 }
+            }
             assert clientObject != null;
             PseudoBase.getMausData().remove(clientObject.getIP());
-                CONNECTIONS.remove(clientObject.getIP());
-                Controller.updateStats();
-                Controller.updateTable();
+            CONNECTIONS.remove(clientObject.getIP());
+            Controller.updateStats();
+            Controller.updateTable();
         });
         cm.getItems().addAll(mi1, mi2, mi3);
         cm.show(n, e.getScreenX(), e.getScreenY());

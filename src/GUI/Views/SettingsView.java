@@ -9,6 +9,7 @@ import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 
@@ -61,6 +62,22 @@ class SettingsView {
             }
         }));
 
+        ToggleButton soundToggle = new ToggleButton();
+        soundToggle.setSelected(ServerSettings.getSOUND());
+        if (soundToggle.isSelected()) {
+            soundToggle.setText("Sound (on) ");
+        } else {
+            soundToggle.setText("Sound (off) ");
+        }
+        soundToggle.setOnAction(event -> {
+            if (soundToggle.isSelected()) {
+                ServerSettings.setSOUND(true);
+                soundToggle.setText("Sound (on) ");
+            } else {
+                ServerSettings.setSOUND(false);
+                soundToggle.setText("Sound (off) ");
+            }
+        });
         Button applySettings = new Button("Apply Settings");
         applySettings.setPrefWidth(150);
         applySettings.setPrefHeight(50);
@@ -72,7 +89,7 @@ class SettingsView {
                 ServerSettings.setMaxConnections(Integer.parseInt(maxConnections.getText()));
             }
         });
-        hBox.getChildren().add(Styler.vContainer(20, title, refreshRateBox, maxConnectionsBox, applySettings));
+        hBox.getChildren().add(Styler.vContainer(20, title, refreshRateBox, maxConnectionsBox, soundToggle, applySettings));
         return hBox;
     }
 }

@@ -21,11 +21,11 @@ class OptionBar {
         menuBar.getStylesheets().add(getClass().getResource("/css/global.css").toExternalForm());
         menuBar.getStyleClass().add("background");
 
-        Label maus = (Label) Styler.styleAdd(new Label("Maus 0.5a"), "option-button");
+        Label maus = (Label) Styler.styleAdd(new Label("\uD83D\uDC2D Maus 1.0b"), "option-button");
         maus.setPadding(new Insets(5, 10, 5, 10));
         maus.setOnMouseClicked(event -> {
             String[] MausEsterEgg = {
-                    "Maus 0.5a",
+                    "Maus 1.0b!",
                     "):",
                     "Where's the cheese?",
                     "#NotaRAT",
@@ -43,12 +43,23 @@ class OptionBar {
                     "INF3CTED!!11oneone!1oen",
                     "Deditated Wam",
                     "Meow",
+                    "┌(=^‥^=)┘",
+                    "(^._.^)ﾉ",
+                    "\uD83D\uDC31",
+                    "\uD83D\uDCA5",
+                    "❤ ❤ ❤",
+                    "\uD83D\uDC08",
+                    "\uD83D\uDC01",
+                    "\uD83D\uDC2D",
+                    "Cat got your tongue?",
+                    "Purrrr",
                     "Luminosity Maus 1.5",
                     "Spreche du Deutsche?",
                     "Carrier pigeons are faster",
                     "Duct Tape is more stable than this shit",
                     "Cat got your tongue?",
                     "Stay Tuned!",
+                    "We're in BETA!",
             };
             Random rn = new Random();
             int rnn = rn.nextInt(MausEsterEgg.length);

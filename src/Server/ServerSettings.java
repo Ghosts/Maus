@@ -10,6 +10,15 @@ public class ServerSettings {
     private static boolean P2P_CONNECTIONS = true;
     private static boolean BEACON_STATUS = false;
     private static int PORT = 22122;
+    private static boolean SOUND = true;
+
+    public static boolean getSOUND() {
+        return SOUND;
+    }
+
+    public static void setSOUND(boolean SOUND) {
+        ServerSettings.SOUND = SOUND;
+    }
 
     public static String getConnectionIp() {
         return CONNECTION_IP;

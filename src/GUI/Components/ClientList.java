@@ -1,14 +1,12 @@
 package GUI.Components;
 
 import GUI.Controller;
-import GUI.Styler;
 import Server.ClientObject;
 import Server.Data.PseudoBase;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;

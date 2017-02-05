@@ -1,5 +1,7 @@
 package GUI.Components;
 
+import Logger.Level;
+import Logger.Logger;
 import Maus.Maus;
 import Server.ClientObject;
 import javafx.scene.control.ContextMenu;
@@ -8,10 +10,13 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.stage.DirectoryChooser;
 
-import java.io.*;
+import java.io.DataOutputStream;
+import java.io.File;
+import java.io.IOException;
 
 public class FileContextMenu {
     public static String selectedDirectory;
+
     public static ContextMenu getFileContextMenu(HBox fileIcon, String fileName, MouseEvent e, ClientObject client) {
         ContextMenu cm = new ContextMenu();
         MenuItem sb1 = new MenuItem("Delete File");
@@ -26,10 +31,27 @@ public class FileContextMenu {
                 client.clientCommunicate("DOWNLOAD");
                 client.clientCommunicate(fileName);
             } catch (IOException e1) {
-                e1.printStackTrace();
+                Logger.log(Level.ERROR, e1.toString());
             }
         });
         cm.getItems().addAll(sb1, sb2);
+        cm.show(fileIcon, e.getScreenX(), e.getScreenY());
+        return cm;
+    }
+
+    public static ContextMenu getDirectoryMenu(HBox fileIcon, String fileName, MouseEvent e, ClientObject client) {
+        ContextMenu cm = new ContextMenu();
+        MenuItem sb2 = new MenuItem("Open Folder");
+        sb2.setOnAction(event -> {
+            try {
+                client.clientCommunicate("CHNGDIR");
+                DataOutputStream dos = new DataOutputStream(client.getClient().getOutputStream());
+                dos.writeUTF(fileName);
+            } catch (IOException e1) {
+                Logger.log(Level.ERROR, e1.toString());
+            }
+        });
+        cm.getItems().addAll(sb2);
         cm.show(fileIcon, e.getScreenX(), e.getScreenY());
         return cm;
     }

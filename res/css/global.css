@@ -318,3 +318,11 @@
 #file-pane {
     -fx-background-color: white;
 }
+
+.toggle-button:selected {
+    -fx-background-color: #7ba5ff;
+}
+
+.toggle-button {
+    -fx-background-color: #8e6bff;
+}

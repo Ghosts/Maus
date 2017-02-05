@@ -35,6 +35,7 @@ public class PseudoBase implements Repository {
             writer.write(ServerSettings.getMaxConnections() + " ");
             writer.write(ServerSettings.isP2pConnections() + " ");
             writer.write(ServerSettings.getPORT() + " ");
+            writer.write(ServerSettings.getSOUND() + " ");
         } catch (IOException i) {
             Logger.log(Level.ERROR, i.toString());
         }
@@ -78,7 +79,7 @@ public class PseudoBase implements Repository {
                 stringBuilder.append(line);
             }
             String[] settings = stringBuilder.toString().split(" ");
-            if (settings.length == 7) {
+            if (settings.length == 8) {
                 ServerSettings.setConnectionIp(settings[0].trim());
                 ServerSettings.setShowNotifications(Boolean.getBoolean(settings[1].trim()));
                 ServerSettings.setBackgroundPersistent(Boolean.getBoolean(settings[2].trim()));
@@ -86,6 +87,7 @@ public class PseudoBase implements Repository {
                 ServerSettings.setMaxConnections(Integer.parseInt(settings[4].trim()));
                 ServerSettings.setP2pConnections(Boolean.getBoolean(settings[5].trim()));
                 ServerSettings.setPORT(Integer.parseInt(settings[6].trim()));
+                ServerSettings.setSOUND(Boolean.getBoolean(settings[7].trim()));
             }
         } catch (IOException e) {
             Logger.log(Level.ERROR, e.toString());
@@ -106,7 +108,7 @@ public class PseudoBase implements Repository {
                     ObjectInputStream in = new ObjectInputStream(new FileInputStream(file));
                     o = (ClientObject) in.readObject();
                     CONNECTIONS.put(o.getIP(), o);
-//                    mausData.put(o.getIP(), o);
+                    mausData.put(o.getIP(), o);
                     in.close();
                 }
             } else {

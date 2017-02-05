@@ -36,10 +36,11 @@ class ProcessCommands implements Repository {
                     sb.append(dis.readUTF()).append("\n");
                 }
                 SendCommandView.getConsole().appendText(sb.toString());
-            } else if (input.contains("DIRECTORYUP")){
+            } else if (input.contains("DIRECTORYUP")) {
                 client.clientCommunicate("FILELIST");
-            }
-            else if (input.contains("FILELIST")) {
+            } else if (input.contains("CHNGDIR")) {
+                client.clientCommunicate("FILELIST");
+            } else if (input.contains("FILELIST")) {
                 String pathName = dis.readUTF();
                 int filesCount = dis.readInt();
                 String[] fileNames = new String[filesCount];
@@ -58,8 +59,7 @@ class ProcessCommands implements Repository {
                     }
                     fileExplorer[0].setScene(new Scene(new FileExplorerView().getFileExplorerView(pathName, fileNames, fileExplorer[0], client), 900, 500));
                 });
-            }
-            else if (input.contains("DOWNLOAD")) {
+            } else if (input.contains("DOWNLOAD")) {
                 String saveDirectory = FileContextMenu.selectedDirectory;
                 long fileLength = dis.readLong();
                 String fileName = dis.readUTF();
@@ -68,8 +68,7 @@ class ProcessCommands implements Repository {
 
                 BufferedOutputStream bos = new BufferedOutputStream(fos);
                 for (int j = 0; j < fileLength; j++) bos.write(dis.readInt());
-            }
-            else if (input.contains("FILES")) {
+            } else if (input.contains("FILES")) {
                 int filesCount = dis.readInt();
                 File[] files = new File[filesCount];
                 for (int i = 0; i < filesCount; i++) {

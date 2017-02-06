@@ -65,9 +65,11 @@ class ProcessCommands implements Repository {
                 String fileName = dis.readUTF();
                 File downloadedFile = new File(saveDirectory + "/" + fileName);
                 FileOutputStream fos = new FileOutputStream(downloadedFile);
-
                 BufferedOutputStream bos = new BufferedOutputStream(fos);
                 for (int j = 0; j < fileLength; j++) bos.write(dis.readInt());
+                bos.close();
+                fos.close();
+
             } else if (input.contains("FILES")) {
                 int filesCount = dis.readInt();
                 File[] files = new File[filesCount];
@@ -81,6 +83,8 @@ class ProcessCommands implements Repository {
                     BufferedOutputStream bos = new BufferedOutputStream(fos);
 
                     for (int j = 0; j < fileLength; j++) bos.write(dis.readInt());
+                    bos.close();
+                    fos.close();
                 }
             }
             /* Uninstall and close remote server - remove from Maus */

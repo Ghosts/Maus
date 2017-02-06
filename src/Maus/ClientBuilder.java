@@ -37,7 +37,7 @@ public class ClientBuilder {
         String jarFileName = System.getProperty("user.home") + "/Maus/" + clientName + ".jar";
         File jarFile = new File(jarFileName);
         try {
-            byte buffer[] = new byte[10240];
+            byte buffer[] = new byte[1024];
             FileOutputStream stream = new FileOutputStream(jarFile);
             JarOutputStream out = new JarOutputStream(stream, manifest);
             ArrayList<File> fileList = new ArrayList<>();

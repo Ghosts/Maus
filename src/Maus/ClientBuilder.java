@@ -42,16 +42,14 @@ public class ClientBuilder {
             JarOutputStream out = new JarOutputStream(stream, manifest);
             ArrayList<File> fileList = new ArrayList<>();
             try {
-                String file = FileUtils.ExportResource("/Client/Client.class");
-                Thread.sleep(1000);
-                FileUtils.copyFile(file, System.getProperty("user.home").replace("\\", "/") + "/Maus/Client/Client.class");
-                Thread.sleep(1000);
-                File tempFile = new File(file);
-                tempFile.delete();
+                FileUtils.ExportResource("/Client/Client.class");
+                Thread.sleep(2000);
             } catch (Exception e) {
                 Logger.log(Level.ERROR, e.toString());
             }
+/*
             fileList.add(new File("Client"));
+*/
             fileList.add(new File(System.getProperty("user.home").replace("\\", "/") + "/Maus/Client/Client.class"));
             fileList.add(new File(System.getProperty("user.home").replace("\\", "/") + "/Maus/.mauscs"));
 

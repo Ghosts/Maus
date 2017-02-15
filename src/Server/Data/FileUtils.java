@@ -8,12 +8,12 @@ import java.net.URISyntaxException;
 public class FileUtils {
 
     /* Pulls files outside of a .jar */
-    static public String ExportResource(String resourceName) throws Exception {
+    static public void ExportResource(String resourceName) throws Exception {
         String jarFolder = new File(Maus.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath()).getParentFile().getPath().replace('\\', '/');
-        File r = new File(jarFolder + "/Client/");
+        File r = new File(System.getProperty("user.home") + "/Maus/Client/");
         r.mkdir();
         try (InputStream stream = Maus.class.getResourceAsStream(resourceName);
-             OutputStream resStreamOut = new FileOutputStream(jarFolder + "/Client/Client.class")) {
+             OutputStream resStreamOut = new FileOutputStream(System.getProperty("user.home") + "/Maus/Client/Client.class")) {
             if (stream == null) {
                 throw new Exception("Cannot get resource \"" + resourceName + "\" from Jar file.");
             }
@@ -25,7 +25,6 @@ public class FileUtils {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        return jarFolder + "/Client/Client.class";
     }
 
     /* Copies a file to another location */

@@ -57,14 +57,7 @@ public class PseudoBase implements Repository {
         }
         File settings = new File(System.getProperty("user.home") + "/Maus/.serverSettings");
         if (!settings.exists()) {
-            boolean create = settings.createNewFile();
-        }
-        File data = new File(parent, ".mp");
-        try (BufferedWriter writer =
-                     new BufferedWriter(new FileWriter(data))) {
-            writer.write("");
-        } catch (IOException i) {
-            Logger.log(Level.ERROR, i.toString());
+            settings.createNewFile();
         }
     }
 

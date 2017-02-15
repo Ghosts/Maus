@@ -326,3 +326,7 @@
 .toggle-button {
     -fx-background-color: #8e6bff;
 }
+
+.toggle-button:hover {
+    -fx-cursor: hand;
+}

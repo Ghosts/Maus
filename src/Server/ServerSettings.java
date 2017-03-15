@@ -7,8 +7,7 @@ public class ServerSettings {
     private static boolean BACKGROUND_PERSISTENT = false;
     private static int REFRESH_RATE = 12000;
     private static int MAX_CONNECTIONS = 999;
-    private static boolean BEACON_STATUS = false;
-    private static int PORT = 22122;
+    private static int PORT = 8572;
     private static boolean SOUND = true;
 
     public static boolean getSOUND() {
@@ -25,14 +24,6 @@ public class ServerSettings {
 
     public static void setConnectionIp(String connectionIp) {
         CONNECTION_IP = connectionIp;
-    }
-
-    public static boolean getBeaconStatus() {
-        return BEACON_STATUS;
-    }
-
-    public static void setBeaconStatus(boolean beaconStatus) {
-        BEACON_STATUS = beaconStatus;
     }
 
     public static int getPORT() {

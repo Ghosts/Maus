@@ -9,7 +9,7 @@ public class FileUtils {
 
     /* Pulls files outside of a .jar */
     static public void ExportResource(String resourceName) throws Exception {
-        String jarFolder = new File(Maus.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath()).getParentFile().getPath().replace('\\', '/');
+        new File(Maus.class.getProtectionDomain().getCodeSource().getLocation().toURI().getPath()).getParentFile().getPath().replace('\\', '/');
         File r = new File(System.getProperty("user.home") + "/Maus/Client/");
         r.mkdir();
         try (InputStream stream = Maus.class.getResourceAsStream(resourceName);

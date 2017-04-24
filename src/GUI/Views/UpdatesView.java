@@ -1,5 +1,6 @@
 package GUI.Views;
 
+import GUI.Components.BottomBar;
 import GUI.Components.TopBar;
 import GUI.Styler;
 import Maus.Maus;
@@ -36,7 +37,7 @@ class UpdatesView {
         updatesView.setTop(new TopBar().getTopBar(Maus.getPrimaryStage()));
         updatesView.setLeft(hBox);
         updatesView.setCenter(hBox1);
-        updatesView.setBottom(new StatisticsView().getStatisticsView());
+        updatesView.setBottom(new BottomBar().getBottomBar());
         return updatesView;
     }
 
@@ -47,31 +48,14 @@ class UpdatesView {
                 "easy to use UI."), "label-bright");
         Button checkUpdates = new Button("Check for Updates");
         checkUpdates.setOnMouseClicked(event -> {
-            Platform.runLater(() -> {
-                Stage stage = new Stage();
-                stage.setWidth(300);
-                stage.setHeight(100);
-                Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
-                NotificationView notificationView = new NotificationView();
-                stage.setScene(new Scene(notificationView.getNotificationView(), 300, 100));
-                stage.setResizable(false);
-                stage.setAlwaysOnTop(true);
-                stage.setX(primaryScreenBounds.getMinX() + primaryScreenBounds.getWidth() - 300);
-                stage.setY(primaryScreenBounds.getMinY() + primaryScreenBounds.getHeight() - 100);
-                stage.initStyle(StageStyle.UNDECORATED);
-                notificationView.getNotificationText().setText("Update Check Complete!");
-                stage.show();
-                PauseTransition delay = new PauseTransition(Duration.seconds(3));
-                delay.setOnFinished(e -> stage.close());
-                delay.play();
-            });
+            Platform.runLater(() -> NotificationView.openNotification("Update Check Complete"));
+
             HBox hBox = getUpdatesPanel();
             hBox.setId("updatesView");
             updatesView.setCenter(hBox);
         });
         return Styler.hContainer(Styler.vContainer(10, title, desc, checkUpdates));
     }
-
     private HBox getUpdatesPanel() {
         TextArea updates = new TextArea();
         updates.setPrefWidth(600);

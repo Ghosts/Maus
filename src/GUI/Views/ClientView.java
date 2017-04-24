@@ -1,5 +1,6 @@
 package GUI.Views;
 
+import GUI.Components.BottomBar;
 import GUI.Components.ClientList;
 import GUI.Components.TopBar;
 import GUI.Styler;
@@ -13,7 +14,7 @@ class ClientView {
         borderPane.getStyleClass().add("root");
         borderPane.setTop(new TopBar().getTopBar(Maus.getPrimaryStage()));
         borderPane.setCenter(Styler.vContainer(new ClientList().getClientList()));
-        borderPane.setBottom(new StatisticsView().getStatisticsView());
+        borderPane.setBottom(new BottomBar().getBottomBar());
         return borderPane;
     }
 }

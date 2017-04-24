@@ -17,6 +17,15 @@ public class ClientObject implements Serializable, Repository {
     private transient PrintWriter clientOutput;
     private transient DataOutputStream dis;
 
+    public String getSYSTEMOS() {
+        return SYSTEMOS;
+    }
+
+    public void setSYSTEMOS(String SYSTEMOS) {
+        this.SYSTEMOS = SYSTEMOS;
+    }
+
+    public String SYSTEMOS;
     ClientObject(Socket client, String nickName, String IP) {
         this.client = client;
         this.nickName = nickName;
@@ -24,6 +33,7 @@ public class ClientObject implements Serializable, Repository {
         try {
             this.clientOutput = new PrintWriter(client.getOutputStream(), true);
             dis = new DataOutputStream(client.getOutputStream());
+            clientCommunicate("SYS");
         } catch (IOException e) {
             Logger.log(Level.WARNING, "Exception thrown: " + e);
         }

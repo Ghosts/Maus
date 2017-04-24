@@ -40,7 +40,7 @@ class IPContextMenu implements Repository {
             stage.initStyle(StageStyle.UNDECORATED);
             stage.setMinWidth(300);
             stage.setMinWidth(300);
-            stage.setScene(new Scene(new SendCommandView().getSendCommandView(stage), 400, 500));
+            stage.setScene(new Scene(new SendCommandView().getSendCommandView(stage), 400, 400));
             ResizeHelper.addResizeListener(stage);
             stage.show();
             SendCommandView.getsendCommandButton().setOnAction(a -> {

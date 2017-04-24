@@ -1,5 +1,5 @@
 .root {
-    -fx-background-color: white;
+    -fx-background-color: #16161d;
 }
 
 .title {
@@ -10,16 +10,16 @@
 }
 
 .table-row-cell:selected {
-    -fx-background-color: #7ba5ff;
+    -fx-background-color: indianred;
     -fx-background-insets: 0, 1, 2;
 }
 
 .table-row-cell:selected .text {
-    -fx-text-fill: #7ba5ff;
+    -fx-text-fill: indianred;
 }
 
 .table-row-cell:selected .menu-item .label {
-    -fx-text-fill: #7ba5ff;
+    -fx-text-fill: indianred;
 }
 
 .label-light {
@@ -43,7 +43,7 @@
 }
 
 .option-button {
-    -fx-background-color: #8d9db1;
+    -fx-background-color: black;
     -fx-text-fill: white;
     -fx-font-weight: bold;
 }
@@ -51,7 +51,7 @@
 .option-button:hover {
     -fx-text-fill: #8d9db1;
     -fx-cursor: hand;
-    -fx-background-color: white;
+    -fx-background-color: #16161d;
 }
 
 .text-field {
@@ -59,7 +59,7 @@
 }
 
 .text-field .label {
-    -fx-text-fill: #4EFFBB #e;
+    -fx-text-fill: #729aec #e;
 }
 
 .menu-item:focused {
@@ -69,16 +69,16 @@
 
 .context-menu {
     -fx-skin: "com.sun.javafx.scene.control.skin.ContextMenuSkin";
-    -fx-text-fill: #7ba5ff;
+    -fx-text-fill: indianred;
     -fx-background-color: white;
     -fx-background-insets: 0, 1, 2;
     -fx-background-radius: 0 6 6 6, 0 5 5 5, 0 4 4 4;
 }
 
 .table-view {
-    -fx-base: white;
-    -fx-control-inner-background: #e1e1e1;
-    -fx-background-color: whitesmoke;
+    -fx-base: #16161d;
+    -fx-control-inner-background: #2f2f3e;
+    -fx-background-color: #2f2f3e;
     -fx-table-cell-border-color: transparent;
     -fx-table-header-border-color: transparent;
     -fx-padding: 5;
@@ -97,22 +97,22 @@
     -fx-text-fill: black;
     -fx-font-family: "Segoe UI Semibold";
     -fx-font-weight: bold;
-    -fx-background-color: #7ba5ff;
+    -fx-background-color: #e96969;
 }
 
 .button:hover {
     -fx-cursor: hand;
-    -fx-background-color: #6384cc;
+    -fx-background-color: #a54c4c;
 }
 
 .text-area:focused .content {
     -fx-border-radius: 0;
-    -fx-background-color: #729aec;
+    -fx-background-color: #000000;
 }
 
 #console {
-    -fx-background-color: #729aec;
-    -fx-text-fill: white !important;
+    -fx-background-color: black;
+    -fx-text-fill: #a54c4c !important;
 }
 
 #console .content {
@@ -127,12 +127,12 @@
 
 .text-area {
     -fx-text-fill: white !important;
-    -fx-background-color: #729aec;
+    -fx-background-color: black;
     -fx-border-radius: 0;
 }
 
 .text-area .content {
-    -fx-background-color: #729aec;
+    -fx-background-color: #000000;
     -fx-border-radius: 0;
     -fx-text-fill: white;
 }
@@ -151,7 +151,7 @@
 }
 
 .check-box:selected .mark {
-    -fx-background-color: #8e6bff;
+    -fx-background-color: indianred;
     -fx-background-insets: 1 0 -1 0, 0;
     -fx-padding: 0.333333em; /* 4 -- this is half the size of the mark */
     -fx-shape: "M0,5a5, 5 0 1,0 10,0a5,5 0 1,0 -10,0";
@@ -162,15 +162,17 @@
 }
 
 #drag-bar {
-    -fx-background-color: #7ba5ff;
+    -fx-background-color: #000000;
 }
 
 #settingsView {
     -fx-background-color: white;
 }
 
-#notification {
+.notification {
+    -fx-background-color: #2f2f3e;
     -fx-opacity: 0.9;
+
 }
 
 #iconFlow {
@@ -200,12 +202,11 @@
 }
 
 #homeButton {
-    -fx-background-color: white;
-
+    -fx-background-color: #16161d;
 }
 
 #homeButton:hover {
-    -fx-background-color: whitesmoke;
+    -fx-background-color: black;
     -fx-cursor: hand;
 }
 
@@ -222,11 +223,11 @@
 }
 
 #stat-bar {
-    -fx-background-color: #729aec;
+    -fx-background-color: indianred;
 }
 
 .scroll-bar {
-    -fx-background-color: white;
+    -fx-background-color: #16161d;
     -fx-background-radius: 2em;
 }
 
@@ -245,25 +246,25 @@
 }
 
 .scroll-bar:horizontal .thumb {
-    -fx-background-color: #7ba5ff;
+    -fx-background-color: indianred;
     -fx-background-insets: 4 0 4 0;
     -fx-background-radius: 2em;
 }
 
 .scroll-bar:vertical .thumb {
-    -fx-background-color: #7ba5ff;
+    -fx-background-color: indianred;
     -fx-background-insets: 0 4 0 4;
     -fx-background-radius: 2em;
 }
 
 .scroll-bar:horizontal .thumb:hover,
 .scroll-bar:vertical .thumb:hover {
-    -fx-background-color: #6283cb;
+    -fx-background-color: #a54c4c;
 }
 
 .scroll-bar:horizontal .thumb:pressed,
 .scroll-bar:vertical .thumb:pressed {
-    -fx-background-color: #526eaa;
+    -fx-background-color: #a54c4c;
 }
 
 .scroll-bar:vertical .increment-button, .scroll-bar:vertical .decrement-button {
@@ -312,7 +313,7 @@
 }
 
 #scroll-pane {
-    -fx-background-color: white;
+    -fx-background-color: #2f2f3e;
 }
 
 #file-pane {
@@ -320,13 +321,21 @@
 }
 
 .toggle-button:selected {
-    -fx-background-color: #7ba5ff;
+    -fx-background-color: #e96969;
 }
 
 .toggle-button {
-    -fx-background-color: #8e6bff;
+    -fx-background-color: #a54c4c;
 }
 
 .toggle-button:hover {
     -fx-cursor: hand;
+}
+
+.chart-title {
+     -fx-text-fill: white;
+ }
+
+.chart Text {
+    -fx-fill: white !important;
 }

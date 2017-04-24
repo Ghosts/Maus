@@ -24,7 +24,7 @@ public class Maus extends Application {
     private static Stage primaryStage;
     private static Server server = new Server();
     private static ServerSocket socket;
-
+    /* Aids in making repeated tests easier. */
     public static Stage getPrimaryStage() {
         return primaryStage;
     }
@@ -47,6 +47,13 @@ public class Maus extends Application {
                         fileLock.release();
                         randomAccessFile.close();
                         file.delete();
+                        /*Before Maus is closed - write Maus data to file (server settings, clients, etc.) */
+                        try {
+                            PseudoBase.writeMausData();
+                            Logger.log(Level.INFO, "MausData saved to file. ");
+                        } catch (IOException e) {
+                            Logger.log(Level.ERROR, e.toString());
+                        }
                     } catch (Exception e) {
                         Logger.log(Level.ERROR, e.toString());
                     }
@@ -73,11 +80,8 @@ public class Maus extends Application {
         /* Load data from files - including client data, server settings, etc. */
         new PseudoBase().loadData(System.getProperty("user.home") + "/Maus/clients/");
         /* Set up primary view */
-        getPrimaryStage().setTitle("Maus 0.5a");
-        getPrimaryStage().setMinWidth(600);
-        getPrimaryStage().setMinHeight(500);
-        getPrimaryStage().setMaxWidth(900);
-        getPrimaryStage().setMaxHeight(800);
+        getPrimaryStage().setTitle("Maus 1.0b");
+
         Scene mainScene = new Scene(new MainView().getMainView(), 900, 500);
         mainScene.getStylesheets().add(getClass().getResource("/css/global.css").toExternalForm());
         getPrimaryStage().setScene(mainScene);
@@ -91,19 +95,5 @@ public class Maus extends Application {
         /* Start the server to listen for client connections. */
         Runnable startServer = server;
         new Thread(startServer).start();
-
-        /*Before Maus is closed - write Maus data to file (server settings, clients, etc.) */
-        Runtime.getRuntime().addShutdownHook(
-                new Thread("mausData") {
-                    @Override
-                    public void run() {
-                        try {
-                            PseudoBase.writeMausData();
-                            Logger.log(Level.INFO, "MausData saved to file. ");
-                        } catch (IOException e) {
-                            Logger.log(Level.ERROR, e.toString());
-                        }
-                    }
-                });
     }
 }

@@ -32,14 +32,14 @@ public class ClientList {
         tableView.getStylesheets().add(getClass().getResource("/css/global.css").toExternalForm());
 
         TableColumn<String, String> onlineStatus = new TableColumn<>("Status");
-        onlineStatus.setMaxWidth(100);
+        onlineStatus.setMaxWidth(70);
         onlineStatus.setResizable(false);
         onlineStatus.setCellValueFactory(
                 new PropertyValueFactory<>("onlineStatus"));
 
         TableColumn<ClientObject, String> nickName = new TableColumn<>("Nickname");
         nickName.setMinWidth(100);
-        nickName.setMaxWidth(900);
+        nickName.setMaxWidth(600);
         nickName.setResizable(true);
         nickName.setCellValueFactory(new PropertyValueFactory<>("nickName"));
         nickName.setCellFactory(TextFieldTableCell.forTableColumn());
@@ -49,7 +49,8 @@ public class ClientList {
         );
 
         TableColumn<ClientObject, String> IP = new TableColumn<>("IP");
-        IP.setMinWidth(100);
+        IP.setMinWidth(70);
+        IP.setMaxWidth(500);
         IP.setResizable(true);
         IP.setCellValueFactory(new PropertyValueFactory<>("IP"));
         IP.setCellFactory(col -> {

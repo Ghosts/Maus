@@ -23,6 +23,28 @@ import javafx.util.Duration;
 public class NotificationView {
     private Label notificationText;
 
+    public static void openNotification(String text) {
+        Stage stage = new Stage();
+        stage.setWidth(300);
+        stage.setHeight(125);
+        Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+        NotificationView notificationView = new NotificationView();
+        stage.setScene(new Scene(notificationView.getNotificationView(), 300, 125));
+        stage.setResizable(false);
+        stage.setAlwaysOnTop(true);
+        stage.setX(primaryScreenBounds.getMinX() + primaryScreenBounds.getWidth() - 300);
+        stage.setY(primaryScreenBounds.getMinY() + primaryScreenBounds.getHeight() - 125);
+        stage.initStyle(StageStyle.UNDECORATED);
+        notificationView.getNotificationText().setWrapText(true);
+        notificationView.getNotificationText().setAlignment(Pos.CENTER);
+        notificationView.getNotificationText().setPadding(new Insets(0,5,0,20));
+        notificationView.getNotificationText().setText(text);
+        stage.show();
+        PauseTransition delay = new PauseTransition(Duration.seconds(5));
+        delay.setOnFinished(event -> stage.close());
+        delay.play();
+    }
+
     public static void openNotification(ClientObject client) {
         Stage stage = new Stage();
         stage.setWidth(300);
@@ -57,7 +79,7 @@ public class NotificationView {
         Image alert = new Image(getClass().getResourceAsStream("/Images/Icons/alert.png"));
         ImageView imageView = new ImageView(alert);
         notificationText = new Label("");
-        notificationText = (Label) Styler.styleAdd(notificationText, "label-bright");
+        notificationText = (Label) Styler.styleAdd(notificationText, "label-light");
         vBox.getChildren().addAll(imageView, notificationText);
         vBox.getStylesheets().add(getClass().getResource("/css/global.css").toExternalForm());
         if (ServerSettings.getSOUND()) {
@@ -65,6 +87,7 @@ public class NotificationView {
             MediaPlayer mediaPlayer = new MediaPlayer(notify);
             mediaPlayer.play();
         }
+        Styler.styleAdd(vBox, "notification");
         return vBox;
     }
 }

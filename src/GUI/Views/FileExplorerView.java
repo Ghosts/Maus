@@ -1,5 +1,6 @@
 package GUI.Views;
 
+import GUI.Components.BottomBar;
 import GUI.Components.FileContextMenu;
 import GUI.Components.TopBar;
 import GUI.Styler;
@@ -138,7 +139,7 @@ public class FileExplorerView {
         borderPane.getStylesheets().add(getClass().getResource("/css/global.css").toExternalForm());
         borderPane.setTop(new TopBar().getTopBar(stage));
         borderPane.setCenter(getFileExplorerViewCenter(pathName, files));
-        borderPane.setBottom(new StatisticsView().getStatisticsView());
+        borderPane.setBottom(new BottomBar().getBottomBar());
         return borderPane;
     }
 

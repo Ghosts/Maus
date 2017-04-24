@@ -1,7 +1,7 @@
 package GUI;
 
 import GUI.Components.ClientList;
-import GUI.Views.StatisticsView;
+import GUI.Components.BottomBar;
 import Maus.Maus;
 import Server.ClientObject;
 import Server.Data.PseudoBase;
@@ -27,7 +27,7 @@ public class Controller {
 
     /* Refreshes the number of connections based on MausData size. */
     public static void updateStats() {
-        Platform.runLater(() -> StatisticsView.getConnectionsLabel().setText("Connections: " + PseudoBase.getMausData().size()));
+        Platform.runLater(() -> BottomBar.getConnectionsLabel().setText("Connections: " + PseudoBase.getMausData().size()));
     }
 
     /* Changes the primary view to the provided scene. */

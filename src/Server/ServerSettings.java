@@ -2,12 +2,12 @@ package Server;
 
 
 public class ServerSettings {
-    private static String CONNECTION_IP = "127.0.0.1";
+    private static String CONNECTION_IP = "localhost";
     private static boolean SHOW_NOTIFICATIONS = true;
     private static boolean BACKGROUND_PERSISTENT = false;
     private static int REFRESH_RATE = 12000;
     private static int MAX_CONNECTIONS = 999;
-    private static int PORT = 8572;
+    private static int PORT = 22122;
     private static boolean SOUND = true;
 
     public static boolean getSOUND() {

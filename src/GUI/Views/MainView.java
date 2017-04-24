@@ -1,6 +1,7 @@
 package GUI.Views;
 
 
+import GUI.Components.BottomBar;
 import GUI.Components.TopBar;
 import GUI.Controller;
 import GUI.Styler;
@@ -22,18 +23,18 @@ public class MainView {
         flow.setPadding(new Insets(10, 50, 10, 50));
         flow.getStylesheets().add(getClass().getResource("/css/global.css").toExternalForm());
         flow.setId("iconFlow");
-        flow.setVgap(10);
-        flow.setHgap(50);
+        flow.setVgap(15);
+        flow.setHgap(15);
 
         HBox icons[] = new HBox[8];
         for (int i = 0; i < 7; i++) {
             HBox hBox = new HBox();
             hBox.setAlignment(Pos.CENTER);
             hBox.setPadding(new Insets(10, 10, 10, 10));
-            hBox.setPrefWidth(100);
+            hBox.setPrefWidth(115);
             hBox.setId("icon");
 
-            VBox vBox = new VBox(5);
+            VBox vBox = new VBox(10);
             vBox.setAlignment(Pos.CENTER);
             Label label;
             switch (i) {
@@ -68,6 +69,7 @@ public class MainView {
                     vBox.getChildren().addAll(new ImageView(new Image(getClass().getResourceAsStream("/Images/Icons/statistics.png"))), label);
                     hBox.getChildren().addAll(vBox);
                     icons[4] = hBox;
+                    icons[4].setOnMouseClicked(event -> Controller.changePrimaryStage(new StatisticsView().getStatisticsView()));
                     break;
                 case 5:
                     label = (Label) Styler.styleAdd(new Label("Updates"), "label-bright");
@@ -99,7 +101,7 @@ public class MainView {
         borderPane.getStyleClass().add("root");
         borderPane.setTop(new TopBar().getTopBar(Maus.getPrimaryStage()));
         borderPane.setCenter(getIconFlow());
-        borderPane.setBottom(new StatisticsView().getStatisticsView());
+        borderPane.setBottom(new BottomBar().getBottomBar());
         return borderPane;
     }
 

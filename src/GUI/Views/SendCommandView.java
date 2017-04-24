@@ -1,5 +1,6 @@
 package GUI.Views;
 
+import GUI.Components.BottomBar;
 import GUI.Components.TopBar;
 import GUI.Styler;
 import javafx.geometry.Pos;
@@ -44,7 +45,7 @@ public class SendCommandView {
         console.setId("console");
         console.setEditable(false);
         vBox2.getChildren().addAll(label, textField, sendCommandButton, Styler.vContainer(console));
-        vBox.getChildren().addAll(new TopBar().getTopBarSansOptions(stage), vBox2, new StatisticsView().getStatisticsView());
+        vBox.getChildren().addAll(new TopBar().getTopBarSansOptions(stage), vBox2, new BottomBar().getBottomBar());
         return vBox;
     }
 }

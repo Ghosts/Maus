@@ -1,6 +1,7 @@
 package GUI.Views;
 
 
+import GUI.Components.BottomBar;
 import GUI.Components.TopBar;
 import GUI.Styler;
 import Logger.Level;
@@ -21,13 +22,16 @@ import java.io.IOException;
 
 class ClientBuilderView {
 
+    private CheckBox persistent;
+    private CheckBox autoSpread;
+
     BorderPane getClientBuilderView() {
         BorderPane borderPane = new BorderPane();
         borderPane.getStylesheets().add(getClass().getResource("/css/global.css").toExternalForm());
         borderPane.setTop(new TopBar().getTopBar(Maus.getPrimaryStage()));
         borderPane.setLeft(clientBuilderSettingsLeft());
         borderPane.setCenter(clientBuilderSettingsCenter());
-        borderPane.setBottom(new StatisticsView().getStatisticsView());
+        borderPane.setBottom(new BottomBar().getBottomBar());
         return borderPane;
     }
 
@@ -37,9 +41,9 @@ class ClientBuilderView {
         hBox.setId("clientBuilder");
         hBox.setPadding(new Insets(20, 20, 20, 20));
         Label title = (Label) Styler.styleAdd(new Label("Client Builder"), "title");
-        CheckBox checkBox = new CheckBox("Persistent");
-        CheckBox checkBox1 = new CheckBox("Auto-Spread");
-        hBox.getChildren().add(Styler.vContainer(20, title, checkBox, checkBox1));
+        persistent = new CheckBox("Persistent");
+        autoSpread = new CheckBox("Auto-Spread");
+        hBox.getChildren().add(Styler.vContainer(20, title, persistent, autoSpread));
         return hBox;
     }
 
@@ -81,6 +85,12 @@ class ClientBuilderView {
                 ServerSettings.setPORT(Integer.parseInt(port.getText()));
             }
             try {
+                if(autoSpread.isSelected()){
+                    ClientBuilder.autoSpread = true;
+                }
+                if(persistent.isSelected()){
+                    ClientBuilder.isPersistent = true;
+                }
                 PseudoBase.writeMausData();
             } catch (IOException e) {
                 Logger.log(Level.ERROR, e.toString());

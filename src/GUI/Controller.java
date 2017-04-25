@@ -1,7 +1,7 @@
 package GUI;
 
-import GUI.Components.ClientList;
 import GUI.Components.BottomBar;
+import GUI.Components.ClientList;
 import Maus.Maus;
 import Server.ClientObject;
 import Server.Data.PseudoBase;

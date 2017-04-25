@@ -94,7 +94,7 @@ class SettingsView {
         applySettings.setPrefWidth(150);
         applySettings.setPrefHeight(50);
         applySettings.setOnAction(event -> {
-            if(Integer.parseInt(listeningPort.getText()) != ServerSettings.getPORT()){
+            if (Integer.parseInt(listeningPort.getText()) != ServerSettings.getPORT()) {
                 ServerSettings.setPORT(Integer.parseInt(listeningPort.getText()));
             }
             if (Integer.parseInt(refreshRate.getText()) != ServerSettings.getRefreshRate()) {
@@ -106,7 +106,7 @@ class SettingsView {
             Platform.runLater(() -> NotificationView.openNotification("Settings Applied"));
 
         });
-        hBox.getChildren().add(Styler.vContainer(20, title,listeningPortBox, refreshRateBox, maxConnectionsBox, soundToggle, applySettings));
+        hBox.getChildren().add(Styler.vContainer(20, title, listeningPortBox, refreshRateBox, maxConnectionsBox, soundToggle, applySettings));
         return hBox;
     }
 }

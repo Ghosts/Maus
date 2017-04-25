@@ -36,7 +36,7 @@ class ProcessCommands implements Repository {
                     sb.append(dis.readUTF()).append("\n");
                 }
                 SendCommandView.getConsole().appendText(sb.toString());
-            } else if (input.contains("SYS")){
+            } else if (input.contains("SYS")) {
                 String SYSTEMOS = dis.readUTF();
                 client.setSYSTEMOS(SYSTEMOS);
             } else if (input.contains("DIRECTORYUP")) {

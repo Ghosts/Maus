@@ -24,21 +24,23 @@ public class Maus extends Application {
     private static Stage primaryStage;
     private static Server server = new Server();
     private static ServerSocket socket;
+
     /* Aids in making repeated tests easier. */
     public static Stage getPrimaryStage() {
         return primaryStage;
     }
 
     public static void main(String[] args) {
-        if(lockInstance()){
+        if (lockInstance()) {
             launch(args);
         } else {
             System.exit(0);
         }
     }
+
     private static boolean lockInstance() {
         try {
-            final File file = new File(System.getProperty("user.home")+ "/.lock");
+            final File file = new File(System.getProperty("user.home") + "/.lock");
             final RandomAccessFile randomAccessFile = new RandomAccessFile(file, "rw");
             final FileLock fileLock = randomAccessFile.getChannel().tryLock();
             if (fileLock != null) {
@@ -65,6 +67,7 @@ public class Maus extends Application {
         }
         return false;
     }
+
     @Override
     public void start(Stage primaryStage) throws IOException, ClassNotFoundException {
         Maus.primaryStage = primaryStage;

@@ -17,9 +17,9 @@ import java.util.jar.JarOutputStream;
 import java.util.jar.Manifest;
 
 public class ClientBuilder {
-    private String clientName;
     public static boolean isPersistent = false;
     public static boolean autoSpread = false;
+    private String clientName;
 
     public ClientBuilder(String clientName) {
         this.clientName = clientName;

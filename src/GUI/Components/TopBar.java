@@ -30,7 +30,7 @@ public class TopBar {
         VBox vBox1 = new VBox();
         vBox1.setAlignment(Pos.CENTER);
         vBox1.getChildren().add(new ImageView(new Image(getClass().getResourceAsStream("/Images/logo.png"))));
-        vBox1.setPadding(new Insets(5, 10,5, 5));
+        vBox1.setPadding(new Insets(5, 10, 5, 5));
 
         HBox hBox = Styler.hContainer(new HBox(), vBox, vBox1);
         vBox.setOnMouseClicked(event -> Controller.changePrimaryStage(new MainView().getMainView()));

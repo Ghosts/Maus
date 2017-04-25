@@ -333,8 +333,8 @@
 }
 
 .chart-title {
-     -fx-text-fill: white;
- }
+    -fx-text-fill: white;
+}
 
 .chart Text {
     -fx-fill: white !important;

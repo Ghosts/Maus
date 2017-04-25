@@ -18,6 +18,7 @@ public class BottomBar {
     public static Label getConnectionsLabel() {
         return connectionsLabel;
     }
+
     public HBox getBottomBar() {
         Timeline fiveSecondTime = new Timeline(new KeyFrame(Duration.seconds(5), event -> Controller.updateStats()));
         fiveSecondTime.setCycleCount(Timeline.INDEFINITE);

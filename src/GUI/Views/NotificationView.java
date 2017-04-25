@@ -37,7 +37,7 @@ public class NotificationView {
         stage.initStyle(StageStyle.UNDECORATED);
         notificationView.getNotificationText().setWrapText(true);
         notificationView.getNotificationText().setAlignment(Pos.CENTER);
-        notificationView.getNotificationText().setPadding(new Insets(0,5,0,20));
+        notificationView.getNotificationText().setPadding(new Insets(0, 5, 0, 20));
         notificationView.getNotificationText().setText(text);
         stage.show();
         PauseTransition delay = new PauseTransition(Duration.seconds(5));
@@ -59,7 +59,7 @@ public class NotificationView {
         stage.initStyle(StageStyle.UNDECORATED);
         notificationView.getNotificationText().setWrapText(true);
         notificationView.getNotificationText().setAlignment(Pos.CENTER);
-        notificationView.getNotificationText().setPadding(new Insets(0,5,0,20));
+        notificationView.getNotificationText().setPadding(new Insets(0, 5, 0, 20));
         notificationView.getNotificationText().setText("New Connection: " + client.getIP() + " (" + client.getNickName() + ")");
         stage.show();
         PauseTransition delay = new PauseTransition(Duration.seconds(5));

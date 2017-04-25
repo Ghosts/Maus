@@ -4,20 +4,13 @@ import GUI.Components.BottomBar;
 import GUI.Components.TopBar;
 import GUI.Styler;
 import Maus.Maus;
-import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
-import javafx.geometry.Rectangle2D;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.stage.Screen;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
@@ -56,6 +49,7 @@ class UpdatesView {
         });
         return Styler.hContainer(Styler.vContainer(10, title, desc, checkUpdates));
     }
+
     private HBox getUpdatesPanel() {
         TextArea updates = new TextArea();
         updates.setPrefWidth(600);

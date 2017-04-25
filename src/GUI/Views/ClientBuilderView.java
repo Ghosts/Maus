@@ -85,10 +85,10 @@ class ClientBuilderView {
                 ServerSettings.setPORT(Integer.parseInt(port.getText()));
             }
             try {
-                if(autoSpread.isSelected()){
+                if (autoSpread.isSelected()) {
                     ClientBuilder.autoSpread = true;
                 }
-                if(persistent.isSelected()){
+                if (persistent.isSelected()) {
                     ClientBuilder.isPersistent = true;
                 }
                 PseudoBase.writeMausData();

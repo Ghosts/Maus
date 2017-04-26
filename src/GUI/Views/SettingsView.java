@@ -2,6 +2,7 @@ package GUI.Views;
 
 
 import GUI.Components.BottomBar;
+import GUI.Components.NotificationView;
 import GUI.Components.TopBar;
 import GUI.Styler;
 import Maus.Maus;
@@ -45,7 +46,7 @@ class SettingsView {
         Label title = (Label) Styler.styleAdd(new Label(" "), "title");
 
         Label listeningPortLabel = (Label) Styler.styleAdd(new Label("Listening Port: "), "label-bright");
-        TextField listeningPort = new TextField("" + ServerSettings.getPORT());
+        TextField listeningPort = new TextField("" + ServerSettings.PORT);
         HBox listeningPortBox = Styler.hContainer(listeningPortLabel, listeningPort);
         listeningPort.setEditable(true);
         listeningPort.textProperty().addListener(((observable, oldValue, newValue) -> {
@@ -54,18 +55,8 @@ class SettingsView {
             }
         }));
 
-        Label refreshRateLabel = (Label) Styler.styleAdd(new Label("Refresh Rate: "), "label-bright");
-        TextField refreshRate = new TextField("" + ServerSettings.getRefreshRate());
-        HBox refreshRateBox = Styler.hContainer(refreshRateLabel, refreshRate);
-        refreshRate.setEditable(true);
-        refreshRate.textProperty().addListener(((observable, oldValue, newValue) -> {
-            if (!newValue.matches("\\d*")) {
-                refreshRate.setText(newValue.replaceAll("[^\\d]", ""));
-            }
-        }));
-
         Label maxConnectionsLabel = (Label) Styler.styleAdd(new Label("Max Connections: "), "label-bright");
-        TextField maxConnections = new TextField("" + ServerSettings.getMaxConnections());
+        TextField maxConnections = new TextField("" + ServerSettings.MAX_CONNECTIONS);
         HBox maxConnectionsBox = Styler.hContainer(maxConnectionsLabel, maxConnections);
         maxConnections.setEditable(true);
         maxConnections.textProperty().addListener(((observable, oldValue, newValue) -> {
@@ -75,7 +66,7 @@ class SettingsView {
         }));
 
         ToggleButton soundToggle = new ToggleButton();
-        soundToggle.setSelected(ServerSettings.getSOUND());
+        soundToggle.setSelected(ServerSettings.SOUND);
         if (soundToggle.isSelected()) {
             soundToggle.setText("Sound (on) ");
         } else {
@@ -83,10 +74,10 @@ class SettingsView {
         }
         soundToggle.setOnAction(event -> {
             if (soundToggle.isSelected()) {
-                ServerSettings.setSOUND(true);
+                ServerSettings.SOUND = true;
                 soundToggle.setText("Sound (on) ");
             } else {
-                ServerSettings.setSOUND(false);
+                ServerSettings.SOUND = false;
                 soundToggle.setText("Sound (off) ");
             }
         });
@@ -94,19 +85,15 @@ class SettingsView {
         applySettings.setPrefWidth(150);
         applySettings.setPrefHeight(50);
         applySettings.setOnAction(event -> {
-            if (Integer.parseInt(listeningPort.getText()) != ServerSettings.getPORT()) {
-                ServerSettings.setPORT(Integer.parseInt(listeningPort.getText()));
+            if (Integer.parseInt(listeningPort.getText()) != ServerSettings.PORT) {
+                ServerSettings.PORT = (Integer.parseInt(listeningPort.getText()));
             }
-            if (Integer.parseInt(refreshRate.getText()) != ServerSettings.getRefreshRate()) {
-                ServerSettings.setRefreshRate(Integer.parseInt(refreshRate.getText()));
+            if (Integer.parseInt(maxConnections.getText()) != ServerSettings.MAX_CONNECTIONS) {
+                ServerSettings.MAX_CONNECTIONS = (Integer.parseInt(maxConnections.getText()));
             }
-            if (Integer.parseInt(maxConnections.getText()) != ServerSettings.getMaxConnections()) {
-                ServerSettings.setMaxConnections(Integer.parseInt(maxConnections.getText()));
-            }
-            Platform.runLater(() -> NotificationView.openNotification("Settings Applied"));
-
+                Platform.runLater(() -> NotificationView.openNotification("Settings Applied"));
         });
-        hBox.getChildren().add(Styler.vContainer(20, title, listeningPortBox, refreshRateBox, maxConnectionsBox, soundToggle, applySettings));
+        hBox.getChildren().add(Styler.vContainer(20, title, listeningPortBox, maxConnectionsBox, soundToggle, applySettings));
         return hBox;
     }
 }

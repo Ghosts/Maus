@@ -2,7 +2,6 @@ package Server;
 
 import GUI.Components.FileContextMenu;
 import GUI.Controller;
-import GUI.ResizeHelper;
 import GUI.Views.FileExplorerView;
 import GUI.Views.SendCommandView;
 import Logger.Level;
@@ -57,7 +56,6 @@ class ProcessCommands implements Repository {
                         fileExplorer[0].setMinHeight(400);
                         fileExplorer[0].initStyle(StageStyle.UNDECORATED);
                         fileExplorer[0].setScene(new Scene(new FileExplorerView().getFileExplorerView(pathName, fileNames, fileExplorer[0], client), 900, 500));
-                        ResizeHelper.addResizeListener(fileExplorer[0]);
                         fileExplorer[0].show();
                     }
                     fileExplorer[0].setScene(new Scene(new FileExplorerView().getFileExplorerView(pathName, fileNames, fileExplorer[0], client), 900, 500));

@@ -3,6 +3,7 @@ package GUI.Components;
 import GUI.Controller;
 import Server.ClientObject;
 import Server.Data.PseudoBase;
+import Server.Data.Repository;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
@@ -15,7 +16,7 @@ import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.MouseButton;
 import javafx.util.Duration;
 
-public class ClientList {
+public class ClientList implements Repository {
     private static TableView tableView;
 
     public static TableView getTableView() {
@@ -38,9 +39,9 @@ public class ClientList {
                 new PropertyValueFactory<>("onlineStatus"));
 
         TableColumn<ClientObject, String> nickName = new TableColumn<>("Nickname");
-        nickName.setMinWidth(100);
-        nickName.setMaxWidth(600);
-        nickName.setResizable(true);
+        nickName.setMinWidth(150);
+        nickName.setMaxWidth(200);
+        nickName.setResizable(false);
         nickName.setCellValueFactory(new PropertyValueFactory<>("nickName"));
         nickName.setCellFactory(TextFieldTableCell.forTableColumn());
         nickName.setOnEditCommit(
@@ -49,22 +50,21 @@ public class ClientList {
         );
 
         TableColumn<ClientObject, String> IP = new TableColumn<>("IP");
-        IP.setMinWidth(70);
-        IP.setMaxWidth(500);
-        IP.setResizable(true);
+        IP.setMinWidth(600);
+        IP.setResizable(false);
         IP.setCellValueFactory(new PropertyValueFactory<>("IP"));
         IP.setCellFactory(col -> {
             final TableCell<ClientObject, String> cell = new TableCell<>();
             cell.textProperty().bind(cell.itemProperty()); // in general might need to subclass TableCell and override updateItem(...) here
             cell.setOnMouseClicked(event -> {
-                if (event.getButton().equals(MouseButton.SECONDARY)) {
+                if (event.getButton().equals(MouseButton.SECONDARY) && cell.getTableView().getSelectionModel().getSelectedItem() != null && cell.getTableView().getSelectionModel().getSelectedItem().getClient().isConnected()) {
                     IPContextMenu.getIPContextMenu(cell, event);
                 }
             });
             return cell;
         });
         ObservableList<ClientObject> list = FXCollections.observableArrayList();
-        for (ClientObject value : PseudoBase.getMausData().values()) {
+        for (ClientObject value : CONNECTIONS.values()) {
             list.add(value);
         }
         tableView.setItems(list);

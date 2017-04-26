@@ -55,12 +55,12 @@ class ClientBuilderView {
         Label title = (Label) Styler.styleAdd(new Label(" "), "title");
 
         Label serverIPLabel = (Label) Styler.styleAdd(new Label("Server IP: "), "label-bright");
-        TextField serverIP = new TextField("" + ServerSettings.getConnectionIp());
+        TextField serverIP = new TextField("" + ServerSettings.CONNECTION_IP);
         HBox serverIPBox = Styler.hContainer(serverIPLabel, serverIP);
         serverIP.setEditable(true);
 
         Label portLabel = (Label) Styler.styleAdd(new Label("Port: "), "label-bright");
-        TextField port = new TextField("" + ServerSettings.getPORT());
+        TextField port = new TextField("" + ServerSettings.PORT);
         HBox portBox = Styler.hContainer(portLabel, port);
         port.setEditable(true);
         port.textProperty().addListener(((observable, oldValue, newValue) -> {
@@ -78,11 +78,11 @@ class ClientBuilderView {
         buildClient.setPrefWidth(150);
         buildClient.setPrefHeight(50);
         buildClient.setOnAction(event -> {
-            if ((!serverIP.getText().equals("")) && !serverIP.getText().equals(ServerSettings.getConnectionIp())) {
-                ServerSettings.setConnectionIp(serverIP.getText());
+            if ((!serverIP.getText().equals("")) && !serverIP.getText().equals(ServerSettings.CONNECTION_IP)) {
+                ServerSettings.CONNECTION_IP = (serverIP.getText());
             }
-            if ((!port.getText().equals("")) && Integer.parseInt(port.getText()) != ServerSettings.getPORT()) {
-                ServerSettings.setPORT(Integer.parseInt(port.getText()));
+            if ((!port.getText().equals("")) && Integer.parseInt(port.getText()) != ServerSettings.PORT) {
+                ServerSettings.PORT = (Integer.parseInt(port.getText()));
             }
             try {
                 if (autoSpread.isSelected()) {

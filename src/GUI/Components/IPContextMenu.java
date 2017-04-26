@@ -1,7 +1,6 @@
 package GUI.Components;
 
 import GUI.Controller;
-import GUI.ResizeHelper;
 import GUI.Views.SendCommandView;
 import Server.ClientObject;
 import Server.Data.PseudoBase;
@@ -41,7 +40,6 @@ class IPContextMenu implements Repository {
             stage.setMinWidth(300);
             stage.setMinWidth(300);
             stage.setScene(new Scene(new SendCommandView().getSendCommandView(stage), 400, 400));
-            ResizeHelper.addResizeListener(stage);
             stage.show();
             SendCommandView.getsendCommandButton().setOnAction(a -> {
                 if (clientObject != null && clientObject.getClient().isConnected() && clientObject.getOnlineStatus().equals("Online")) {

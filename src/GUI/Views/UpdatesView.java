@@ -1,6 +1,7 @@
 package GUI.Views;
 
 import GUI.Components.BottomBar;
+import GUI.Components.NotificationView;
 import GUI.Components.TopBar;
 import GUI.Styler;
 import Maus.Maus;

@@ -1,4 +1,4 @@
-package GUI.Views;
+package GUI.Components;
 
 import GUI.Styler;
 import Server.ClientObject;
@@ -82,7 +82,7 @@ public class NotificationView {
         notificationText = (Label) Styler.styleAdd(notificationText, "label-light");
         vBox.getChildren().addAll(imageView, notificationText);
         vBox.getStylesheets().add(getClass().getResource("/css/global.css").toExternalForm());
-        if (ServerSettings.getSOUND()) {
+        if (ServerSettings.SOUND) {
             Media notify = new Media(getClass().getResource("/audio/notify.mp3").toExternalForm());
             MediaPlayer mediaPlayer = new MediaPlayer(notify);
             mediaPlayer.play();

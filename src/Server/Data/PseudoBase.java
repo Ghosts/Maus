@@ -7,6 +7,7 @@ import Maus.ClientBuilder;
 import Server.ClientObject;
 import Server.ServerSettings;
 import javafx.collections.FXCollections;
+import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableMap;
 
 import java.io.*;
@@ -29,21 +30,20 @@ public class PseudoBase implements Repository {
         File data = new File(System.getProperty("user.home") + "/Maus/.serverSettings");
         try (BufferedWriter writer =
                      new BufferedWriter(new FileWriter(data))) {
-            writer.write(ServerSettings.getConnectionIp() + " ");
-            writer.write(ServerSettings.getShowNotifications() + " ");
-            writer.write(ServerSettings.getBackgroundPersistent() + " ");
-            writer.write(ServerSettings.getRefreshRate() + " ");
-            writer.write(ServerSettings.getMaxConnections() + " ");
-            writer.write(ServerSettings.getPORT() + " ");
-            writer.write(ServerSettings.getSOUND() + " ");
+            writer.write(ServerSettings.CONNECTION_IP + " ");
+            writer.write(ServerSettings.SHOW_NOTIFICATIONS + " ");
+            writer.write(ServerSettings.BACKGROUND_PERSISTENT + " ");
+            writer.write(ServerSettings.MAX_CONNECTIONS + " ");
+            writer.write(ServerSettings.PORT + " ");
+            writer.write(ServerSettings.SOUND + " ");
         } catch (IOException i) {
             Logger.log(Level.ERROR, i.toString());
         }
 
         File mauscs = new File(System.getProperty("user.home") + "/Maus/.mauscs");
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(mauscs))) {
-            writer.write(ServerSettings.getConnectionIp() + "\n" + " ");
-            writer.write("" + ServerSettings.getPORT() + "\n" + " ");
+            writer.write(ServerSettings.CONNECTION_IP + "\n" + " ");
+            writer.write("" + ServerSettings.PORT + "\n" + " ");
             writer.write("" + ClientBuilder.isPersistent + "\n" + " ");
             writer.write("" + ClientBuilder.autoSpread);
         } catch (IOException i) {
@@ -74,14 +74,13 @@ public class PseudoBase implements Repository {
                 stringBuilder.append(line);
             }
             String[] settings = stringBuilder.toString().split(" ");
-            if (settings.length == 7) {
-                ServerSettings.setConnectionIp(settings[0].trim());
-                ServerSettings.setShowNotifications(Boolean.getBoolean(settings[1].trim()));
-                ServerSettings.setBackgroundPersistent(Boolean.getBoolean(settings[2].trim()));
-                ServerSettings.setRefreshRate(Integer.parseInt(settings[3].trim()));
-                ServerSettings.setMaxConnections(Integer.parseInt(settings[4].trim()));
-                ServerSettings.setPORT(Integer.parseInt(settings[5].trim()));
-                ServerSettings.setSOUND(Boolean.getBoolean(settings[6].trim()));
+            if (settings.length == 6) {
+                ServerSettings.CONNECTION_IP = (settings[0].trim());
+                ServerSettings.SHOW_NOTIFICATIONS = (Boolean.getBoolean(settings[1].trim()));
+                ServerSettings.BACKGROUND_PERSISTENT = (Boolean.getBoolean(settings[2].trim()));
+                ServerSettings.MAX_CONNECTIONS = (Integer.parseInt(settings[3].trim()));
+                ServerSettings.PORT = (Integer.parseInt(settings[4].trim()));
+                ServerSettings.SOUND = (Boolean.getBoolean(settings[5].trim()));
             }
         } catch (IOException e) {
             Logger.log(Level.ERROR, e.toString());
@@ -101,7 +100,6 @@ public class PseudoBase implements Repository {
                     ClientObject o;
                     ObjectInputStream in = new ObjectInputStream(new FileInputStream(file));
                     o = (ClientObject) in.readObject();
-                    CONNECTIONS.put(o.getIP(), o);
                     mausData.put(o.getIP(), o);
                     in.close();
                     listOfFile.delete();

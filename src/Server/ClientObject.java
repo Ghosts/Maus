@@ -3,7 +3,11 @@ package Server;
 
 import Logger.Level;
 import Logger.Logger;
+import Server.Data.PseudoBase;
 import Server.Data.Repository;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.util.Duration;
 
 import java.io.*;
 import java.net.Socket;
@@ -12,24 +16,37 @@ public class ClientObject implements Serializable, Repository {
     public String SYSTEMOS;
     transient private Socket client = new Socket();
     private int clientNumber;
-    private String onlineStatus = "Online";
+    private String onlineStatus = client.isConnected() ? "Online" : "Offline";
     private String nickName;
     private String IP;
     private transient PrintWriter clientOutput;
     private transient DataOutputStream dis;
 
     ClientObject(Socket client, String nickName, String IP) {
+        Timeline fiveSecondTime = new Timeline(new KeyFrame(Duration.seconds(3), event -> updateStatus()));
+        fiveSecondTime.setCycleCount(Timeline.INDEFINITE);
+        fiveSecondTime.play();
         this.client = client;
         this.nickName = nickName;
         this.IP = IP;
         try {
             this.clientOutput = new PrintWriter(client.getOutputStream(), true);
             dis = new DataOutputStream(client.getOutputStream());
+            if (SYSTEMOS == null) {
+                clientCommunicate("SYS");
+            }
             clientCommunicate("SYS");
         } catch (IOException e) {
             Logger.log(Level.WARNING, "Exception thrown: " + e);
         }
         CONNECTIONS.put(IP, this);
+    }
+
+    public void updateStatus() {
+        onlineStatus = client.isConnected() ? "Online" : "Offline";
+        if(onlineStatus.equals("Offline")){
+            CONNECTIONS.remove(getIP());
+        }
     }
 
     public String getSYSTEMOS() {
@@ -95,9 +112,7 @@ public class ClientObject implements Serializable, Repository {
         }
         if (getIP() != null) {
             try {
-                FileOutputStream fileOut =
-                        new FileOutputStream(new File(parent, getNickName() + getIP() + ".client"));
-
+                FileOutputStream fileOut = new FileOutputStream(new File(parent, getNickName() + getIP() + ".client"));
                 ObjectOutputStream out = new ObjectOutputStream(fileOut);
                 out.writeObject(this);
                 out.close();

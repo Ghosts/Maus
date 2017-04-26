@@ -5,6 +5,7 @@ import GUI.Components.TopBar;
 import GUI.Styler;
 import Maus.Maus;
 import Server.Data.PseudoBase;
+import Server.Data.Repository;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -15,7 +16,7 @@ import javafx.scene.layout.HBox;
 import java.util.HashMap;
 
 
-class StatisticsView {
+class StatisticsView implements Repository {
     private BorderPane statisticsView = new BorderPane();
     private HashMap<String, Integer> operatingSystems = new HashMap<>();
 
@@ -33,7 +34,7 @@ class StatisticsView {
     private HBox getSystemPanel() {
         ObservableList<PieChart.Data> pieChartData =
                 FXCollections.observableArrayList();
-        PseudoBase.getMausData().forEach((string, clientObject) -> {
+        CONNECTIONS.forEach((string, clientObject) -> {
             if (clientObject.getSYSTEMOS() != null) {
                 if (operatingSystems.containsKey(clientObject.getSYSTEMOS())) {
                     operatingSystems.put(clientObject.getSYSTEMOS(), operatingSystems.get(clientObject.getSYSTEMOS()) + 1);
@@ -43,7 +44,7 @@ class StatisticsView {
             }
         });
         operatingSystems.forEach((string, integer) -> {
-            pieChartData.add(new PieChart.Data(string, PseudoBase.getMausData().size() / integer));
+            pieChartData.add(new PieChart.Data(string, CONNECTIONS.size() / integer));
         });
         final PieChart chart = new PieChart(pieChartData);
         chart.setLegendVisible(false);

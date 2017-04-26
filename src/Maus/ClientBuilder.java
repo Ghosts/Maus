@@ -50,9 +50,6 @@ public class ClientBuilder {
             } catch (Exception e) {
                 Logger.log(Level.ERROR, e.toString());
             }
-/*
-            fileList.add(new File("Client"));
-*/
             fileList.add(new File(System.getProperty("user.home").replace("\\", "/") + "/Maus/Client/Client.class"));
             fileList.add(new File(System.getProperty("user.home").replace("\\", "/") + "/Maus/.mauscs"));
 

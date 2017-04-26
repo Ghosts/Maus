@@ -4,26 +4,20 @@ import GUI.Views.MainView;
 import Logger.Level;
 import Logger.Logger;
 import Server.Data.PseudoBase;
-import Server.Server;
+import Server.*;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.RandomAccessFile;
-import java.net.BindException;
-import java.net.InetAddress;
-import java.net.ServerSocket;
+import java.io.*;
+import java.net.URL;
 import java.nio.channels.FileLock;
 
 public class Maus extends Application {
-    private static final int PORT = 9999;
     private static Stage primaryStage;
     private static Server server = new Server();
-    private static ServerSocket socket;
 
     /* Aids in making repeated tests easier. */
     public static Stage getPrimaryStage() {
@@ -71,13 +65,6 @@ public class Maus extends Application {
     @Override
     public void start(Stage primaryStage) throws IOException, ClassNotFoundException {
         Maus.primaryStage = primaryStage;
-        /* Prevents more than one instance of Maus at a time. */
-        try {
-            socket = new ServerSocket(PORT, 0, InetAddress.getByAddress(new byte[]{127, 0, 0, 1}));
-        } catch (BindException e) {
-            System.exit(1);
-        }
-
         /* Ensure that the necessary files exist */
         new PseudoBase().createMausData();
         /* Load data from files - including client data, server settings, etc. */
@@ -93,6 +80,14 @@ public class Maus extends Application {
         /* Maus is running! */
         Logger.log(Level.INFO, "Maus is running.");
         getPrimaryStage().initStyle(StageStyle.UNDECORATED);
+
+        /* Set user's IP as Server IP */
+        URL whatismyip = new URL("http://checkip.amazonaws.com");
+        BufferedReader in = new BufferedReader(new InputStreamReader(
+                whatismyip.openStream()));
+
+        String ip = in.readLine();
+        ServerSettings.CONNECTION_IP = ip;
         getPrimaryStage().show();
 
         /* Start the server to listen for client connections. */

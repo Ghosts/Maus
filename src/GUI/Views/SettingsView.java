@@ -9,10 +9,7 @@ import Maus.Maus;
 import Server.ServerSettings;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleButton;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 
@@ -65,7 +62,7 @@ class SettingsView {
             }
         }));
 
-        ToggleButton soundToggle = new ToggleButton();
+        CheckBox soundToggle = new CheckBox();
         soundToggle.setSelected(ServerSettings.SOUND);
         if (soundToggle.isSelected()) {
             soundToggle.setText("Sound (on) ");
@@ -81,6 +78,24 @@ class SettingsView {
                 soundToggle.setText("Sound (off) ");
             }
         });
+
+        CheckBox notificaitonToggle = new CheckBox();
+        notificaitonToggle.setSelected(ServerSettings.SHOW_NOTIFICATIONS);
+        if (notificaitonToggle.isSelected()) {
+            notificaitonToggle.setText("Notifications (on) ");
+        } else {
+            notificaitonToggle.setText("Notifications (off) ");
+        }
+        notificaitonToggle.setOnAction(event -> {
+            if (notificaitonToggle.isSelected()) {
+                ServerSettings.SHOW_NOTIFICATIONS = true;
+                notificaitonToggle.setText("Notifications (on) ");
+            } else {
+                ServerSettings.SHOW_NOTIFICATIONS = false;
+                notificaitonToggle.setText("Notifications (off) ");
+            }
+        });
+
         Button applySettings = new Button("Apply Settings");
         applySettings.setPrefWidth(150);
         applySettings.setPrefHeight(50);
@@ -93,7 +108,7 @@ class SettingsView {
             }
                 Platform.runLater(() -> NotificationView.openNotification("Settings Applied"));
         });
-        hBox.getChildren().add(Styler.vContainer(20, title, listeningPortBox, maxConnectionsBox, soundToggle, applySettings));
+        hBox.getChildren().add(Styler.vContainer(20, title, listeningPortBox, maxConnectionsBox, soundToggle,notificaitonToggle, applySettings));
         return hBox;
     }
 }

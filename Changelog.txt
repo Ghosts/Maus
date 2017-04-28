@@ -1,3 +1,32 @@
+::Maus 2.0b::
+We've got a beta (v2)!
+
+I love some of the feedback I received from you guys, hopefully you like the redesign. 
+
+==Current Working Features:
+Full Maus UI (updated)!
+Client Builder - create and distribute .jar files for client connections.
+Client nick names
+Client notifications (with sound!)
+Server settings
+Send commands
+File explorer
+File download
+Program persistence (Windows / Maybe mac / linux?) 
+Client persistence (Windows)
+ 
+
+==Known bugs:
+JavaFX IpContext menu visual bug (rare - does not affect functionality)
+File explorer won't re open after working 
+Uninstall server (Does not remove registry key / files yet)
+Is not currently fully cross-platform compatible (will be soon (TM) )
+
+==Upcoming:
+Delete file (explorer view)
+Fully cross platform
+More persistence 
+
 ::Maus 1.0b::
 We've got a beta!
 

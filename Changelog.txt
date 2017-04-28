@@ -26,6 +26,7 @@ Is not currently fully cross-platform compatible (will be soon (TM) )
 Delete file (explorer view)
 Fully cross platform
 More persistence 
+Client update check / download 
 
 ::Maus 1.0b::
 We've got a beta!

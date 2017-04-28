@@ -78,7 +78,7 @@ public class Maus extends Application {
         /* Ensure that the necessary files exist */
         new PseudoBase().createMausData();
         /* Load data from files - including client data, server settings, etc. */
-        new PseudoBase().loadData(System.getProperty("user.home") + "/Maus/clients/");
+        new PseudoBase().loadData();
         /* Set up primary view */
         getPrimaryStage().setTitle("Maus 2.0b");
 

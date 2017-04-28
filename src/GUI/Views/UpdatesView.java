@@ -12,6 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.net.URL;
@@ -37,9 +38,9 @@ class UpdatesView {
 
     private HBox getAboutPanel() {
         Label title = (Label) Styler.styleAdd(new Label("Maus 2.0b"), "title");
-        Label desc = (Label) Styler.styleAdd(new Label("Maus is a lightweight remote administrative tool " +
+        Text desc = (Text) Styler.styleAdd(new Text("Maus is a lightweight remote administrative tool " +
                 "written in Java \nby a single developer. Maus is intended to present necessary \nfeatures in an attractive and " +
-                "easy to use UI."), "label-bright");
+                "easy to use UI."), "");
         Button checkUpdates = new Button("Check for Updates");
         checkUpdates.setOnMouseClicked(event -> {
             Platform.runLater(() -> NotificationView.openNotification("Update Check Complete"));

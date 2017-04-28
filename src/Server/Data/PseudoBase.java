@@ -5,6 +5,7 @@ import Logger.Level;
 import Logger.Logger;
 import Maus.ClientBuilder;
 import Server.ClientObject;
+import Server.Server;
 import Server.ServerSettings;
 import javafx.collections.FXCollections;
 import javafx.collections.MapChangeListener;
@@ -76,11 +77,11 @@ public class PseudoBase implements Repository {
             String[] settings = stringBuilder.toString().split(" ");
             if (settings.length == 6) {
                 ServerSettings.CONNECTION_IP = (settings[0].trim());
-                ServerSettings.SHOW_NOTIFICATIONS = (Boolean.getBoolean(settings[1].trim()));
-                ServerSettings.BACKGROUND_PERSISTENT = (Boolean.getBoolean(settings[2].trim()));
+                ServerSettings.SHOW_NOTIFICATIONS = (Boolean.valueOf(settings[1].trim()));
+                ServerSettings.BACKGROUND_PERSISTENT = (Boolean.valueOf(settings[2].trim()));
                 ServerSettings.MAX_CONNECTIONS = (Integer.parseInt(settings[3].trim()));
                 ServerSettings.PORT = (Integer.parseInt(settings[4].trim()));
-                ServerSettings.SOUND = (Boolean.getBoolean(settings[5].trim()));
+                ServerSettings.SOUND = (Boolean.valueOf(settings[5].trim()));
             }
             Logger.log(Level.INFO,"Maus server settings loaded.");
         } catch (IOException e) {
@@ -89,9 +90,9 @@ public class PseudoBase implements Repository {
     }
 
     /* Loads data for server settings and from .client objects (serialized) and adds them to MausData & CONNECTIONS */
-    public ObservableMap<String, ClientObject> loadData(String directory) throws IOException, ClassNotFoundException {
+    public ObservableMap<String, ClientObject> loadData() throws IOException, ClassNotFoundException {
         loadServerSettings();
-        File folder = new File(directory);
+        File folder = new File(System.getProperty("user.home") + "/Maus/clients/");
         File[] listOfFiles = folder.listFiles();
         assert listOfFiles != null;
         for (File listOfFile : listOfFiles) {
@@ -105,7 +106,7 @@ public class PseudoBase implements Repository {
                         mausData.put(o.getIP(), o);
                         in.close();
                     } catch (InvalidClassException e){
-                        deleteMausData(directory);
+                        deleteMausData(System.getProperty("user.home") + "/Maus/clients/");
                     }
                     listOfFile.delete();
                 }

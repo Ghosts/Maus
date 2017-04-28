@@ -36,7 +36,7 @@ public class TopBar {
         vBox.setOnMouseClicked(event -> Controller.changePrimaryStage(new MainView().getMainView()));
         imageView.setFitWidth(100);
         imageView.setFitHeight(50);
-        return Styler.vContainer(new VBox(), new OptionBar().getMenuBar(stage), hBox);
+        return Styler.vContainer(new VBox(), new TitleBar().getMenuBar(stage), hBox);
     }
 
     public VBox getTopBarSansOptions(Stage stage) {
@@ -51,6 +51,6 @@ public class TopBar {
         HBox hBox = Styler.hContainer(new HBox(), vBox1);
         imageView.setFitWidth(100);
         imageView.setFitHeight(50);
-        return Styler.vContainer(new VBox(), new OptionBar().getMenuBar(stage), hBox);
+        return Styler.vContainer(new VBox(), new TitleBar().getMenuBar(stage), hBox);
     }
 }

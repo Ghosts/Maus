@@ -6,18 +6,28 @@ import Logger.Logger;
 import Server.Data.PseudoBase;
 import Server.*;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.*;
 import java.io.*;
 import java.net.URL;
 import java.nio.channels.FileLock;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Maus extends Application {
     private static Stage primaryStage;
     private static Server server = new Server();
+    public static SystemTray systemTray;
 
     /* Aids in making repeated tests easier. */
     public static Stage getPrimaryStage() {
@@ -70,8 +80,10 @@ public class Maus extends Application {
         /* Load data from files - including client data, server settings, etc. */
         new PseudoBase().loadData(System.getProperty("user.home") + "/Maus/clients/");
         /* Set up primary view */
-        getPrimaryStage().setTitle("Maus 1.0b");
+        getPrimaryStage().setTitle("Maus 2.0b");
 
+        SwingUtilities.invokeLater(this::addAppToTray);
+        Platform.setImplicitExit(false);
         Scene mainScene = new Scene(new MainView().getMainView(), 900, 500);
         mainScene.getStylesheets().add(getClass().getResource("/css/global.css").toExternalForm());
         getPrimaryStage().setScene(mainScene);
@@ -93,5 +105,56 @@ public class Maus extends Application {
         /* Start the server to listen for client connections. */
         Runnable startServer = server;
         new Thread(startServer).start();
+    }
+
+
+    private void addAppToTray() {
+        try {
+            // ensure awt toolkit is initialized.
+           Toolkit.getDefaultToolkit();
+
+            // app requires system tray support, just exit if there is no support.
+            if (!SystemTray.isSupported()) {
+                System.out.println("No system tray support, application exiting.");
+                Platform.exit();
+            }
+
+            // set up a system tray icon.
+            systemTray = SystemTray.getSystemTray();
+
+            java.awt.Image image = ImageIO.read(getClass().getResourceAsStream("/Images/Icons/icon.png"));
+            TrayIcon trayIcon = new TrayIcon(image);
+            trayIcon.setImageAutoSize(true);
+            trayIcon.addActionListener(event -> Platform.runLater(this::showStage));
+
+            MenuItem openItem = new MenuItem("Open Maus");
+            openItem.addActionListener(event -> Platform.runLater(this::showStage));
+
+            Font defaultFont = Font.decode(null);
+            Font boldFont = defaultFont.deriveFont(java.awt.Font.BOLD);
+            openItem.setFont(boldFont);
+
+            MenuItem exitItem = new MenuItem("Exit");
+            exitItem.addActionListener(event -> {
+                Platform.exit();
+                systemTray.remove(trayIcon);
+                System.exit(0);
+            });
+            final PopupMenu popup = new PopupMenu();
+            popup.add(openItem);
+            popup.addSeparator();
+            popup.add(exitItem);
+            trayIcon.setPopupMenu(popup);
+            systemTray.add(trayIcon);
+        } catch (Exception e) {
+            Logger.log(Level.ERROR, "Unable to access system tray.");
+            e.printStackTrace();
+        }
+    }
+
+    private void showStage() {
+        getPrimaryStage().setScene(new Scene(new MainView().getMainView(), 900, 500));
+        getPrimaryStage().show();
+        getPrimaryStage().toFront();
     }
 }

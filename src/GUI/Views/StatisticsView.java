@@ -4,7 +4,6 @@ import GUI.Components.BottomBar;
 import GUI.Components.TopBar;
 import GUI.Styler;
 import Maus.Maus;
-import Server.Data.PseudoBase;
 import Server.Data.Repository;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -22,11 +21,17 @@ class StatisticsView implements Repository {
 
     BorderPane getStatisticsView() {
         statisticsView.getStylesheets().add(getClass().getResource("/css/global.css").toExternalForm());
-        HBox hBox = getSystemPanel();
-        hBox.setId("statisticsView");
-        hBox.setPadding(new Insets(0, 0, 0, 10));
+        HBox systemPanel = getSystemPanel();
+        systemPanel.setId("statisticsView");
+        systemPanel.setPadding(new Insets(0, 0, 0, 10));
+
+        HBox statPanel = new HBox();
+        statPanel.setId("statisticsView");
+        statPanel.setPadding(new Insets(0, 0, 0, 10));
+
         statisticsView.setTop(new TopBar().getTopBar(Maus.getPrimaryStage()));
-        statisticsView.setLeft(hBox);
+        statisticsView.setLeft(systemPanel);
+        statisticsView.setCenter(statPanel);
         statisticsView.setBottom(new BottomBar().getBottomBar());
         return statisticsView;
     }
@@ -35,11 +40,11 @@ class StatisticsView implements Repository {
         ObservableList<PieChart.Data> pieChartData =
                 FXCollections.observableArrayList();
         CONNECTIONS.forEach((string, clientObject) -> {
-            if (clientObject.getSYSTEMOS() != null) {
-                if (operatingSystems.containsKey(clientObject.getSYSTEMOS())) {
-                    operatingSystems.put(clientObject.getSYSTEMOS(), operatingSystems.get(clientObject.getSYSTEMOS()) + 1);
+            if (clientObject.getSYSTEM_OS() != null) {
+                if (operatingSystems.containsKey(clientObject.getSYSTEM_OS())) {
+                    operatingSystems.put(clientObject.getSYSTEM_OS(), operatingSystems.get(clientObject.getSYSTEM_OS()) + 1);
                 } else {
-                    operatingSystems.put(clientObject.getSYSTEMOS(), 1);
+                    operatingSystems.put(clientObject.getSYSTEM_OS(), 1);
                 }
             }
         });

@@ -37,7 +37,7 @@ class ProcessCommands implements Repository {
                 SendCommandView.getConsole().appendText(sb.toString());
             } else if (input.contains("SYS")) {
                 String SYSTEMOS = dis.readUTF();
-                client.setSYSTEMOS(SYSTEMOS);
+                client.setSYSTEM_OS(SYSTEMOS);
             } else if (input.contains("DIRECTORYUP")) {
                 client.clientCommunicate("FILELIST");
             } else if (input.contains("CHNGDIR")) {

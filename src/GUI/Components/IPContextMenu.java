@@ -1,6 +1,7 @@
 package GUI.Components;
 
 import GUI.Controller;
+import GUI.Views.RemoteDesktopView;
 import GUI.Views.SendCommandView;
 import Server.ClientObject;
 import Server.Data.PseudoBase;
@@ -19,7 +20,7 @@ import javafx.stage.StageStyle;
 import java.io.IOException;
 
 class IPContextMenu implements Repository {
-    static ContextMenu getIPContextMenu(TableCell n, MouseEvent e) {
+    static void getIPContextMenu(TableCell n, MouseEvent e) {
         ClientObject clientObject = ((ClientObject) n.getTableView().getSelectionModel().getSelectedItem());
         ContextMenu cm = new ContextMenu();
         Menu mi1 = new Menu("Perform Action...");
@@ -51,7 +52,16 @@ class IPContextMenu implements Repository {
                 }
             });
         });
-        mi1.getItems().addAll(sb1, sb2);
+        MenuItem sb3 = new MenuItem("Remote Desktop");
+        sb3.setOnAction(event -> {
+            Stage stage = new Stage();
+            stage.initStyle(StageStyle.UNDECORATED);
+            stage.setMinWidth(300);
+            stage.setMinWidth(300);
+            stage.setScene(new Scene(new RemoteDesktopView().getRemoteDesktopView(clientObject, stage), 400, 400));
+            stage.show();
+        });
+        mi1.getItems().addAll(sb1, sb2, sb3);
         MenuItem mi2 = new MenuItem("Copy IP");
         mi2.setOnAction(event -> {
             final Clipboard clipboard = Clipboard.getSystemClipboard();
@@ -76,6 +86,5 @@ class IPContextMenu implements Repository {
         });
         cm.getItems().addAll(mi1, mi2, mi3);
         cm.show(n, e.getScreenX(), e.getScreenY());
-        return cm;
     }
 }

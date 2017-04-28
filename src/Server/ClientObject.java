@@ -1,9 +1,9 @@
 package Server;
 
 
+import GUI.Controller;
 import Logger.Level;
 import Logger.Logger;
-import Server.Data.PseudoBase;
 import Server.Data.Repository;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -13,9 +13,8 @@ import java.io.*;
 import java.net.Socket;
 
 public class ClientObject implements Serializable, Repository {
-    public String SYSTEMOS;
+    private String SYSTEM_OS;
     transient private Socket client = new Socket();
-    private int clientNumber;
     private String onlineStatus = client.isConnected() ? "Online" : "Offline";
     private String nickName;
     private String IP;
@@ -23,16 +22,13 @@ public class ClientObject implements Serializable, Repository {
     private transient DataOutputStream dis;
 
     ClientObject(Socket client, String nickName, String IP) {
-        Timeline fiveSecondTime = new Timeline(new KeyFrame(Duration.seconds(3), event -> updateStatus()));
-        fiveSecondTime.setCycleCount(Timeline.INDEFINITE);
-        fiveSecondTime.play();
         this.client = client;
         this.nickName = nickName;
         this.IP = IP;
         try {
             this.clientOutput = new PrintWriter(client.getOutputStream(), true);
             dis = new DataOutputStream(client.getOutputStream());
-            if (SYSTEMOS == null) {
+            if (SYSTEM_OS == null) {
                 clientCommunicate("SYS");
             }
             clientCommunicate("SYS");
@@ -40,25 +36,30 @@ public class ClientObject implements Serializable, Repository {
             Logger.log(Level.WARNING, "Exception thrown: " + e);
         }
         CONNECTIONS.put(IP, this);
+        Timeline fiveSecondTime = new Timeline(new KeyFrame(Duration.millis(1000), event -> updateStatus()));
+        fiveSecondTime.setCycleCount(Timeline.INDEFINITE);
+        fiveSecondTime.play();
     }
 
-    public void updateStatus() {
+    private void updateStatus() {
+        String oldStatus = onlineStatus;
         onlineStatus = client.isConnected() ? "Online" : "Offline";
+        if(!oldStatus.equals(onlineStatus)){
+            try {
+                Controller.updateTable();
+            } catch (Exception ignored){}
+        }
         if(onlineStatus.equals("Offline")){
             CONNECTIONS.remove(getIP());
         }
     }
 
-    public String getSYSTEMOS() {
-        return SYSTEMOS;
+    public String getSYSTEM_OS() {
+        return SYSTEM_OS;
     }
 
-    public void setSYSTEMOS(String SYSTEMOS) {
-        this.SYSTEMOS = SYSTEMOS;
-    }
-
-    public void setClientNumber(int clientNumber) {
-        this.clientNumber = clientNumber;
+    public void setSYSTEM_OS(String SYSTEM_OS) {
+        this.SYSTEM_OS = SYSTEM_OS;
     }
 
     public Socket getClient() {
@@ -67,14 +68,6 @@ public class ClientObject implements Serializable, Repository {
 
     public void setClient(Socket client) {
         this.client = client;
-    }
-
-    public Integer getClientNumber() {
-        return clientNumber;
-    }
-
-    public void setClientNumber(Integer clientNumber) {
-        this.clientNumber = clientNumber;
     }
 
     public String getNickName() {
@@ -89,20 +82,8 @@ public class ClientObject implements Serializable, Repository {
         return IP;
     }
 
-    public void setIP(String IP) {
-        this.IP = IP;
-    }
-
-    public PrintWriter getClientOutput() {
-        return clientOutput;
-    }
-
     public String getOnlineStatus() {
         return onlineStatus;
-    }
-
-    void setOnlineStatus(String onlineStatus) {
-        this.onlineStatus = onlineStatus;
     }
 
     public void serialize() {

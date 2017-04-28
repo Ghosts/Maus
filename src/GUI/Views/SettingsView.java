@@ -96,6 +96,23 @@ class SettingsView {
             }
         });
 
+        CheckBox backgroundPersistentTogle = new CheckBox();
+        backgroundPersistentTogle.setSelected(ServerSettings.BACKGROUND_PERSISTENT);
+        if (backgroundPersistentTogle.isSelected()) {
+            backgroundPersistentTogle.setText("Background Persistent (on) ");
+        } else {
+            backgroundPersistentTogle.setText("Background Persistent (off) ");
+        }
+        backgroundPersistentTogle.setOnAction(event -> {
+            if (backgroundPersistentTogle.isSelected()) {
+                ServerSettings.BACKGROUND_PERSISTENT = true;
+                backgroundPersistentTogle.setText("Background Persistent (on) ");
+            } else {
+                ServerSettings.BACKGROUND_PERSISTENT = false;
+                backgroundPersistentTogle.setText("Background Persistent (off) ");
+            }
+        });
+
         Button applySettings = new Button("Apply Settings");
         applySettings.setPrefWidth(150);
         applySettings.setPrefHeight(50);
@@ -108,7 +125,7 @@ class SettingsView {
             }
                 Platform.runLater(() -> NotificationView.openNotification("Settings Applied"));
         });
-        hBox.getChildren().add(Styler.vContainer(20, title, listeningPortBox, maxConnectionsBox, soundToggle,notificaitonToggle, applySettings));
+        hBox.getChildren().add(Styler.vContainer(20, title, listeningPortBox, maxConnectionsBox, soundToggle,notificaitonToggle,backgroundPersistentTogle, applySettings));
         return hBox;
     }
 }

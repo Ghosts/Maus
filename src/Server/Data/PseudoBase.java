@@ -82,6 +82,7 @@ public class PseudoBase implements Repository {
                 ServerSettings.PORT = (Integer.parseInt(settings[4].trim()));
                 ServerSettings.SOUND = (Boolean.getBoolean(settings[5].trim()));
             }
+            Logger.log(Level.INFO,"Maus server settings loaded.");
         } catch (IOException e) {
             Logger.log(Level.ERROR, e.toString());
         }
@@ -99,9 +100,13 @@ public class PseudoBase implements Repository {
                 if (file.contains(".client")) {
                     ClientObject o;
                     ObjectInputStream in = new ObjectInputStream(new FileInputStream(file));
-                    o = (ClientObject) in.readObject();
-                    mausData.put(o.getIP(), o);
-                    in.close();
+                    try {
+                        o = (ClientObject) in.readObject();
+                        mausData.put(o.getIP(), o);
+                        in.close();
+                    } catch (InvalidClassException e){
+                        deleteMausData(directory);
+                    }
                     listOfFile.delete();
                 }
             } else {
@@ -109,5 +114,22 @@ public class PseudoBase implements Repository {
             }
         }
         return mausData;
+    }
+
+    /* Deletes serialized client objects in the event that they become corrupted / out dated (mostly used for development)*/
+   public void deleteMausData(String directory){
+       File folder = new File(directory);
+       File[] listOfFiles = folder.listFiles();
+       assert listOfFiles != null;
+       for (File listOfFile : listOfFiles) {
+           if (listOfFile.isFile()) {
+               String file = listOfFile.toString();
+               if (file.contains(".client")) {
+                   listOfFile.delete();
+               }
+           } else {
+               break;
+           }
+       }
     }
 }

@@ -14,7 +14,7 @@ import javafx.stage.Stage;
 
 import java.util.Random;
 
-class OptionBar {
+class TitleBar {
 
     HBox getMenuBar(Stage stage) {
         MenuBar menuBar = new MenuBar();
@@ -24,8 +24,8 @@ class OptionBar {
         Label maus = (Label) Styler.styleAdd(new Label("\uD83D\uDC2D Maus 1.0b"), "option-button");
         maus.setPadding(new Insets(5, 10, 5, 10));
         maus.setOnMouseClicked(event -> {
-            String[] MausEsterEgg = {
-                    "Maus 1.0b!",
+            String[] MausEasterEgg = {
+                    "Maus 1.2b!",
                     "):",
                     "Where's the cheese?",
                     "#NotaRAT",
@@ -62,8 +62,8 @@ class OptionBar {
                     "We're in BETA!",
             };
             Random rn = new Random();
-            int rnn = rn.nextInt(MausEsterEgg.length);
-            maus.setText(MausEsterEgg[rnn]);
+            int rnn = rn.nextInt(MausEasterEgg.length);
+            maus.setText(MausEasterEgg[rnn]);
         });
 
         Label minimize = (Label) Styler.styleAdd(new Label("_"), "option-button");
@@ -76,8 +76,10 @@ class OptionBar {
             if (stage.equals(Maus.getPrimaryStage())) {
                 Logger.log(Level.INFO, "Exit event detected. ");
                 if (ServerSettings.BACKGROUND_PERSISTENT) {
-                    Platform.exit();
+                    Maus.getPrimaryStage().hide();
                 } else {
+                    Platform.exit();
+                    Maus.systemTray.remove(Maus.systemTray.getTrayIcons()[0]);
                     System.exit(0);
                 }
             } else {

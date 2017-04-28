@@ -18,7 +18,7 @@
     -fx-text-fill: indianred;
 }
 
-.table-row-cell:selected .menu-item .label {
+.table-row-cell:selected .menu-item > .label {
     -fx-text-fill: indianred;
 }
 
@@ -65,6 +65,7 @@
 .menu-item:focused {
     -fx-background-color: whitesmoke;
     -fx-cursor: hand;
+    -fx-text-fill: black;
 }
 
 .context-menu {
@@ -214,6 +215,10 @@
     -fx-background-color: white;
 }
 
+#statisticsView {
+    -fx-background-color: white;
+}
+
 #updatesView {
     -fx-background-color: white;
 }
@@ -333,9 +338,9 @@
 }
 
 .chart-title {
-    -fx-text-fill: white;
+    -fx-text-fill: black;
 }
 
 .chart Text {
-    -fx-fill: white !important;
+    -fx-fill: black !important;
 }

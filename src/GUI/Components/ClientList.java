@@ -24,9 +24,7 @@ public class ClientList implements Repository {
     }
 
     public TableView getClientList() {
-        Timeline fiveSecondTime = new Timeline(new KeyFrame(Duration.seconds(5), event -> Controller.updateTable()));
-        fiveSecondTime.setCycleCount(Timeline.INDEFINITE);
-        fiveSecondTime.play();
+
         tableView = new TableView();
         tableView.setEditable(true);
         tableView.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
@@ -55,7 +53,7 @@ public class ClientList implements Repository {
         IP.setCellValueFactory(new PropertyValueFactory<>("IP"));
         IP.setCellFactory(col -> {
             final TableCell<ClientObject, String> cell = new TableCell<>();
-            cell.textProperty().bind(cell.itemProperty()); // in general might need to subclass TableCell and override updateItem(...) here
+            cell.textProperty().bind(cell.itemProperty());
             cell.setOnMouseClicked(event -> {
                 if (event.getButton().equals(MouseButton.SECONDARY) && cell.getTableView().getSelectionModel().getSelectedItem() != null && cell.getTableView().getSelectionModel().getSelectedItem().getClient().isConnected()) {
                     IPContextMenu.getIPContextMenu(cell, event);
@@ -64,11 +62,10 @@ public class ClientList implements Repository {
             return cell;
         });
         ObservableList<ClientObject> list = FXCollections.observableArrayList();
-        for (ClientObject value : CONNECTIONS.values()) {
-            list.add(value);
-        }
+        list.addAll(CONNECTIONS.values());
         tableView.setItems(list);
         tableView.getColumns().addAll(onlineStatus, nickName, IP);
+
         return tableView;
     }
 }

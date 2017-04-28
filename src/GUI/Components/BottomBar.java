@@ -21,9 +21,6 @@ public class BottomBar implements Repository {
     }
 
     public HBox getBottomBar() {
-        Timeline fiveSecondTime = new Timeline(new KeyFrame(Duration.seconds(5), event -> Controller.updateStats()));
-        fiveSecondTime.setCycleCount(Timeline.INDEFINITE);
-        fiveSecondTime.play();
         HBox hBox = new HBox();
         HBox.setHgrow(hBox, Priority.ALWAYS);
         VBox vBox = new VBox();

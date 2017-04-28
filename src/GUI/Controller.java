@@ -13,16 +13,16 @@ import javafx.scene.Scene;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.Pane;
 
+import static GUI.Components.ClientList.getTableView;
+
 public class Controller implements Repository {
 
     /* Reloads the table to ensure Offline/Online status is accurate. */
     public static void updateTable() {
         ObservableList<ClientObject> list = FXCollections.observableArrayList();
-        for (ClientObject value : PseudoBase.getMausData().values()) {
-            list.add(value);
-        }
-        ClientList.getTableView().setItems(list);
-        TableView tableView = ClientList.getTableView();
+        list.addAll(PseudoBase.getMausData().values());
+        getTableView().setItems(list);
+        TableView tableView = getTableView();
         tableView.refresh();
     }
 

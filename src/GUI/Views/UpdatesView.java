@@ -36,7 +36,7 @@ class UpdatesView {
     }
 
     private HBox getAboutPanel() {
-        Label title = (Label) Styler.styleAdd(new Label("Maus 1.0b"), "title");
+        Label title = (Label) Styler.styleAdd(new Label("Maus 2.0b"), "title");
         Label desc = (Label) Styler.styleAdd(new Label("Maus is a lightweight remote administrative tool " +
                 "written in Java \nby a single developer. Maus is intended to present necessary \nfeatures in an attractive and " +
                 "easy to use UI."), "label-bright");

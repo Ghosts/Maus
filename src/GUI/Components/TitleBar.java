@@ -21,11 +21,11 @@ class TitleBar {
         menuBar.getStylesheets().add(getClass().getResource("/css/global.css").toExternalForm());
         menuBar.getStyleClass().add("background");
 
-        Label maus = (Label) Styler.styleAdd(new Label("\uD83D\uDC2D Maus 1.0b"), "option-button");
+        Label maus = (Label) Styler.styleAdd(new Label("\uD83D\uDC2D Maus 2.0b"), "option-button");
         maus.setPadding(new Insets(5, 10, 5, 10));
         maus.setOnMouseClicked(event -> {
             String[] MausEasterEgg = {
-                    "Maus 1.2b!",
+                    "Maus 2.0b!",
                     "):",
                     "Where's the cheese?",
                     "#NotaRAT",

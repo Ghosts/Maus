@@ -18,18 +18,12 @@ import java.awt.*;
 import java.io.*;
 import java.net.URL;
 import java.nio.channels.FileLock;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class Maus extends Application {
     private static Stage primaryStage;
     private static Server server = new Server();
     public static SystemTray systemTray;
 
-    /* Aids in making repeated tests easier. */
     public static Stage getPrimaryStage() {
         return primaryStage;
     }
@@ -42,6 +36,7 @@ public class Maus extends Application {
         }
     }
 
+    /* Ensure only one instance of Maus is running on a system (server, not client). */
     private static boolean lockInstance() {
         try {
             final File file = new File(System.getProperty("user.home") + "/.lock");
@@ -80,7 +75,7 @@ public class Maus extends Application {
         /* Load data from files - including client data, server settings, etc. */
         new PseudoBase().loadData();
         /* Set up primary view */
-        getPrimaryStage().setTitle("Maus 2.0b");
+        getPrimaryStage().setTitle(MausSettings.CURRENT_VERSION);
 
         SwingUtilities.invokeLater(this::addAppToTray);
         Platform.setImplicitExit(false);
@@ -89,6 +84,7 @@ public class Maus extends Application {
         getPrimaryStage().setScene(mainScene);
         getPrimaryStage().getIcons().add(new Image(getClass().getResourceAsStream("/Images/Icons/icon.png")));
         getPrimaryStage().setOnCloseRequest(event -> System.exit(0));
+
         /* Maus is running! */
         Logger.log(Level.INFO, "Maus is running.");
         getPrimaryStage().initStyle(StageStyle.UNDECORATED);
@@ -99,7 +95,7 @@ public class Maus extends Application {
                 whatismyip.openStream()));
 
         String ip = in.readLine();
-        ServerSettings.CONNECTION_IP = ip;
+        MausSettings.CONNECTION_IP = ip;
         getPrimaryStage().show();
 
         /* Start the server to listen for client connections. */
@@ -108,20 +104,17 @@ public class Maus extends Application {
     }
 
 
+    /* Attempt to add Maus to the System Tray - regardless of persistence (handled in TitleBar) */
     private void addAppToTray() {
         try {
-            // ensure awt toolkit is initialized.
            Toolkit.getDefaultToolkit();
 
-            // app requires system tray support, just exit if there is no support.
             if (!SystemTray.isSupported()) {
                 System.out.println("No system tray support, application exiting.");
                 Platform.exit();
             }
 
-            // set up a system tray icon.
             systemTray = SystemTray.getSystemTray();
-
             java.awt.Image image = ImageIO.read(getClass().getResourceAsStream("/Images/Icons/icon.png"));
             TrayIcon trayIcon = new TrayIcon(image);
             trayIcon.setImageAutoSize(true);

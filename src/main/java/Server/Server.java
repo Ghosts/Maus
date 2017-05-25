@@ -12,7 +12,7 @@ public class Server implements Runnable {
     }
 
     private void startServer() {
-        startServer(ServerSettings.PORT);
+        startServer(MausSettings.PORT);
     }
 
     private void startServer(int port) {

@@ -24,7 +24,7 @@ public class ClientHandler implements Runnable, Repository {
         try {
             String ip = (((InetSocketAddress) Server.getClient().getRemoteSocketAddress()).getAddress()).toString().replace("/", "");
             /* Check to ensure there's room left via Max Connections setting. */
-            if (CONNECTIONS.size() < ServerSettings.MAX_CONNECTIONS) {
+            if (CONNECTIONS.size() < MausSettings.MAX_CONNECTIONS) {
                 if (!CONNECTIONS.containsKey(ip)) {
                     if(PseudoBase.getMausData().containsKey(ip)){
                             client = new ClientObject(socket, PseudoBase.getMausData().get(ip).getNickName(), ip);
@@ -39,7 +39,7 @@ public class ClientHandler implements Runnable, Repository {
             }
             Controller.updateStats();
             /* Notification on new client connection */
-            if(ServerSettings.SHOW_NOTIFICATIONS) {
+            if(MausSettings.SHOW_NOTIFICATIONS) {
                 Platform.runLater(() -> NotificationView.openNotification(client));
             }
             InputStream is = client.getClient().getInputStream();

@@ -2,7 +2,7 @@ package GUI.Components;
 
 import GUI.Styler;
 import Server.ClientObject;
-import Server.ServerSettings;
+import Server.MausSettings;
 import javafx.animation.PauseTransition;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -67,11 +67,11 @@ public class NotificationView {
         delay.play();
     }
 
-    Label getNotificationText() {
+    private Label getNotificationText() {
         return notificationText;
     }
 
-    VBox getNotificationView() {
+    private VBox getNotificationView() {
         VBox vBox = new VBox(5);
         vBox.setId("notification");
         vBox.setAlignment(Pos.CENTER);
@@ -82,7 +82,7 @@ public class NotificationView {
         notificationText = (Label) Styler.styleAdd(notificationText, "label-light");
         vBox.getChildren().addAll(imageView, notificationText);
         vBox.getStylesheets().add(getClass().getResource("/css/global.css").toExternalForm());
-        if (ServerSettings.SOUND) {
+        if (MausSettings.SOUND) {
             Media notify = new Media(getClass().getResource("/audio/notify.mp3").toExternalForm());
             MediaPlayer mediaPlayer = new MediaPlayer(notify);
             mediaPlayer.play();

@@ -5,10 +5,8 @@ import Logger.Level;
 import Logger.Logger;
 import Maus.ClientBuilder;
 import Server.ClientObject;
-import Server.Server;
-import Server.ServerSettings;
+import Server.MausSettings;
 import javafx.collections.FXCollections;
-import javafx.collections.MapChangeListener;
 import javafx.collections.ObservableMap;
 
 import java.io.*;
@@ -31,20 +29,20 @@ public class PseudoBase implements Repository {
         File data = new File(System.getProperty("user.home") + "/Maus/.serverSettings");
         try (BufferedWriter writer =
                      new BufferedWriter(new FileWriter(data))) {
-            writer.write(ServerSettings.CONNECTION_IP + " ");
-            writer.write(ServerSettings.SHOW_NOTIFICATIONS + " ");
-            writer.write(ServerSettings.BACKGROUND_PERSISTENT + " ");
-            writer.write(ServerSettings.MAX_CONNECTIONS + " ");
-            writer.write(ServerSettings.PORT + " ");
-            writer.write(ServerSettings.SOUND + " ");
+            writer.write(MausSettings.CONNECTION_IP + " ");
+            writer.write(MausSettings.SHOW_NOTIFICATIONS + " ");
+            writer.write(MausSettings.BACKGROUND_PERSISTENT + " ");
+            writer.write(MausSettings.MAX_CONNECTIONS + " ");
+            writer.write(MausSettings.PORT + " ");
+            writer.write(MausSettings.SOUND + " ");
         } catch (IOException i) {
             Logger.log(Level.ERROR, i.toString());
         }
 
         File mauscs = new File(System.getProperty("user.home") + "/Maus/.mauscs");
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(mauscs))) {
-            writer.write(ServerSettings.CONNECTION_IP + "\n" + " ");
-            writer.write("" + ServerSettings.PORT + "\n" + " ");
+            writer.write(Server.MausSettings.CONNECTION_IP + "\n" + " ");
+            writer.write("" + Server.MausSettings.PORT + "\n" + " ");
             writer.write("" + ClientBuilder.isPersistent + "\n" + " ");
             writer.write("" + ClientBuilder.autoSpread);
         } catch (IOException i) {
@@ -65,7 +63,7 @@ public class PseudoBase implements Repository {
         }
     }
 
-    /* Loads .ServerSettings file to Maus server settings*/
+    /* Loads .MausSettings file to Maus server settings*/
     private void loadServerSettings() {
         try (BufferedReader reader = new BufferedReader(new FileReader(System.getProperty("user.home") + "/Maus/.serverSettings"))
         ) {
@@ -76,12 +74,12 @@ public class PseudoBase implements Repository {
             }
             String[] settings = stringBuilder.toString().split(" ");
             if (settings.length == 6) {
-                ServerSettings.CONNECTION_IP = (settings[0].trim());
-                ServerSettings.SHOW_NOTIFICATIONS = (Boolean.valueOf(settings[1].trim()));
-                ServerSettings.BACKGROUND_PERSISTENT = (Boolean.valueOf(settings[2].trim()));
-                ServerSettings.MAX_CONNECTIONS = (Integer.parseInt(settings[3].trim()));
-                ServerSettings.PORT = (Integer.parseInt(settings[4].trim()));
-                ServerSettings.SOUND = (Boolean.valueOf(settings[5].trim()));
+                Server.MausSettings.CONNECTION_IP = (settings[0].trim());
+                Server.MausSettings.SHOW_NOTIFICATIONS = (Boolean.valueOf(settings[1].trim()));
+                Server.MausSettings.BACKGROUND_PERSISTENT = (Boolean.valueOf(settings[2].trim()));
+                Server.MausSettings.MAX_CONNECTIONS = (Integer.parseInt(settings[3].trim()));
+                Server.MausSettings.PORT = (Integer.parseInt(settings[4].trim()));
+                Server.MausSettings.SOUND = (Boolean.valueOf(settings[5].trim()));
             }
             Logger.log(Level.INFO,"Maus server settings loaded.");
         } catch (IOException e) {
@@ -90,7 +88,7 @@ public class PseudoBase implements Repository {
     }
 
     /* Loads data for server settings and from .client objects (serialized) and adds them to MausData & CONNECTIONS */
-    public ObservableMap<String, ClientObject> loadData() throws IOException, ClassNotFoundException {
+    public void loadData() throws IOException, ClassNotFoundException {
         loadServerSettings();
         File folder = new File(System.getProperty("user.home") + "/Maus/clients/");
         File[] listOfFiles = folder.listFiles();
@@ -114,11 +112,10 @@ public class PseudoBase implements Repository {
                 break;
             }
         }
-        return mausData;
     }
 
     /* Deletes serialized client objects in the event that they become corrupted / out dated (mostly used for development)*/
-   public void deleteMausData(String directory){
+    private void deleteMausData(String directory){
        File folder = new File(directory);
        File[] listOfFiles = folder.listFiles();
        assert listOfFiles != null;

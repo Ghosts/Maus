@@ -1,16 +1,8 @@
 package Client;
 
-import javafx.application.Platform;
-import javafx.stage.Screen;
-
-import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.EventListener;
-import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 public class Client {
@@ -160,7 +152,9 @@ public class Client {
                 } else if (SYSTEMOS.contains("Linux")) {
                     pb = new ProcessBuilder();
                 }
-                pb.redirectErrorStream(true);
+                if (pb != null) {
+                    pb.redirectErrorStream(true);
+                }
                 Process proc = pb.start();
                 try {
                     BufferedReader in = new BufferedReader(new InputStreamReader(proc.getInputStream()));

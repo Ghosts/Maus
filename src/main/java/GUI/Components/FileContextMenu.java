@@ -17,7 +17,7 @@ import java.io.IOException;
 public class FileContextMenu {
     public static String selectedDirectory;
 
-    public static ContextMenu getFileContextMenu(HBox fileIcon, String fileName, MouseEvent e, ClientObject client) {
+    public static void getFileContextMenu(HBox fileIcon, String fileName, MouseEvent e, ClientObject client) {
         ContextMenu cm = new ContextMenu();
         MenuItem sb1 = new MenuItem("Delete File");
         MenuItem sb2 = new MenuItem("Download File");
@@ -36,10 +36,9 @@ public class FileContextMenu {
         });
         cm.getItems().addAll(sb1, sb2);
         cm.show(fileIcon, e.getScreenX(), e.getScreenY());
-        return cm;
     }
 
-    public static ContextMenu getDirectoryMenu(HBox fileIcon, String fileName, MouseEvent e, ClientObject client) {
+    public static void getDirectoryMenu(HBox fileIcon, String fileName, MouseEvent e, ClientObject client) {
         ContextMenu cm = new ContextMenu();
         MenuItem sb2 = new MenuItem("Open Folder");
         sb2.setOnAction(event -> {
@@ -53,6 +52,5 @@ public class FileContextMenu {
         });
         cm.getItems().addAll(sb2);
         cm.show(fileIcon, e.getScreenX(), e.getScreenY());
-        return cm;
     }
 }

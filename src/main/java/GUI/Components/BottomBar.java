@@ -1,16 +1,11 @@
 package GUI.Components;
 
-import GUI.Controller;
 import GUI.Styler;
-import Server.Data.PseudoBase;
 import Server.Data.Repository;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import javafx.util.Duration;
 
 
 public class BottomBar implements Repository {

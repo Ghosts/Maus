@@ -6,7 +6,7 @@ import GUI.Components.NotificationView;
 import GUI.Components.TopBar;
 import GUI.Styler;
 import Maus.Maus;
-import Server.ServerSettings;
+import Server.MausSettings;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
@@ -43,7 +43,7 @@ class SettingsView {
         Label title = (Label) Styler.styleAdd(new Label(" "), "title");
 
         Label listeningPortLabel = (Label) Styler.styleAdd(new Label("Listening Port: "), "label-bright");
-        TextField listeningPort = new TextField("" + ServerSettings.PORT);
+        TextField listeningPort = new TextField("" + MausSettings.PORT);
         HBox listeningPortBox = Styler.hContainer(listeningPortLabel, listeningPort);
         listeningPort.setEditable(true);
         listeningPort.textProperty().addListener(((observable, oldValue, newValue) -> {
@@ -53,7 +53,7 @@ class SettingsView {
         }));
 
         Label maxConnectionsLabel = (Label) Styler.styleAdd(new Label("Max Connections: "), "label-bright");
-        TextField maxConnections = new TextField("" + ServerSettings.MAX_CONNECTIONS);
+        TextField maxConnections = new TextField("" + MausSettings.MAX_CONNECTIONS);
         HBox maxConnectionsBox = Styler.hContainer(maxConnectionsLabel, maxConnections);
         maxConnections.setEditable(true);
         maxConnections.textProperty().addListener(((observable, oldValue, newValue) -> {
@@ -63,7 +63,7 @@ class SettingsView {
         }));
 
         CheckBox soundToggle = new CheckBox();
-        soundToggle.setSelected(ServerSettings.SOUND);
+        soundToggle.setSelected(MausSettings.SOUND);
         if (soundToggle.isSelected()) {
             soundToggle.setText("Sound (on) ");
         } else {
@@ -71,16 +71,16 @@ class SettingsView {
         }
         soundToggle.setOnAction(event -> {
             if (soundToggle.isSelected()) {
-                ServerSettings.SOUND = true;
+                MausSettings.SOUND = true;
                 soundToggle.setText("Sound (on) ");
             } else {
-                ServerSettings.SOUND = false;
+                MausSettings.SOUND = false;
                 soundToggle.setText("Sound (off) ");
             }
         });
 
         CheckBox notificaitonToggle = new CheckBox();
-        notificaitonToggle.setSelected(ServerSettings.SHOW_NOTIFICATIONS);
+        notificaitonToggle.setSelected(MausSettings.SHOW_NOTIFICATIONS);
         if (notificaitonToggle.isSelected()) {
             notificaitonToggle.setText("Notifications (on) ");
         } else {
@@ -88,16 +88,16 @@ class SettingsView {
         }
         notificaitonToggle.setOnAction(event -> {
             if (notificaitonToggle.isSelected()) {
-                ServerSettings.SHOW_NOTIFICATIONS = true;
+                MausSettings.SHOW_NOTIFICATIONS = true;
                 notificaitonToggle.setText("Notifications (on) ");
             } else {
-                ServerSettings.SHOW_NOTIFICATIONS = false;
+                MausSettings.SHOW_NOTIFICATIONS = false;
                 notificaitonToggle.setText("Notifications (off) ");
             }
         });
 
         CheckBox backgroundPersistentTogle = new CheckBox();
-        backgroundPersistentTogle.setSelected(ServerSettings.BACKGROUND_PERSISTENT);
+        backgroundPersistentTogle.setSelected(MausSettings.BACKGROUND_PERSISTENT);
         if (backgroundPersistentTogle.isSelected()) {
             backgroundPersistentTogle.setText("Background Persistent (on) ");
         } else {
@@ -105,10 +105,10 @@ class SettingsView {
         }
         backgroundPersistentTogle.setOnAction(event -> {
             if (backgroundPersistentTogle.isSelected()) {
-                ServerSettings.BACKGROUND_PERSISTENT = true;
+                MausSettings.BACKGROUND_PERSISTENT = true;
                 backgroundPersistentTogle.setText("Background Persistent (on) ");
             } else {
-                ServerSettings.BACKGROUND_PERSISTENT = false;
+                MausSettings.BACKGROUND_PERSISTENT = false;
                 backgroundPersistentTogle.setText("Background Persistent (off) ");
             }
         });
@@ -117,11 +117,11 @@ class SettingsView {
         applySettings.setPrefWidth(150);
         applySettings.setPrefHeight(50);
         applySettings.setOnAction(event -> {
-            if (Integer.parseInt(listeningPort.getText()) != ServerSettings.PORT) {
-                ServerSettings.PORT = (Integer.parseInt(listeningPort.getText()));
+            if (Integer.parseInt(listeningPort.getText()) != MausSettings.PORT) {
+                MausSettings.PORT = (Integer.parseInt(listeningPort.getText()));
             }
-            if (Integer.parseInt(maxConnections.getText()) != ServerSettings.MAX_CONNECTIONS) {
-                ServerSettings.MAX_CONNECTIONS = (Integer.parseInt(maxConnections.getText()));
+            if (Integer.parseInt(maxConnections.getText()) != MausSettings.MAX_CONNECTIONS) {
+                MausSettings.MAX_CONNECTIONS = (Integer.parseInt(maxConnections.getText()));
             }
                 Platform.runLater(() -> NotificationView.openNotification("Settings Applied"));
         });

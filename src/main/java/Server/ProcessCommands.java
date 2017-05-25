@@ -17,6 +17,7 @@ import java.io.*;
 
 class ProcessCommands implements Repository {
 
+    /* Listens & executes commands received from clients */
     static void processCommands(InputStream is, ClientObject client) throws IOException {
         DataInputStream dis = new DataInputStream(is);
         final Stage[] fileExplorer = {null};
@@ -28,6 +29,7 @@ class ProcessCommands implements Repository {
                 Logger.log(Level.ERROR, e.toString());
                 break;
             }
+            /* Reads back the output from a remote execution */
             if (input.contains("CMD")) {
                 int outputCount = dis.readInt();
                 StringBuilder sb = new StringBuilder();
@@ -35,13 +37,17 @@ class ProcessCommands implements Repository {
                     sb.append(dis.readUTF()).append("\n");
                 }
                 SendCommandView.getConsole().appendText(sb.toString());
+                /* Sends back the System OS to Maus */
             } else if (input.contains("SYS")) {
                 String SYSTEMOS = dis.readUTF();
                 client.setSYSTEM_OS(SYSTEMOS);
+                /* Goes up a directory in the file explorer (returns files) */
             } else if (input.contains("DIRECTORYUP")) {
                 client.clientCommunicate("FILELIST");
+                /* Changes directory to selected one in file explorer (returns files) */
             } else if (input.contains("CHNGDIR")) {
                 client.clientCommunicate("FILELIST");
+                /* Gets list of files in current directory in file explorer */
             } else if (input.contains("FILELIST")) {
                 String pathName = dis.readUTF();
                 int filesCount = dis.readInt();
@@ -60,6 +66,7 @@ class ProcessCommands implements Repository {
                     }
                     fileExplorer[0].setScene(new Scene(new FileExplorerView().getFileExplorerView(pathName, fileNames, fileExplorer[0], client), 900, 500));
                 });
+                /* Receives data from download request in file explorer */
             } else if (input.contains("DOWNLOAD")) {
                 String saveDirectory = FileContextMenu.selectedDirectory;
                 long fileLength = dis.readLong();
@@ -70,23 +77,6 @@ class ProcessCommands implements Repository {
                 for (int j = 0; j < fileLength; j++) bos.write(dis.readInt());
                 bos.close();
                 fos.close();
-
-            } else if (input.contains("FILES")) {
-                int filesCount = dis.readInt();
-                File[] files = new File[filesCount];
-                for (int i = 0; i < filesCount; i++) {
-                    long fileLength = dis.readLong();
-                    String fileName = dis.readUTF();
-
-                    files[i] = new File("C:/Users/caden/Desktop/DIDITWORK" + "/" + fileName);
-
-                    FileOutputStream fos = new FileOutputStream(files[i]);
-                    BufferedOutputStream bos = new BufferedOutputStream(fos);
-
-                    for (int j = 0; j < fileLength; j++) bos.write(dis.readInt());
-                    bos.close();
-                    fos.close();
-                }
             }
             /* Uninstall and close remote server - remove from Maus */
             else if (input.contains("EXIT")) {

@@ -1,11 +1,7 @@
 package GUI.Components;
 
-import GUI.Controller;
 import Server.ClientObject;
-import Server.Data.PseudoBase;
 import Server.Data.Repository;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TableCell;
@@ -14,7 +10,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.MouseButton;
-import javafx.util.Duration;
 
 public class ClientList implements Repository {
     private static TableView tableView;

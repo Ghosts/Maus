@@ -1,6 +1,5 @@
 # Maus 2.0b!
-Lightweight remote administrative client written in Java.
-
+Lightweight remote administrative client written in Java. Updates coming soon...
 
 # Legal
 Maus is not to be used without permission or ownership of the systems Maus is installed on. Maus is a remote administrative tool to aid in the control and management of systems alongside IT setups. Any other use is prohibited. Maus is not liable for system damage or unauthoriszed use.
